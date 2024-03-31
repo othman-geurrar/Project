@@ -17,20 +17,6 @@ const productSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
-    // subcategory:[{
-    //     type:String,
-    //     model:[{
-    //         type:String,
-    //         colour:[{
-    //             name:String,
-    //             image:String
-    //         }],
-    //         size:[{
-    //             val:Number,
-    //             price:Number
-    //         }]
-    //     }]
-    // }],
     description:{
         type:String,
         required:true
@@ -45,6 +31,6 @@ const productSchema = new mongoose.Schema({
     }
 });
 
-productModel = mongoose.model('product', productSchema)
+Product = mongoose.model('Products', productSchema)
 
-module.exports = productModel;
+module.exports = Product;

@@ -1,10 +1,10 @@
-const productModel = require("../Models/product");
+const Product = require("../Models/product");
 const express = require("express");
 const app = express();
 app.use(express.json());
 
 const getProduct = (req, res) => {
-  productModel
+  Product
     .find()
     .then((data) => {
       res.status(201).send(data);
@@ -16,7 +16,7 @@ const getProduct = (req, res) => {
 
 const addProduct = (req, res) => {
   const productData = req.body;
-  productModel
+  Product
     .create(productData)
     .then((data) => {
       console.log("product created successfully", data);
@@ -30,7 +30,7 @@ const addProduct = (req, res) => {
 const updateProduct = (req, res) => {
   const id = req.params.id;
   const assignProduct = req.body;
-  productModel
+  Product
     .findOneAndUpdate({ id }, assignProduct, { new: true })
     .then((product) => {
       if (product) {
@@ -46,7 +46,7 @@ const updateProduct = (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const removeProduct = await productModel.findOneAndDelete({
+    const removeProduct = await Product.findOneAndDelete({
       id: req.params.id,
     });
     if (!removeProduct) {
