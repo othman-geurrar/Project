@@ -1,9 +1,9 @@
 const adminRouter = require("express").Router();
-const { registerAdmin , loginAdmin } = require("../Controllers/adminController");
+const { registerAdmin, registerAdminValidationRules, loginAdmin, loginAdminValidationRules } = require("../Controllers/adminController");
 
 
 adminRouter
-.post("/register", registerAdmin)
-.post("/login" , loginAdmin);
+.post("/register", registerAdminValidationRules ,registerAdmin)
+.post("/login" , loginAdminValidationRules ,loginAdmin);
 
 module.exports = adminRouter;
