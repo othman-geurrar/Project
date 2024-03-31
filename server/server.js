@@ -5,6 +5,7 @@ const session = require("express-session");
 
 const adminRouter = require("./Routes/adminRoutes");
 
+
 const PORT = process.env.PORT || 4000;
 
 const app = express();
@@ -30,6 +31,8 @@ mongoose
   });
 
 app.use("/admin", adminRouter);
+
+
 
   app.listen(PORT, () => {
     console.log('app listening on port 3000!');

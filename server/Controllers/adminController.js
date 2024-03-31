@@ -73,6 +73,16 @@ const loginAdmin = async (req, res) => {
   });
 };
 
+
+const getAllAdmins = async (req, res) => {
+  try {
+    const admins = await Admin.find();
+    res.status(200).json(admins);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const updateAdminByEmail = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -123,6 +133,7 @@ module.exports = {
   registerAdminValidationRules,
   loginAdmin,
   loginAdminValidationRules,
+  getAllAdmins,
   updateAdminValidationRules,
   updateAdminByEmail,
   deleteAdmin

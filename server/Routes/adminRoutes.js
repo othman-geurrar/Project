@@ -4,6 +4,7 @@ const {
   registerAdminValidationRules,
   loginAdmin,
   loginAdminValidationRules,
+  getAllAdmins,
   updateAdminValidationRules,
   updateAdminByEmail,
   deleteAdmin
@@ -12,6 +13,7 @@ const {
 adminRouter
   .post("/register", registerAdminValidationRules, registerAdmin)
   .post("/login", loginAdminValidationRules, loginAdmin)
+  .get("/getAdmins", getAllAdmins)
   .patch("/update/:email", updateAdminValidationRules, updateAdminByEmail)
   .delete("/delete/:email", deleteAdmin);
 
