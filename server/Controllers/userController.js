@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const { body } = require("express-validator");
-const userModel = require("../models/user");
+const { body,validationResult } = require("express-validator");
+const UserModel = require("../models/user");
 require("dotenv").config();
 
 const registerUserValidationRules = [
@@ -17,17 +17,22 @@ const loginUserValidationRules = [
       .withMessage("Password must be at least 8 characters long"),
   ];
 
+
 const register = async (req, res) => {
-  const { email, password,userName } = req.body;
+
+  const { email, password,UserName } = req.body;
 
   try {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
     
-    // Create user
-    const user = await userModel.create({ userName,email, password: hashedPassword });
-    console.log("User created successfully", user);
-    res.json(user);
+    
+    
+     
+    const User = await UserModel.create({ UserName,email, password: hashedPassword });
+    
+    console.log("User created successfully", User);
+    res.send(`welcome ${User.UserName}`);
   } catch (error) {
     console.error("Error in user creation", error);
     res.status(500).json({ message: "Internal server error" });
@@ -39,22 +44,22 @@ const login = async (req, res) => {
 
   try {
     // Find user by email
-    const user = await userModel.findOne({ email });
+    const User = await UserModel.findOne({ email });
 
-    if (!user) {
+    if (!User) {
       return res.status(404).json({ message: "User not found" });
     }
 
     // Compare hashed passwords
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, User.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
     // Store user data in session
-    req.session.user = user;
-    res.json("User connected successfully");
+    req.session.User = User;
+    res.json(`welcome back ${User.userName}` );
   } catch (error) {
     console.error("Error in login", error);
     res.status(500).json({ message: "Internal server error" });
@@ -65,8 +70,8 @@ const login = async (req, res) => {
   // Function to get all users
   const getUsers = async (req, res) => {
     try {
-      const users = await userModel.find();
-      res.send(users);
+      const Users = await UserModel.find();
+      res.send(Users);
     } catch (error) {
       console.error("Error in getting users", error);
       res.status(500).json({ message: "Internal server error" });
@@ -74,28 +79,53 @@ const login = async (req, res) => {
   };
   
   // Function to update a user by email
+   const updateUserValidationRules = [
+    body('newEmail').isEmail().withMessage('Invalid email format'),
+  ];
+  
   const updateUser = async (req, res) => {
     try {
-      const user = await userModel.findOneAndUpdate(
-        { userName: req.params.userName },
-        req.body,
+      // Check for validation errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+  
+      const { newUserName, newEmail, newPassword } = req.body;
+  
+      // Construct the update operation object with only the intended fields
+      const updateFields = {};
+      if (newUserName) updateFields.userName = newUserName;
+      if (newEmail) updateFields.email = newEmail;
+      if (newPassword) {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        updateFields.password = hashedPassword;
+      }
+  
+      // Use the constructed updateFields object for the update operation
+      const User = await UserModel.findOneAndUpdate(
+        { UserName: req.params.UserName },
+        updateFields,
         { new: true }
       );
-      if (user) {
-        res.status(200).send("User updated successfully");
+  
+      if (User) {
+        res.status(200).send('User updated successfully');
       } else {
-        res.status(404).json("User not found");
+        res.status(404).json('User not found');
       }
     } catch (error) {
-      console.error("Error in updating user", error);
-      res.status(500).json({ message: "Internal server error" });
+      console.error('Error in updating user', error);
+      res.status(500).json({ message: 'Internal server error' });
     }
   };
+  
+  
   
   // Function to delete a user by userName
   const deleteUser = async (req, res) => {
     try {
-      const deletedUser = await userModel.findOneAndDelete({ id: req.params.id });
+      const deletedUser = await UserModel.findOneAndDelete({ id: req.params.id });
       if (deletedUser) {
         return res.status(200).json({ msg: "User deleted successfully" });
 
@@ -108,4 +138,4 @@ const login = async (req, res) => {
     }
   };
   
-  module.exports = { register, login, getUsers, updateUser, deleteUser, registerUserValidationRules, loginUserValidationRules };
+  module.exports = { register, login, getUsers, updateUser, deleteUser, registerUserValidationRules, loginUserValidationRules,updateUserValidationRules };
