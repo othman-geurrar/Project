@@ -95,11 +95,13 @@ const login = async (req, res) => {
   // Function to delete a user by userName
   const deleteUser = async (req, res) => {
     try {
-      const deletedUser = await userModel.findOneAndDelete({ userName: req.params.userName });
-      if (!deletedUser) {
-        return res.status(404).json({ msg: "No user found with the given userName" });
+      const deletedUser = await userModel.findOneAndDelete({ id: req.params.id });
+      if (deletedUser) {
+        return res.status(200).json({ msg: "User deleted successfully" });
+
       }
-      return res.status(200).json("User deleted successfully");
+      return res.status(404).json({ msg: "No user found with the given userName" });
+
     } catch (error) {
       console.error("Error in deleting user", error);
       return res.status(500).json("Internal Server Error");
