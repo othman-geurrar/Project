@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 
 const adminRouter = require("./Routes/adminRoutes");
+const orderRouter = require("./Routes/orderRoutes");
 
 
 const PORT = process.env.PORT || 4000;
@@ -31,6 +32,7 @@ mongoose
   });
 
 app.use("/admin", adminRouter);
+app.use("/orders", orderRouter);
 
 
 

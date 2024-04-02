@@ -40,6 +40,14 @@ const registerAdmin = async (req, res) => {
   newAdmin.password = adminPassword;
 
   try {
+
+    // Find the count of existing admins
+    const adminCount = await Admin.countDocuments();
+    // Generate a unique ID for the new admin
+    const adminID = `Admin${1000 + adminCount}`;
+    // Add the generated ID to the newAdmin object
+    newAdmin.id = adminID;
+
     const admin = await Admin.create(newAdmin);
     res.status(201).json({
       message: "Admin Created Successfully",

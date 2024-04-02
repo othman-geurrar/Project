@@ -14,6 +14,16 @@ const adminSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role: {
+        type: String,
+        required: true,
+        default: 'Admin'
+    },
+    id:{
+        type: String,
+        required: true,
+        unique: true
+    },
     createdAt: {
         type: Date,
         default: Date.now
