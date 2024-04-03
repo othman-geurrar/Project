@@ -3,9 +3,8 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const getProduct = (req, res) => {
-  Product
-    .find()
+const viewAllProduct = (req, res) => {
+  Product.find()
     .then((data) => {
       res.status(201).send(data);
     })
@@ -14,24 +13,30 @@ const getProduct = (req, res) => {
     });
 };
 
-const addProduct = (req, res) => {
+const viewOneProduct = (req, res) => {
+  Product.findOne({ id: req.params.id })
+    .then((data) => res.status(201).send(data))
+    .catch((err) => res.status(401).send(err));
+};
+
+const addProduct = async (req, res) => {
   const productData = req.body;
-  Product
-    .create(productData)
-    .then((data) => {
-      console.log("product created successfully", data);
-    })
-    .catch((err) => {
-      console.log("error creating product", err);
-    });
-  res.status(200).send(productData);
+  try {
+    const productCount = await Product.countDocuments();
+    const productID = `${1000 + productCount}`;
+    productData.id = productID;
+    const product = await Product.create(productData);
+    res.status(201).send(product);
+    console.log("Product added", product);
+  } catch (err) {
+    res.status(401).send({ message: "Error adding product" });
+  }
 };
 
 const updateProduct = (req, res) => {
   const id = req.params.id;
   const assignProduct = req.body;
-  Product
-    .findOneAndUpdate({ id }, assignProduct, { new: true })
+  Product.findOneAndUpdate({ id }, assignProduct, { new: true })
     .then((product) => {
       if (product) {
         res.status(200).send(product);
@@ -63,4 +68,10 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = { getProduct, addProduct, updateProduct, deleteProduct };
+module.exports = {
+  viewAllProduct,
+  viewOneProduct,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+};
