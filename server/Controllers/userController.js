@@ -18,26 +18,37 @@ const loginUserValidationRules = [
   ];
 
 
-const register = async (req, res) => {
-
-  const { email, password,UserName } = req.body;
-
-  try {
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    
-    
-    
-     
-    const User = await UserModel.create({ UserName,email, password: hashedPassword });
-    
-    console.log("User created successfully", User);
-    res.send(`welcome ${User.UserName}`);
-  } catch (error) {
-    console.error("Error in user creation", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
+  const register = async (req, res) => {
+    const { email, password, username } = req.body;
+  
+    try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      // Generate a unique ID for the new user
+      const userCount = await UserModel.countDocuments();
+      const UserID = `User${1000 + userCount}`;
+  console.log(req.body)
+      // Create the user
+      const newUser = await UserModel.create({
+        id: UserID,
+        UserName : username,
+        email,
+        password: hashedPassword
+      });
+  
+      console.log("User created successfully", newUser);
+      res.send(`Welcome ${newUser.UserName}`);
+    } catch (error) {
+      if (error.code === 11000) {
+        res.status(400).send({ message: "User already exists" });
+      } else {
+        console.error("Error in user creation", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
+    }
+  };
+  
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -59,7 +70,7 @@ const login = async (req, res) => {
 
     // Store user data in session
     req.session.User = User;
-    res.json(`welcome back ${User.userName}` );
+    res.json(`welcome back ${User.UserName}` );
   } catch (error) {
     console.error("Error in login", error);
     res.status(500).json({ message: "Internal server error" });

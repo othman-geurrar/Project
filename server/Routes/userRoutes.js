@@ -18,3 +18,8 @@ userRouter.patch("/update/:userName",updateUserValidationRules, updateUser);
 userRouter.delete("/delete/:UserName", deleteUser);
 
 module.exports = userRouter;
+
+
+
+const userRouter=require("./Routes/userRoutes")
+const paymentRouter=require("./Routes/payementRoutes")

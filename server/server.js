@@ -1,38 +1,44 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const session = require("express-session");
+const productRouter = require("./Routes/productRoutes");
+const connectDB = require("./Config/database");
+const adminRouter = require("./Routes/adminRoutes");
+const orderRouter = require("./Routes/orderRoutes");
+const LifeStyleRouter = require("./Routes/LifeStyleRoute");
+const EventRouter = require("./Routes/eventRoute");
 const userRouter=require("./Routes/userRoutes")
-const PORT = process.env.PORT ;
+const paymentRouter=require("./Routes/payementRoutes")
+const PORT = process.env.PORT || 4000;
+
 
 const app = express();
 app.use(express.json());
 
-
-app.use(session({
-    secret:'secret',
-    resave:false,
-    saveUninitialized:true
-  }))
-
-
-
-
-  const URI = "mongodb+srv://osay:osay2024@osay.xqz5tah.mongodb.net/OSAY?retryWrites=true&w=majority&appName=OSAY"
-  ;
-
-
-  mongoose
-  .connect(URI)
-  .then(() => {
-    console.log('Connected to database');
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
   })
-  .catch((error) => {
-    console.log('Error connecting to database: ', error);
-  });
-  app.use('/users',userRouter)
+);
 
 
-  app.listen(3000, () => {
-    console.log('app listening on port 3000!');
-  });
+
+connectDB();
+
+
+
+app.use("/admin", adminRouter);
+app.use("/orders", orderRouter);
+app.use("/product", productRouter);
+app.use("/lifeStyle", LifeStyleRouter);
+app.use("/events", EventRouter);
+app.use('/users',userRouter);
+app.use('/payments',paymentRouter)
+
+
+
+app.listen(PORT, () => {
+  console.log('app listening on port 3000!');
+});
