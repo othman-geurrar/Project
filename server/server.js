@@ -1,7 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const session = require("express-session");
+const productRouter = require("./Routes/productRoutes");
+const connectDB = require("./Config/database");
 
 const adminRouter = require("./Routes/adminRoutes");
 const orderRouter = require("./Routes/orderRoutes");
@@ -17,25 +18,20 @@ app.use(
     secret: "secret",
     resave: false,
     saveUninitialized: true,
+
   })
 );
 
-const URI = process.env.MONGO_KEY;
+connectDB();
 
-mongoose
-  .connect(URI)
-  .then(() => {
-    console.log("Connected to database");
-  })
-  .catch((error) => {
-    console.log("Error connecting to database: ", error);
-  });
+
 
 app.use("/admin", adminRouter);
 app.use("/orders", orderRouter);
+app.use("/product", productRouter);
 
 
 
-  app.listen(PORT, () => {
-    console.log('app listening on port 3000!');
-  });
+app.listen(PORT, () => {
+  console.log('app listening on port 3000!');
+});
