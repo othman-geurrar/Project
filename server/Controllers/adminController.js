@@ -97,7 +97,7 @@ const updateAdminByEmail = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { email } = req.params;
+  const { id } = req.params;
   const { name, newEmail, newPassword } = req.body;
  
   try {
@@ -110,7 +110,7 @@ const updateAdminByEmail = async (req, res) => {
     }
 
     const updatedAdmin = await Admin.findOneAndUpdate(
-      { email },
+      { id },
       { $set: updateFields },
       { new: true }
     );
@@ -126,8 +126,8 @@ const updateAdminByEmail = async (req, res) => {
 };
 
 const deleteAdmin = (req, res) => {
-  const { email } = req.params;
-  Admin.findOneAndDelete({ email })
+  const { id } = req.params;
+  Admin.findOneAndDelete({ id })
   .then((admin) => {
     if (!admin) {
       return res.status(404).json({ message: "Admin not found" });
