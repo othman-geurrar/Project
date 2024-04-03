@@ -27,7 +27,6 @@ const addProduct = async (req, res) => {
     productData.id = productID;
     const product = await Product.create(productData);
     res.status(201).send(product);
-    console.log("Product added", product);
   } catch (err) {
     res.status(401).send({ message: "Error adding product" });
   }
@@ -57,13 +56,10 @@ const deleteProduct = async (req, res) => {
     if (!removeProduct) {
       return res.status(404).json({ message: "NO PRODUCT FOUND" });
     }
-
-    console.log("Removing product", removeProduct);
     return res
       .status(200)
       .json({ message: "PRODUCT DELETED SUCCESSFULLY", removeProduct });
   } catch (error) {
-    console.error("Error found", error);
     return res.status(500).json({ message: "SERVER ERROR" });
   }
 };
