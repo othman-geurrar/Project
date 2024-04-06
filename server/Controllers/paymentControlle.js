@@ -41,7 +41,7 @@ const getAllPayments = async (req, res) => {
 
 const getPaymentById = async (req, res) => {
   try {
-    const transactionId  = req.params;
+    const transactionId = req.params;
 
     const payment = await PaymentModel.findOne(transactionId);
 
@@ -51,7 +51,7 @@ const getPaymentById = async (req, res) => {
         .json({ success: false, message: "Payment transaction not found" });
     }
 
-    res.status(200).json( payment );
+    res.status(200).json(payment);
   } catch (error) {
     console.error("Error retrieving payment by ID:", error);
     res.status(500).json({
@@ -69,9 +69,6 @@ const updatePayment = async (req, res) => {
     const payment = await PaymentModel.findOneAndUpdate(
       { transactionId: req.params.transactionId },
       amount
-
-      
-      
     );
 
     if (!payment) {
@@ -81,8 +78,7 @@ const updatePayment = async (req, res) => {
     }
 
     res.status(200).json({
-     
-      message: "Payment successfuly apdated"
+      message: "Payment successfuly apdated",
     });
   } catch (error) {
     console.error("Error updating payment:", error);
@@ -96,8 +92,9 @@ const updatePayment = async (req, res) => {
 // Controller function to delete a payment transaction
 const deletePayment = async (req, res) => {
   try {
-
-    const payment = await PaymentModel.findOneAndDelete({ transactionId: req.params.transactionId });
+    const payment = await PaymentModel.findOneAndDelete({
+      transactionId: req.params.transactionId,
+    });
 
     if (!payment) {
       return res

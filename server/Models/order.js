@@ -17,20 +17,22 @@ const orderSchema = new mongoose.Schema({
   orderDate: {
     type: String,
   },
-  Product: [{
-    productName: {
-      type: String,
+  Product: [
+    {
+      productName: {
+        type: String,
+      },
+      productId: {
+        type: String,
+      },
+      productPrice: {
+        type: String,
+      },
+      productQuantity: {
+        type: String,
+      },
     },
-    productId: {
-      type: String,
-    },
-    productPrice: {
-      type: String,
-    },
-    productQuantity: {
-      type: String,
-    },
-  }],
+  ],
   totalPrice: {
     type: String,
     required: true,

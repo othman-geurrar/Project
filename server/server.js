@@ -12,10 +12,9 @@ const EventRouter = require("./Routes/eventRoutes");
 const userRouter = require("./Routes/userRoutes");
 const paymentRouter = require("./Routes/payementRoutes");
 const PORT = process.env.PORT || 4000;
-require('./strategies/userLocal')
+require("./strategies/userLocal");
 
 const app = express();
-
 
 app.use(express.json());
 
@@ -30,8 +29,6 @@ app.use(
 app.use(passport.initialize());
 
 app.use(passport.session());
-
-
 
 connectDB();
 

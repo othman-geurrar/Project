@@ -7,7 +7,7 @@ const {
   getAllAdmins,
   updateAdminValidationRules,
   updateAdminByEmail,
-  deleteAdmin
+  deleteAdmin,
 } = require("../Controllers/adminController");
 
 adminRouter

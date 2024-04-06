@@ -8,12 +8,10 @@ const {
   deleteEvent,
 } = require("../Controllers/eventController");
 
-EventRouter
-  .get("/getAll", viewAllEvents)
+EventRouter.get("/getAll", viewAllEvents)
   .get("/getEvent/:id", viewEvent)
   .post("/addEvent", addEvent)
   .put("/update/:id", updateEvent)
-  .delete("/delete/:id", deleteEvent)
-  
+  .delete("/delete/:id", deleteEvent);
 
 module.exports = EventRouter;
