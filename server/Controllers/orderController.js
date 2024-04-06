@@ -1,4 +1,4 @@
-const Order = require("../Models/orderSchema");
+const Order = require("../Models/order");
 
 const addOrder = async (req, res) => {
   const newOrder = req.body;

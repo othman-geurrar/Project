@@ -1,7 +1,7 @@
 // routes/admin.js
 const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
-const Admin = require("../Models/adminSchema");
+const Admin = require("../Models/admin");
 
 // Validation middleware for registering admin
 const registerAdminValidationRules = [
