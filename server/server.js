@@ -5,24 +5,27 @@ const productRouter = require("./Routes/productRoutes");
 const connectDB = require("./Config/database");
 const adminRouter = require("./Routes/adminRoutes");
 const orderRouter = require("./Routes/orderRoutes");
-const LifeStyleRouter = require("./Routes/LifeStyleRoute");
-const EventRouter = require("./Routes/eventRoute");
+const LifeStyleRouter = require("./Routes/lifeStyleRoutes");
+const EventRouter = require("./Routes/eventRoutes");
 const userRouter=require("./Routes/userRoutes")
 const paymentRouter=require("./Routes/payementRoutes");
 const passport = require("passport");
 const PORT = process.env.PORT || 4000;
 
-require("./Strategy/google")
+require("./strategies/userLocal");
+require("./strategies/google")
+
 
 
 const app = express();
+
 app.use(express.json());
 
 app.use(
   session({
     secret: process.env.SESSION_KEY,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
   })
 );
 
@@ -30,8 +33,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 connectDB();
-
-
 
 app.use("/admin", adminRouter);
 app.use("/orders", orderRouter);
@@ -53,6 +54,7 @@ app.get("/auth/failure", (req, res) => {
 });
 
 
+
 app.listen(PORT, () => {
-  console.log('app listening on port 3000!');
+  console.log("app listening on port 3000!");
 });

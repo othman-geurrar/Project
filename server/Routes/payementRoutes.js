@@ -6,7 +6,7 @@ const {
   getPaymentById,
   updatePayment,
   deletePayment,
-} = require('../Controllers/paymentControlle');
+} = require("../Controllers/paymentControlle");
 
 // Route to create a new payment transaction
 paymentRouter.post("/addPayment", createPayment);

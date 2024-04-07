@@ -1,17 +1,15 @@
-const Order = require("../Models/orderSchema");
+const Order = require("../Models/order");
 
 const addOrder = async (req, res) => {
   const newOrder = req.body;
-  
-  try {
 
+  try {
     // Find the count of existing admins
     const orderCount = await Order.countDocuments();
     // Generate a unique ID for the new admin
     const orderID = `${1000 + orderCount}`;
     // Add the generated ID to the newAdmin object
     newOrder.id = orderID;
-
 
     const order = await Order.create(newOrder);
     res.status(201).json({
@@ -21,42 +19,40 @@ const addOrder = async (req, res) => {
   } catch (error) {
     res.status(400).send({ message: "Failed creating order" });
   }
-   
 };
 
 const getOrders = (req, res) => {
-    Order.find()
-     .then((orders) => {
-        res.status(200).json(orders);
-      })
-     .catch((e) => {
-        res.status(400).send({ message: "Failed getting orders" });
-      });
-  
+  Order.find()
+    .then((orders) => {
+      res.status(200).json(orders);
+    })
+    .catch((e) => {
+      res.status(400).send({ message: "Failed getting orders" });
+    });
 };
 
 const updateOrder = async (req, res) => {
-    const orderId = req.params.id; // Assuming you pass the order ID in the URL
-    const updatedOrder = req.body;
-   
-    try {
-        const order = await Order.findOneAndUpdate(
-            { id: orderId },
-            { $set: updatedOrder },
-            { new: true }
-        );
+  const orderId = req.params.id; // Assuming you pass the order ID in the URL
+  const updatedOrder = req.body;
 
-        if (!order) {
-            return res.status(404).send({ message: "Order not found" });
-        }
+  try {
+    const order = await Order.findOneAndUpdate(
+      { id: orderId },
+      { $set: updatedOrder },
+      { new: true }
+    );
 
-        res.status(200).json({
-            message: "Order updated successfully",
-            order,
-        });
-    } catch (error) {
-        res.status(400).send({ message: "Failed updating order" });
+    if (!order) {
+      return res.status(404).send({ message: "Order not found" });
     }
+
+    res.status(200).json({
+      message: "Order updated successfully",
+      order,
+    });
+  } catch (error) {
+    res.status(400).send({ message: "Failed updating order" });
+  }
 };
 
 const deleteOrder = async (req, res) => {
@@ -70,11 +66,10 @@ const deleteOrder = async (req, res) => {
       message: "Order deleted successfully",
       order,
     });
-
   } catch (error) {
     res.status(400).send({ message: "Failed deleting order" });
   }
-}
+};
 
 module.exports = {
   addOrder,

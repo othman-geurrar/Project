@@ -10,8 +10,7 @@ exports.viewAllLifeStyles = (req, res) => {
     .catch((err) => res.status(500).send(err));
 };
 exports.viewLifeStyle = (req, res) => {
-  LifeStyle_Model
-  .findOne({ LifeStyleID: req.params.id })
+  LifeStyle_Model.findOne({ LifeStyleID: req.params.id })
     .then((LifeStyle) => {
       if (LifeStyle) res.status(200).json(LifeStyle);
       else res.status(404).json({ message: "LifeStyle not found" });

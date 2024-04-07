@@ -1,12 +1,13 @@
 const userRouter = require("express").Router();
-// const googleAuth = require('../Middleware/authGoogle');
 require("../strategies/google")
 const passport = require("passport");
-const isAuthenticated = require("../Middleware/authGoogle")
+const isAuthenticated = require("../Middleware/checkLogin")
+const userAuth = require("../Middleware/authMiddleware");
+
+
 
 
 const {
-  login,
   register,
   registerUserValidationRules,
   loginUserValidationRules,
@@ -17,9 +18,13 @@ const {
 } = require("../Controllers/userController");
 
 userRouter.post("/register", registerUserValidationRules, register);
-userRouter.post("/login", loginUserValidationRules, login);
+userRouter.post("/login", loginUserValidationRules, userAuth);
 userRouter.get("/getUsers", getUsers);
-userRouter.patch("/update/:id",updateAdminValidationRules, updateUserByid);
+userRouter.patch("/update/:id",
+  updateAdminValidationRules,
+  isAuthenticated,
+  updateUserByid
+);
 userRouter.delete("/delete/:id", deleteUser);
 
 userRouter.get("/", (req, res) => {
@@ -41,15 +46,10 @@ userRouter.get("/logout", (req, res) => {
       if (err) {
           return res.status(500).send('Error logging out');
       }
-      // Redirect the user to the home page or any other desired destination after logging out
-      res.redirect('/users');
+      res.send("Success logging out");
   });
 });
 
 
 
 module.exports = userRouter;
-
-
-
-

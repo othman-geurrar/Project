@@ -6,8 +6,7 @@ const {
   addLifeStyle,
   updateLifeStyle,
   deleteLifeStyle,
-} = require("../Controllers/LifeStyleController");
-
+} = require("../Controllers/lifeStyleController");
 
 LifeStyleRouter.get("/getAll", viewAllLifeStyles)
   .get("/getLifeStyle/:id", viewLifeStyle)
@@ -15,4 +14,4 @@ LifeStyleRouter.get("/getAll", viewAllLifeStyles)
   .put("/update/:id", updateLifeStyle)
   .delete("/delete/:id", deleteLifeStyle);
 
-module.exports = LifeStyleRouter; 
+module.exports = LifeStyleRouter;
