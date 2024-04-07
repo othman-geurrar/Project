@@ -8,8 +8,11 @@ const orderRouter = require("./Routes/orderRoutes");
 const LifeStyleRouter = require("./Routes/LifeStyleRoute");
 const EventRouter = require("./Routes/eventRoute");
 const userRouter=require("./Routes/userRoutes")
-const paymentRouter=require("./Routes/payementRoutes")
+const paymentRouter=require("./Routes/payementRoutes");
+const passport = require("passport");
 const PORT = process.env.PORT || 4000;
+
+require("./Strategy/google")
 
 
 const app = express();
@@ -17,13 +20,14 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: "secret",
+    secret: process.env.SESSION_KEY,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: true
   })
 );
 
-
+app.use(passport.initialize());
+app.use(passport.session());
 
 connectDB();
 
@@ -34,10 +38,19 @@ app.use("/orders", orderRouter);
 app.use("/product", productRouter);
 app.use("/lifeStyle", LifeStyleRouter);
 app.use("/events", EventRouter);
-app.use('/users',userRouter);
-app.use('/payments',paymentRouter)
+app.use("/users",userRouter);
+app.use("/payments",paymentRouter);
 
+app.use("/auth",userRouter)
 
+app.get("/google/callback", passport.authenticate('google', { 
+  successRedirect: "/users/profile",
+  failureRedirect: "/auth/failure"
+}));
+
+app.get("/auth/failure", (req, res) => {
+  res.send("failure");
+});
 
 
 app.listen(PORT, () => {

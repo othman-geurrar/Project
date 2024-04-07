@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const { body,validationResult } = require("express-validator");
-const userModel = require("../models/user");
+const Users = require("../models/user");
 require("dotenv").config();
 
 const registerUserValidationRules = [
@@ -31,17 +31,17 @@ const loginUserValidationRules = [
       const hashedPassword = await bcrypt.hash(password, 10);
   
       // Generate a unique ID for the new user
-      const userCount = await userModel.countDocuments();
+      const userCount = await Users.countDocuments();
       const UserID = `User${1000 + userCount}`;
   
       // Create the user
-      const newUser = await userModel.create({
+      const newUser = await Users.create({
         id: UserID,
         UserName : username,
         email,
         password: hashedPassword
       });
-      res.send(`Welcome ${newUser.UserName}`);
+      res.status(200).json({message:"User created successfully" , newUser});
     } catch (error) {
       if (error.code === 11000) {
         res.status(400).send({ message: "User already exists" });
@@ -56,21 +56,15 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Find user by email
-    const User = await userModel.findOne({ email });
+    const User = await Users.findOne({ email });
 
     if (!User) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    // Compare hashed passwords
     const isPasswordValid = await bcrypt.compare(password, User.password);
-
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Incorrect password" });
     }
-
-    // Store user data in session
     req.session.User = User;
     res.json(`welcome back ${User.UserName}` );
   } catch (error) {
@@ -79,11 +73,11 @@ const login = async (req, res) => {
 };
 
   
-  // Function to get all users
+  // Function to get all Users
   const getUsers = async (req, res) => {
     try {
-      const Users = await userModel.find();
-      res.send(Users);
+      const users = await Users.find();
+      res.send(users);
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
     }
@@ -107,7 +101,7 @@ const login = async (req, res) => {
         updateFields.password = hashedPassword;
       }
   
-      const updatedUser = await userModel.findOneAndUpdate(
+      const updatedUser = await Users.findOneAndUpdate(
         { id },
         { $set: updateFields },
         { new: true }
@@ -129,7 +123,7 @@ const login = async (req, res) => {
   const deleteUser = async (req, res) => {
     const {id} = req.params;
     try {
-      const deletedUser = await userModel.findOneAndDelete({id});
+      const deletedUser = await Users.findOneAndDelete({id});
       if (deletedUser) {
         return res.status(200).json({ msg: "User deleted successfully" });
 
