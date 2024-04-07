@@ -8,24 +8,28 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://localhost:3000/google/callback",
+      callbackURL: "https://localhost:3000/users/google/callback",
       passReqToCallback: true,
       scope: ["email", "profile"],
     },
     async (req, accessToken, refreshToken, profile, done) => {
       if (profile) {
+        console.log(profile);
         try {
           // Find user by ID in the database
-          let user = await Users.findOne({ id: profile.id });
+          let user = await Users.findOne({ GoogleId: profile.id });
           console.log(user);
           // If user does not exist, create a new one
           if (!user) {
+            // Generate a unique ID for the new user
+            const userCount = await Users.countDocuments();
+            const UserID = `User${1000 + userCount}`;
             user = await Users.create({
-              id: profile.id, // Assuming ID from Google will be used as user's ID
-              // You can include other user information here as needed
-              // For example, email and display name
+              id: UserID,
+              GoogleId: profile.id, // Assuming ID from Google will be used as user's ID
               email: profile.email,
               UserName: profile.displayName,
+              profilePictureURL: profile.picture,
             });
             console.log(user);
           }

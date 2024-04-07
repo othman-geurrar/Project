@@ -20,13 +20,8 @@ const {
 userRouter.post("/register", registerUserValidationRules, register);
 userRouter.post("/login", loginUserValidationRules, userAuth);
 userRouter.get("/getUsers", getUsers);
-userRouter.patch("/update/:id",
-  updateAdminValidationRules,
-  isAuthenticated,
-  updateUserByid
-);
+userRouter.patch("/update/:id",updateAdminValidationRules,isAuthenticated,updateUserByid);
 userRouter.delete("/delete/:id", deleteUser);
-
 userRouter.get("/", (req, res) => {
   res.send('<a href="/auth/google">google</a>');
 });
@@ -36,10 +31,16 @@ userRouter.get("/profile", isAuthenticated,(req, res) => {
 
 userRouter.get("/google",passport.authenticate('google',{scope:["email", "profile"]}))
 
+userRouter.get("/google/callback", passport.authenticate('google', { 
+  successRedirect: "/users/profile",
+  failureRedirect: "/users/auth/failure"
+}));
 
-userRouter.get("/failure",(req, res) => {
-  res.send("failure")
-})
+
+userRouter.get("/auth/failure", (req, res) => {
+  res.send("failure");
+});
+
 // Route for logging out
 userRouter.get("/logout", (req, res) => {
   req.logout((err) => {

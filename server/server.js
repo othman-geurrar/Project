@@ -44,16 +44,6 @@ app.use("/payments",paymentRouter);
 
 app.use("/auth",userRouter)
 
-app.get("/google/callback", passport.authenticate('google', { 
-  successRedirect: "/users/profile",
-  failureRedirect: "/auth/failure"
-}));
-
-app.get("/auth/failure", (req, res) => {
-  res.send("failure");
-});
-
-
 
 app.listen(PORT, () => {
   console.log("app listening on port 3000!");
