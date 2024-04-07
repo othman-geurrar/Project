@@ -1,6 +1,6 @@
 const userRouter = require("express").Router();
 // const googleAuth = require('../Middleware/authGoogle');
-require("../Strategy/google")
+require("../strategies/google")
 const passport = require("passport");
 const isAuthenticated = require("../Middleware/authGoogle")
 
