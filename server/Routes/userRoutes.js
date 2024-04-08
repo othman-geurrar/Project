@@ -2,7 +2,7 @@ const userRouter = require("express").Router();
 require("../strategies/google")
 const passport = require("passport");
 const isAuthenticated = require("../Middleware/checkLogin")
-const userAuth = require("../Middleware/authMiddleware");
+const {userAuth}= require("../Middleware/authMiddleware");
 
 
 
@@ -19,9 +19,9 @@ const {
 
 userRouter.post("/register", registerUserValidationRules, register);
 userRouter.post("/login", loginUserValidationRules, userAuth);
-userRouter.get("/getUsers", getUsers);
+userRouter.get("/getUsers", getUsers)
 userRouter.patch("/update/:id",updateAdminValidationRules,isAuthenticated,updateUserByid);
-userRouter.delete("/delete/:id", deleteUser);
+userRouter.delete("/delete/:id",isAuthenticated, deleteUser);
 userRouter.get("/", (req, res) => {
   res.send('<a href="/auth/google">google</a>');
 });

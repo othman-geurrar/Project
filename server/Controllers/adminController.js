@@ -21,14 +21,12 @@ const loginAdminValidationRules = [
 
 // Validation rules for updating admin details
 const updateAdminValidationRules = [
-  body("name").optional().trim().notEmpty().withMessage("Name is required"),
-  body("newEmail").optional().isEmail().withMessage("Invalid email format"),
-  body("newPassword")
-    .optional()
-    .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters long"),
+  body('name').optional().trim().notEmpty().withMessage('Name is required'),
+  body('newEmail').optional().isEmail().withMessage('Invalid email format'),
+  body('newPassword').optional().isLength({ min: 8 }).withMessage('Password must be at least 8 characters long'),
   // Add more validation rules as needed
 ];
+
 
 const registerAdmin = async (req, res) => {
   const errors = validationResult(req);
@@ -42,6 +40,7 @@ const registerAdmin = async (req, res) => {
   newAdmin.password = adminPassword;
 
   try {
+
     // Find the count of existing admins
     const adminCount = await Admin.countDocuments();
     // Generate a unique ID for the new admin
@@ -59,28 +58,6 @@ const registerAdmin = async (req, res) => {
   }
 };
 
-const loginAdmin = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const errorMessages = errors.array().map((error) => error.msg);
-    return res.status(400).json({ errors: errorMessages });
-  }
-
-  const { email, password } = req.body;
-
-  Admin.findOne({ email }).then((admin) => {
-    if (admin) {
-      const validPassword = bcrypt.compareSync(password, admin.password);
-      if (validPassword) {
-        res.status(200).send({ message: `Welcome ${admin.name}` });
-      } else {
-        res.status(400).json({ message: "Invalid password" });
-      }
-    } else {
-      res.status(400).json({ message: "Invalid email" });
-    }
-  });
-};
 
 const getAllAdmins = async (req, res) => {
   try {
@@ -99,7 +76,7 @@ const updateAdminByEmail = async (req, res) => {
 
   const { id } = req.params;
   const { name, newEmail, newPassword } = req.body;
-
+ 
   try {
     let updateFields = {};
     if (name) updateFields.name = name;
@@ -118,13 +95,7 @@ const updateAdminByEmail = async (req, res) => {
     if (!updatedAdmin) {
       return res.status(404).json({ message: "Admin not found" });
     }
-
-    res
-      .status(200)
-      .json({
-        message: "Admin details updated successfully",
-        admin: updatedAdmin,
-      });
+    res.status(200).json({ message: "Admin details updated successfully", admin: updatedAdmin });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
@@ -132,21 +103,21 @@ const updateAdminByEmail = async (req, res) => {
 
 const deleteAdmin = (req, res) => {
   const { id } = req.params;
-  Admin.findOneAndDelete({ id }).then((admin) => {
+  Admin.findOneAndDelete({ id })
+  .then((admin) => {
     if (!admin) {
       return res.status(404).json({ message: "Admin not found" });
     }
     res.status(200).json({ message: "Admin deleted successfully", admin });
-  });
-};
+
+})};
 
 module.exports = {
   registerAdmin,
   registerAdminValidationRules,
-  loginAdmin,
   loginAdminValidationRules,
   getAllAdmins,
   updateAdminValidationRules,
   updateAdminByEmail,
-  deleteAdmin,
+  deleteAdmin
 };

@@ -13,6 +13,7 @@ const passport = require("passport");
 const PORT = process.env.PORT || 4000;
 
 require("./strategies/userLocal");
+require("./strategies/adminLocal");
 require("./strategies/google")
 
 
@@ -41,7 +42,6 @@ app.use("/lifeStyle", LifeStyleRouter);
 app.use("/events", EventRouter);
 app.use("/users",userRouter);
 app.use("/payments",paymentRouter);
-
 app.use("/auth",userRouter)
 
 
