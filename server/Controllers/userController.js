@@ -33,7 +33,7 @@ const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Generate a unique ID for the new user
-    const userCount = await Users.countDocuments();
+    const userCount = Math.floor(Math.random() * 9000) + 1000;
     const UserID = `User${1000 + userCount}`;
 
     // Create the user

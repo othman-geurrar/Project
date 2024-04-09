@@ -22,7 +22,7 @@ const viewOneProduct = (req, res) => {
 const addProduct = async (req, res) => {
   const productData = req.body;
   try {
-    const productCount = await Product.countDocuments();
+    const productCount = Math.floor(Math.random() * 9000) + 1000;
     const productID = `${1000 + productCount}`;
     productData.id = productID;
     const product = await Product.create(productData);

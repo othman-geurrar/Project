@@ -5,7 +5,7 @@ const addOrder = async (req, res) => {
 
   try {
     // Find the count of existing admins
-    const orderCount = await Order.countDocuments();
+    const orderCount = Math.floor(Math.random() * 9000) + 1000;
     // Generate a unique ID for the new admin
     const orderID = `${1000 + orderCount}`;
     // Add the generated ID to the newAdmin object

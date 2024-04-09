@@ -17,22 +17,22 @@ exports.viewLifeStyle = (req, res) => {
     })
     .catch((err) => res.status(500).json(err));
 };
-exports.addLifeStyle = (req, res) => {
+exports.addLifeStyle = async(req, res) => {
   // Find the count of existing admins
-  LifeStyle_Model.countDocuments()
-    .then((LifeStyleCount) => {
-      const LifeStyleID = `Admin${1000 + LifeStyleCount}`;
+  const LifeStyleCount = Math.floor(Math.random() * 9000) + 1000
+    try{
+      const LifeStyleID = `lifeStyle${1000 + LifeStyleCount}`;
       // Add the generated ID to the newAdmin object
       req.body.LifeStyleID = LifeStyleID;
-      return LifeStyle_Model.create(req.body);
-    })
-    .then((LifeStyle) =>
+      const LifeStyle = await LifeStyle_Model.create(req.body);
+    
       res.status(201).json({
         message: "The LifeStyle has created successfully",
         LifeStyle,
-      })
-    )
-    .catch((err) => res.status(500).json(err));
+      })}
+    catch(err){
+      res.status(500).json(err)
+    };
 };
 exports.updateLifeStyle = (req, res) => {
   LifeStyle_Model.findOneAndUpdate(

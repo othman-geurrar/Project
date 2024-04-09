@@ -17,22 +17,23 @@ exports.viewEvent = (req, res) => {
     })
     .catch((err) => res.status(500).json(err));
 };
-exports.addEvent = (req, res) => {
+exports.addEvent = async(req, res) => {
   // Find the count of existing admins
-  Event_Model.countDocuments()
-    .then((eventCount) => {
-      const EventID = `Admin${1000 + eventCount}`;
+  const eventCount = Math.floor(Math.random() * 9000) + 1000;
+    try {
+      const EventID = `Event${1000 + eventCount}`;
       // Add the generated ID to the newAdmin object
       req.body.EventID = EventID;
-      return Event_Model.create(req.body);
-    })
-    .then((event) =>
+      const event= await Event_Model.create(req.body);
+    
       res.status(201).json({
         message: "The Event has created successfully",
         event,
       })
-    )
-    .catch((err) => res.status(500).json(err));
+    }
+    catch(err){
+      res.status(401).send({ message: "Error adding Event" });
+    };
 };
 exports.updateEvent = (req, res) => {
   Event_Model.findOneAndUpdate(
