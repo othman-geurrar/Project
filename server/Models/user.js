@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   UserName: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String},
+  role: { type: String, required: true, default: "User" },
   createdAt: { type: Date, default: Date.now }
 
 });
