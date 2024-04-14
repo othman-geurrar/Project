@@ -1,6 +1,6 @@
 const passport = require("passport");
-const { Strategy } = require("passport-local");
-const Users = require("../Models/user");
+const LocalStrategy = require("passport-local").Strategy;
+const Users = require("../Models/user"); // Assuming User model is defined in "../Models/User"
 const bcrypt = require("bcrypt");
 
 passport.serializeUser((user, done) => {
@@ -10,7 +10,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   console.log(`deserialized user ${id}`);
-  const user = await Users.findOne({ id: id });
+  const user = await Users.findById(id); // Using findById instead of findOne
   console.log(user);
   if (user) {
     return done(null, user);
@@ -19,7 +19,8 @@ passport.deserializeUser(async (id, done) => {
 });
 
 passport.use(
-  new Strategy(
+  'user',
+  new LocalStrategy(
     {
       usernameField: "email",
       passwordField: "password",
@@ -31,12 +32,7 @@ passport.use(
       if (!user) {
         return done(null, false);
       }
-      const validPassword = await new Promise((resolve, reject) => {
-        bcrypt.compare(password, user.password, (err, res) => {
-          if (err) reject(err);
-          resolve(res);
-        });
-      });
+      const validPassword = await bcrypt.compare(password, user.password);
 
       if (validPassword) {
         return done(null, user);
