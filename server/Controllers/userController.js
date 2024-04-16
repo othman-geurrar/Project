@@ -70,11 +70,11 @@ const updateUserByid = async (req, res) => {
   }
 
   const { id } = req.params;
-  const { newUserName, newEmail, newPassword } = req.body;
+  const { UserName, newEmail, newPassword } = req.body;
 
   try {
     let updateFields = {};
-    if (newUserName) updateFields.UserName = newUserName;
+    if (UserName) updateFields.UserName = UserName;
     if (newEmail) updateFields.email = newEmail;
     if (newPassword) {
       const hashedPassword = bcrypt.hashSync(newPassword, 10);

@@ -1,7 +1,9 @@
 const userRouter = require("express").Router();
 require("../strategies/google")
 const passport = require("passport");
-const isAuthenticated = require("../Middleware/checkLogin")
+const isUserAuthenticated = require("../Middleware/userLogin");
+const isAdminAuthenticated = require("../Middleware/adminLogin");
+const isAuthenticated = require("../Middleware/checkLogin");
 const {userAuth}= require("../Middleware/authMiddleware");
 
 
@@ -19,13 +21,13 @@ const {
 
 userRouter.post("/register", registerUserValidationRules, register);
 userRouter.post("/login", loginUserValidationRules, userAuth);
-userRouter.get("/getUsers", isAuthenticated,getUsers)
-userRouter.patch("/update/:id",updateAdminValidationRules,isAuthenticated,updateUserByid);
-userRouter.delete("/delete/:id",isAuthenticated, deleteUser);
+userRouter.get("/getUsers", isAdminAuthenticated,getUsers);
+userRouter.patch("/update/:id",updateAdminValidationRules,isAdminAuthenticated,updateUserByid);
+userRouter.delete("/delete/:id",isAdminAuthenticated, deleteUser);
 userRouter.get("/", (req, res) => {
   res.send('<a href="/auth/google">google</a>');
 });
-userRouter.get("/profile", isAuthenticated,(req, res) => {
+userRouter.get("/profile", isUserAuthenticated,(req, res) => { 
   res.send(`Welcome ${req.user.UserName}`);
 });
 

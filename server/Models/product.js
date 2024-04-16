@@ -6,7 +6,6 @@ const productSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-
   name: {
     type: String,
     required: true,
@@ -37,6 +36,38 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  LifeStyle:{
+    type: String,
+    required: true,
+  },
+  Review:[
+    {
+      comment: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        required: true,
+      },
+      user: {
+        type: String,
+        required: true,
+      },
+      productinfo:{
+        size: String,
+        color: String,
+        name: String,
+      },
+      image: {
+        type: String,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    }
+  ],
   createdAt: {
     type: Date,
     default: Date.now,

@@ -1,4 +1,5 @@
 const paymentRouter = require("express").Router();
+const isAdminAuthenticated = require("../Middleware/adminLogin");
 
 const {
   Addpayment,
@@ -6,6 +7,8 @@ const {
   getPaymentById,
   deletePayment,
 } = require('../Controllers/paymentController');
+
+paymentRouter.use(isAdminAuthenticated)
 
 paymentRouter.post("/addPayment",Addpayment)
 // Route to retrieve all payment transactions

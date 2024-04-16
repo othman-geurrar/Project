@@ -1,4 +1,8 @@
 const express = require("express");
+
+const isAdminAuthenticated = require("../Middleware/adminLogin");
+const isAuthenticated = require("../Middleware/checkLogin");
+
 const EventRouter = express.Router();
 const {
   viewAllEvents,
@@ -8,10 +12,10 @@ const {
   deleteEvent,
 } = require("../Controllers/eventController");
 
-EventRouter.get("/getAll", viewAllEvents)
-  .get("/getEvent/:id", viewEvent)
-  .post("/addEvent", addEvent)
-  .put("/update/:id", updateEvent)
-  .delete("/delete/:id", deleteEvent);
+EventRouter.get("/getAll",isAuthenticated, viewAllEvents)
+  .get("/getEvent/:id", isAuthenticated,viewEvent)
+  .post("/addEvent",isAdminAuthenticated, addEvent)
+  .put("/update/:id",isAdminAuthenticated, updateEvent)
+  .delete("/delete/:id", isAdminAuthenticated,deleteEvent);
 
 module.exports = EventRouter;

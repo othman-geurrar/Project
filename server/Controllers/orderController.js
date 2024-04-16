@@ -30,6 +30,16 @@ const getOrders = (req, res) => {
       res.status(400).send({ message: "Failed getting orders" });
     });
 };
+const getOrderById = (req, res) => {
+  const orderId = req.params.id; // Assuming you pass the order ID in the URL
+  Order.findOne({ id: orderId })
+   .then((order) => {
+      res.status(200).json(order);
+    })
+   .catch((e) => {
+      res.status(400).send({ message: "Failed getting order" });
+    });
+};
 
 const updateOrder = async (req, res) => {
   const orderId = req.params.id; // Assuming you pass the order ID in the URL
@@ -74,6 +84,7 @@ const deleteOrder = async (req, res) => {
 module.exports = {
   addOrder,
   getOrders,
+  getOrderById,
   updateOrder,
   deleteOrder,
 };
