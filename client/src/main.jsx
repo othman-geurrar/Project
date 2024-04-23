@@ -6,6 +6,7 @@ import './index.css'
 import { BrowserRouter , Route , Routes } from 'react-router-dom';
 import LoginForm from './pages/LoginForm.jsx';
 import RegisterForm from './pages/RegisterForm.jsx';
+import "tw-elements-react/dist/css/tw-elements-react.min.css";
 
 
 ReactDOM.render(
