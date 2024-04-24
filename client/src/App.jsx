@@ -5,9 +5,10 @@ import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Footer , Header , NavBar , SideBar, ThemeSetting , UserProfile  } from './components';
 import { Ecommerce , LoginForm , Orders , Products , RegisterForm , Users , Admins } from './pages';
+import { useSelector } from 'react-redux';
 
 function App() {
-  const activeMenu = true;
+  const isActiveMenu = useSelector((state)=> state.sideBar.isActiveMenu);
 
   return (
    <div>
@@ -28,7 +29,7 @@ function App() {
 
             </TooltipComponent>
           </div>
-          {activeMenu ? (
+          {isActiveMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
             <SideBar />
           </div>
@@ -40,7 +41,7 @@ function App() {
          )}
          <div
             className={
-              activeMenu
+              isActiveMenu
                 ? 'dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  '
                 : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 '
             }
