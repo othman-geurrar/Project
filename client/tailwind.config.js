@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/App.jsx", "./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/App.jsx", "./src/**/*.{js,jsx,ts,tsx}", "./node_modules/tw-elements-react/dist/js/**/*.js"],
   darkMode: "class",
   theme: {
     fontFamily: {
@@ -43,5 +43,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tw-elements-react/dist/plugin.cjs")],
 };

@@ -9,9 +9,10 @@ import RegisterForm from "./pages/RegisterForm.jsx";
 import store from "./redux/store.js";
 import { registerLicense } from '@syncfusion/ej2-base';
 
-// Registering Syncfusion license key
-registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWJCe0x0QXxbf1x0ZFNMYV5bRXZPMyBoS35RckVnW3tednFSRmJdVkVw');
 
+
+// Registering Syncfusion license key
+registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWJCe0x0QXxbf1x0ZFNMYV5bRXZPMyBoS35RckVnW3tednZVRGdUUkF0');
 
 
 

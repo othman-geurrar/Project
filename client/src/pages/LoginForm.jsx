@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../assets/img/logo.png";
 import NavBar from "../components/NavBar";
-import { TextBoxComponent } from '@syncfusion/ej2-react-inputs';
+import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
 
 const LoginForm = () => {
   return (
@@ -29,8 +29,6 @@ const LoginForm = () => {
 
                       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <form className="space-y-6" action="#" method="POST">
-                        
-
                           <div>
                             <div className="row custom-margin custom-padding-5 material">
                               <div className="col-xs-6 col-sm-6 col-lg-6 col-md-6 mb-5">
@@ -55,7 +53,6 @@ const LoginForm = () => {
                                   Forgot password?
                                 </a>
                               </div>
-                              
                             </div>
                           </div>
 
@@ -74,7 +71,7 @@ const LoginForm = () => {
 
                   {/* <!-- Right column container with background and description--> */}
                   <div
-                    className="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
+                    className="hidden lg:block lg:flex lg:items-center lg:rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
                     style={{
                       background:
                         // "linear-gradient(to right, #009079, #00A98F, #00C3A5, #00DCBA)",
