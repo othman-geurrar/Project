@@ -6,6 +6,10 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Footer , Header , NavBar , SideBar, ThemeSetting , UserProfile  } from './components';
 import { Ecommerce , LoginForm , Orders , Products , RegisterForm , Users , Admins } from './pages';
 import { useSelector } from 'react-redux';
+import { registerLicense } from '@syncfusion/ej2-base';
+
+// Registering Syncfusion license key
+registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWJCe0x0QXxbf1x0ZFNMYV5bRXZPMyBoS35RckVnW3tednFSRmJdVkVw');
 
 function App() {
   const isActiveMenu = useSelector((state)=> state.sideBar.isActiveMenu);
