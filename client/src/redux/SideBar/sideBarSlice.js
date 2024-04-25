@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState =  {
     isActiveMenu : true,
+    chat: false,
+    cart: false,
+    notification: false,
+    profile: false,
 };
 
 const sideBarSlice = createSlice({
@@ -9,11 +13,24 @@ const sideBarSlice = createSlice({
     initialState: initialState,
     reducers: {
         setisActiveMenu: (state) => {
-            state.isActiveMenu = false;
+            state.isActiveMenu = !state.isActiveMenu;
+        },
+        setchat: (state) => {
+            state.chat = !state.chat;
+        },
+        setcart: (state) => {
+            state.cart = !state.cart;
+        },
+        setnotification: (state) => {
+            state.notification = !state.notification;
+        },
+        setprofile: (state) => {
+            state.profile = !state.profile;
         }
+    
     },
 });
 
-export const { setisActiveMenu } = sideBarSlice.actions;
+export const { setisActiveMenu , setchat , setcart , setnotification , setprofile} = sideBarSlice.actions;
 
 export default sideBarSlice.reducer;

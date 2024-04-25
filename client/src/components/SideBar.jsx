@@ -131,7 +131,7 @@ const SideBar = () => {
             <TooltipComponent content="Menu" position="BottomCenter">
               <button
                 type="button"
-                onClick={() => { dispatch(setisActiveMenu((prev)=> !prev))}}
+                onClick={() => { dispatch(setisActiveMenu())}}
                 className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block "
               >
                 <MdOutlineCancel />
