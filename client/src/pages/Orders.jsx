@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Orders = () => {
+function Orders() {
   return (
-    <div>orders</div>
+    <div>Orders</div>
   )
 }
 
