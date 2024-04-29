@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 import {
   GridComponent,
   ColumnsDirective,
@@ -10,11 +11,9 @@ import {
   ContextMenu,
   Toolbar,
   Page,
-  // Filter,
-  // IFilter,
-  // VirtualScroll,
-  // Sort,
 } from "@syncfusion/ej2-react-grids";
+import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
+import { DropDownButtonComponent } from "@syncfusion/ej2-react-splitbuttons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getorders, deleteorder } from "../redux/Orders/orderSlice";
@@ -22,22 +21,60 @@ import Header from "../components/Header";
 
 function Orders() {
   const toolbarOptions = ["Search"];
-  const { error, isLoading, orders } = useSelector((state) => state.Orders);
+  const { error, isLoadingorders, orders } = useSelector(
+    (state) => state.Orders
+  );
   const dispatch = useDispatch();
 
   function deletebutton({ id }) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-outline btn-success",
+        cancelButton: "btn btn-outline btn-error",
+      },
+      buttonsStyling: false,
+    });
     return (
       <>
-        {
-          <button
-            type="button"
-            className="text-white w-20 py-1 px-2 bg-red-700 capitalize rounded-2xl text-md "
-            onClick={() => dispatch(deleteorder(id))}
-          >
-            <span className="mr-1">Delete</span>
-            <i className="fa-solid fa-trash" />
-          </button>
-        }
+        <button
+          type="button"
+          className="text-white w-20 py-1 px-2 bg-red-700 capitalize rounded-2xl text-md "
+          onClick={() => {
+            swalWithBootstrapButtons
+              .fire({
+                title:
+                  'Are u Sure ?',
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it !",
+                cancelButtonText: "No, cancel !",
+                reverseButtons: true,
+              })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success",
+                  });
+                  dispatch(deleteorder(id));
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "Your imaginary file is safe :)",
+                    icon: "error",
+                  });
+                }
+              });
+          }}
+        >
+          <span className="mr-1">Delete</span>
+          <i className="fa-solid fa-trash" />
+        </button>
       </>
     );
   }
@@ -76,12 +113,50 @@ function Orders() {
         <img src={props.user.userPic} alt="order-item" />
       </div>
     </div>
-    // <img
-    //   className="rounded-xl h-20 md:ml-3 object-conatin "
-    //   src={props.user.userPic}
-    //   alt="order-item"
-    // />
   );
+  const gridOrderProducts = (props) => {
+    const itemTemplate = (data) => {
+      return (
+        <>
+          <div className="p-[10px] text-black">
+            <div className="flex gap-[20px] items-center">
+              <div className="avatar">
+                <div className="w-[40px] rounded-full">
+                  <img src={props.user.userPic} alt="order-item" />
+                </div>
+              </div>
+              <div>{data.productName}</div>
+              <div>{data.productQuantity}</div>
+            </div>
+          </div>
+        </>
+      );
+    };
+    const headerTemplate = () => {
+      return (
+        <>
+          <div className="p-[10px] text-black flex gap-[20px] items-center">
+            <div>Picture</div>
+            <div>ProductName</div>
+            <div>ProuductQuantity</div>
+          </div>
+        </>
+      );
+    };
+    return (
+      <div className="">
+        <DropDownListComponent
+          placeholder={props.products.length + " Products"}
+          dataSource={props.products}
+          itemTemplate={itemTemplate}
+          headerTemplate={headerTemplate}
+          // popupSettings={{ cssClass: "color:white;" }}
+          popupHeight="200px"
+          popupWidth="auto"
+        ></DropDownListComponent>
+      </div>
+    );
+  };
 
   const ordersGrid = [
     {
@@ -94,7 +169,7 @@ function Orders() {
     {
       field: "user",
       headerText: "Costumer Name",
-      width: "120",
+      width: "125",
       template: ({ user }) => {
         return user.userName;
       },
@@ -120,9 +195,15 @@ function Orders() {
       format: "C2",
       textAlign: "Center",
       editType: "numericedit",
-      width: "150",
+      width: "110",
     },
-    
+    {
+      headerText: "Products",
+      template: gridOrderProducts,
+      field: "products",
+      textAlign: "Center",
+      width: "120",
+    },
     {
       headerText: "Status",
       template: gridOrderStatus,
@@ -147,19 +228,36 @@ function Orders() {
   useEffect(() => {
     dispatch(getorders());
   }, [dispatch]);
-  
+
   return (
     <>
-      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-slate-200 rounded-3xl ">
+      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-slate-200 rounded-3xl  ">
         <Header category="Page" title="Orders" />
-        {isLoading ? (
+        {isLoadingorders ? (
           <>
-            <span> Uploading Data</span>
-            <span className="loading loading-spinner text-error"></span>
+            <div className="flex items-center justify-center">
+              <span className="mr-[20px]">Orders Uploading</span>
+              <span className="loading loading-spinner text-accent"></span>
+            </div>
           </>
         ) : error ? (
           <>
-            <h3>{error}</h3>
+            <div role="alert" className="alert alert-error">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="stroke-current shrink-0 h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{error}</span>
+            </div>
           </>
         ) : (
           <GridComponent
@@ -171,7 +269,11 @@ function Orders() {
           >
             <ColumnsDirective>
               {ordersGrid.map((item, index) => (
-                <ColumnDirective key={index} {...item} />
+                <ColumnDirective
+                  key={index}
+                  {...item}
+                  style={{ position: "relative" }}
+                />
               ))}
             </ColumnsDirective>
 

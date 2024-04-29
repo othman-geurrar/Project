@@ -19,7 +19,7 @@ export const deleteorder = createAsyncThunk(
       console.log(res);
       return orderId;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return rejectWithValue(error.message);
     }
   }
@@ -40,7 +40,7 @@ export const getorders = createAsyncThunk(
 const orderSlice = createSlice({
   name: "orders",
   initialState: {
-    isLoading: false,
+    isLoadingorders: false,
     error: null,
     orders: [],
   },
@@ -50,28 +50,28 @@ const orderSlice = createSlice({
     builder
       //deleteorder
       .addCase(deleteorder.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingorders = false;
         state.orders = state.orders.filter((item) => item.id != action.payload);
       })
       .addCase(deleteorder.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoadingorders = true;
         state.error = null;
       })
       .addCase(deleteorder.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingorders = false;
         state.error = action.payload;
       })
       //getorder
       .addCase(getorders.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingorders = false;
         state.orders = action.payload;
       })
       .addCase(getorders.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoadingorders = true;
         state.error = null;
       })
       .addCase(getorders.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingorders = false;
         state.error = action.payload;
       });
   },

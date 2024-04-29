@@ -14,10 +14,13 @@
     "@reduxjs/toolkit": "^2.2.3",
     "@syncfusion/ej2": "^25.1.41",
     "@syncfusion/ej2-base": "^25.1.35",
+    "@syncfusion/ej2-react-dropdowns": "^25.1.41",
     "@syncfusion/ej2-react-grids": "^25.1.41",
     "@syncfusion/ej2-react-inputs": "^25.1.40",
     "@syncfusion/ej2-react-popups": "^25.1.41",
+    "@syncfusion/ej2-react-splitbuttons": "^25.1.38",
     "axios": "^1.6.8",
+    "preline": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.3.1",
@@ -25,6 +28,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
+    "sweetalert2": "^11.10.8",
     "tw-elements-react": "^1.0.0-alpha2"
   },
   "devDependencies": {
