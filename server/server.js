@@ -11,6 +11,9 @@ const userRouter=require("./Routes/userRoutes")
 const paymentRouter=require("./Routes/payementRoutes");
 const passport = require("passport");
 const PORT = process.env.PORT || 4000;
+const cors = require("cors");
+
+
 
 require("./strategies/userLocal");
 require("./strategies/adminLocal");
@@ -19,6 +22,11 @@ require("./strategies/google")
 
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 
 app.use(express.json());
 

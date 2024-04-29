@@ -6,5 +6,6 @@ export { default as	Products } from './Products';
 export { default as	Users } from './Users';
 export { default as Admins } from './Admins';
 export { default as LifeStyle } from './LifeStyle';
+export { default as AdminProfile } from './AdminProfile';
 
 

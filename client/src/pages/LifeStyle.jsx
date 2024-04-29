@@ -12,13 +12,13 @@ const lifestyles = [
     lastUpdated: "3 mins ago",
   },
   {
-    imgSrc: "/src/assets/img/sport_bg.jpg",
+    imgSrc: "/src/assets/img/fashion-styles-bg.webp",
     title: "Lifestyle 2",
     description: "Description of lifestyle 2.",
     lastUpdated: "5 mins ago",
   },
   {
-    imgSrc: "/src/assets/img/sport_bg.jpg",
+    imgSrc: "/src/assets/img/anime-style-bg.jpg",
     title: "Lifestyle 2",
     description: "Description of lifestyle 2.",
     lastUpdated: "5 mins ago",

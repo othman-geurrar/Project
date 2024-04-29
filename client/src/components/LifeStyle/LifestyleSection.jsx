@@ -1,6 +1,20 @@
 import React from 'react';
+import { useGetAllLifeStyleQuery } from '../../redux/services/LifeStyleData'
+
 
 const LifestyleSection = ({ lifestyles }) => {
+  const { data , isLoading , isError } = useGetAllLifeStyleQuery();
+  if (isError) {
+    return <div>Something went wrong...</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(data);
+
+
   return (
     <div className="md:col-span-2 p-2 ml-4">
       {lifestyles.map((item, index) => (

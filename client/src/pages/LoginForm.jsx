@@ -1,19 +1,59 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from "../assets/img/logo.png";
-import NavBar from "../components/NavBar";
 import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
+import { useLoginAdminMutation } from "../redux/services/AuthApi";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as zod from "zod";
+import { useNavigate } from "react-router-dom";
+
+const schema = zod.object({
+  email: zod.string().email(),
+  password: zod.string().min(6),
+});
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  const [loginAdmin, { data, isLoading, isError, error, isSuccess }] =
+    useLoginAdminMutation();
+
+  const handleLogin = async (formData) => {
+    const res = await loginAdmin(formData);
+    console.log(res.data);
+  };
+
+  useEffect(() => {
+    const storeLoggedInStatus = () => {
+      // Store the logged-in status in local storage
+      localStorage.setItem("isLoggedIn", "true");
+    };
+
+    if (isSuccess) {
+      alert("Success to login ");
+      console.log(data);
+      storeLoggedInStatus(); 
+      navigate("/lifestyle");
+    }
+  }, [isSuccess , navigate]);
+
+  // const isLoggedInStatus =()=>{
+  //   const isLoggedIn = localStorage.getItem("isLoggedIn")
+  //   console.log(isLoggedIn);
+
+  // }
+
   return (
     <>
-      <NavBar />
-      <section className="h-full bg-neutral-200 dark:bg-neutral-700">
-        <div className="container h-full p-10">
+      <section className="h-screen bg-neutral-200 dark:bg-neutral-700">
+        <div className="container lg:ml-10 h-full p-10">
           <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
             <div className="w-full">
               <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
                 <div className="g-0 lg:flex lg:flex-wrap">
-                  {/* <!-- Left column container--> */}
                   <div className="px-2 md:px-0 lg:w-6/12">
                     <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
                       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -28,7 +68,10 @@ const LoginForm = () => {
                       </div>
 
                       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form className="space-y-6" action="#" method="POST">
+                        <form
+                          className="space-y-6"
+                          onSubmit={handleSubmit(handleLogin)}
+                        >
                           <div>
                             <div className="row custom-margin custom-padding-5 material">
                               <div className="col-xs-6 col-sm-6 col-lg-6 col-md-6 mb-5">
@@ -36,14 +79,23 @@ const LoginForm = () => {
                                   placeholder="Email Address"
                                   cssClass="e-outline"
                                   floatLabelType="Auto"
+                                  {...register("email")} 
                                 />
+                                {errors.email && (
+                                  <span>{errors.email.message}</span>
+                                )}
                               </div>
                               <div className="col-xs-6 col-sm-6 col-lg-6 col-md-6 mb-5">
                                 <TextBoxComponent
                                   placeholder="Password"
                                   cssClass="e-outline"
                                   floatLabelType="Auto"
+                                  type="password"
+                                  {...register("password")} 
                                 />
+                                {errors.password && (
+                                  <span>{errors.password.message}</span>
+                                )}
                               </div>
                               <div className="text-sm">
                                 <a
@@ -68,9 +120,8 @@ const LoginForm = () => {
                       </div>
                     </div>
                   </div>
-
-                  {/* <!-- Right column container with background and description--> */}
-                  <div
+                   {/* <!-- Right column container with background and description--> */}
+                   <div
                     className="hidden lg:block lg:flex lg:items-center lg:rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
                     style={{
                       background:

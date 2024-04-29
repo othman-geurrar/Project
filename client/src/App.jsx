@@ -4,9 +4,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Footer , Header , NavBar , SideBar, ThemeSetting , UserProfile   } from './components';
-import { Ecommerce , LoginForm , Orders , Products , RegisterForm , Users , Admins , LifeStyle } from './pages';
+import { Ecommerce , LoginForm , Orders , Products , RegisterForm , Users , Admins , LifeStyle, AdminProfile ,  } from './pages';
 import { useSelector } from 'react-redux';
 import { registerLicense } from '@syncfusion/ej2-base';
+import LifeStyleById from './components/LifeStyle/LifeStyleById';
+import AddLifeStyle from './components/LifeStyle/AddLifeStyle';
+
 
 // Registering Syncfusion license key
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWJCe0x0QXxbf1x0ZFNMYV5bRXZPMyBoS35RckVnW3tednFSRmJdVkVw');
@@ -66,6 +69,9 @@ function App() {
                 <Route path="/admins" element={<Admins />} />
                 <Route path="/users" element={<Users />} />
                 <Route path="/lifestyle" element={<LifeStyle />} />
+                <Route path="/lifestyle/id" element={<LifeStyleById />} />
+                <Route path="/lifestyle/add" element={<AddLifeStyle />} />
+                <Route path="/admin/profile" element={<AdminProfile />} />
                 <Route path="/products" element={<Products />} />
               </Routes>
           </div>

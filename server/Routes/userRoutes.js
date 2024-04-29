@@ -1,16 +1,16 @@
 const userRouter = require("express").Router();
-require("../strategies/google")
+require("../strategies/google");
 const passport = require("passport");
 const isUserAuthenticated = require("../Middleware/userLogin");
 const isAdminAuthenticated = require("../Middleware/adminLogin");
-const isAuthenticated = require("../Middleware/checkLogin");
+// const isAuthenticated = require("../Middleware/checkLogin");
 const {userAuth}= require("../Middleware/authMiddleware");
 
 
 
 
 const {
-  register,
+  registerUser,
   registerUserValidationRules,
   loginUserValidationRules,
   getUsers,
@@ -19,7 +19,7 @@ const {
   deleteUser,
 } = require("../Controllers/userController");
 
-userRouter.post("/register", registerUserValidationRules, register);
+userRouter.post("/register",registerUserValidationRules, registerUser);
 userRouter.post("/login", loginUserValidationRules, userAuth);
 userRouter.get("/getUsers", isAdminAuthenticated,getUsers);
 userRouter.patch("/update/:id",updateAdminValidationRules,isAdminAuthenticated,updateUserByid);

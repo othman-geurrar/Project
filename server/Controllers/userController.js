@@ -6,8 +6,8 @@ const Users = require("../Models/user");
 const registerUserValidationRules = [
   body("email").isEmail().withMessage("Invalid email format"),
   body("password")
-    .isLength({ min: 10 })
-    .withMessage("Password must be at least 8 characters long"),
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters long"),
 ];
 
 const loginUserValidationRules = [
@@ -25,33 +25,46 @@ const updateAdminValidationRules = [
     .withMessage("Password must be at least 8 characters long"),
 ];
 
-const register = async (req, res) => {
-  const { email, password, username } = req.body;
+const registerUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map((error) => error.msg);
+    return res.status(400).json({ errors: errorMessages });
+  }
+
+  const newUser = req.body;
+  console.log(newUser);
+  const userPassword = bcrypt.hashSync(newUser.password, 10);
+  newUser.password = userPassword;
+  console.log(userPassword);
 
   try {
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Generate a unique ID for the new user
     const userCount = Math.floor(Math.random() * 9000) + 1000;
-    const UserID = `User${1000 + userCount}`;
+    // Generate a unique ID for the new admin
+    const userId = `User${1000 + userCount}`;
+    // Add the generated ID to the newAdmin object
+    newUser.id = userId;
+    console.log(newUser);
 
-    // Create the user
-    const newUser = await Users.create({
-      id: UserID,
-      UserName: username,
-      email,
-      password: hashedPassword,
+    const user = await Users.create(newUser);
+    res.status(201).json({
+      message: "User Created Successfully",
+      user,
     });
-    res.status(200).json({ message: "User created successfully", newUser });
   } catch (error) {
+    console.error("Error creating user:", error); // Log the error for debugging
     if (error.code === 11000) {
-      res.status(400).send({ message: "User already exists" });
-    } else {
-      res.status(500).json({ message: "Internal server error" });
+      // Duplicate key error
+      return res.status(400).json({ message: "User already exists" });
     }
+    // Other errors
+    res.status(500).send({ message: "Internal server error" });
   }
 };
+
+
+
 
 // Function to get all Users
 const getUsers = async (req, res) => {
@@ -91,12 +104,10 @@ const updateUserByid = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res
-      .status(200)
-      .json({
-        message: "User details updated successfully",
-        User: updatedUser,
-      });
+    res.status(200).json({
+      message: "User details updated successfully",
+      User: updatedUser,
+    });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
@@ -120,7 +131,7 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  register,
+  registerUser,
   getUsers,
   updateUserByid,
   deleteUser,

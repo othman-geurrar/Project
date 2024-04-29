@@ -4,7 +4,7 @@ const LifeStyle_Schema = new mongoose.Schema({
   LifeStyleName: { type: String, required: true, unique: true },
   styleType: { type: String },
   Content: {
-    story: { type: String, required: true },
+    story: { type: String, required: false },
     music: [
       {
         title: { type: String },
