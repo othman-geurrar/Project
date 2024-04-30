@@ -2,7 +2,6 @@ import React from "react";
 // bg-[url("/src/assets/img/sport_bg.jpg")]
 import LifestyleSection from "../components/LifeStyle/LifestyleSection";
 import ProductCard from "../components/Product/ProductSection";
-import appl from "../assets/Products/applWatch.png";
 
 const lifestyles = [
   {

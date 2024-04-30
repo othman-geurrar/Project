@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Footer , Header , NavBar , SideBar, ThemeSetting , UserProfile   } from './components';
-import { Ecommerce , LoginForm , Orders , Products , RegisterForm , Users , Admins , LifeStyle, AdminProfile ,  } from './pages';
+import { Ecommerce , LoginForm , Orders , Products , RegisterForm , Users , Admins , LifeStyle, AdminProfile , EventList } from './pages';
 import { useSelector } from 'react-redux';
 import { registerLicense } from '@syncfusion/ej2-base';
 import LifeStyleById from './components/LifeStyle/LifeStyleById';
@@ -18,9 +18,9 @@ function App() {
   const isActiveMenu = useSelector((state)=> state.sideBar.isActiveMenu);
 
   return (
-   <div>
+   <div >
      
-     <div className="flex relative dark:bg-main-dark-bg">
+     <div className="flex relative h-full dark:bg-main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
             <TooltipComponent
               content="Settings"
@@ -68,12 +68,13 @@ function App() {
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/admins" element={<Admins />} />
                 <Route path="/users" element={<Users />} />
-                <Route path="/lifestyle" element={<LifeStyle />} />
+                <Route path="/lifestyles" element={<LifeStyle />} />
                 <Route path="/lifestyle/id" element={<LifeStyleById />} />
                 <Route path="/lifestyle/add" element={<AddLifeStyle />} />
                 <Route path="/admin/profile" element={<AdminProfile />} />
                 <Route path="/products" element={<Products />} />
-              </Routes>
+                <Route path='/events/list' element={<EventList />} />
+            </Routes>
           </div>
           </div> 
           </div>

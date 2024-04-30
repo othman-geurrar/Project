@@ -16,7 +16,8 @@ const LifestyleSection = ({ lifestyles }) => {
 
 
   return (
-    <div className="md:col-span-2 p-2 ml-4">
+    <>
+    {data && <div className="md:col-span-2 p-2 ml-4">
       {lifestyles.map((item, index) => (
         <div key={index} className=" p-4 mt-4">
           <div className="flex justify-center">
@@ -47,7 +48,8 @@ const LifestyleSection = ({ lifestyles }) => {
           </div>
         </div>
       ))}
-    </div>
+    </div>}
+    </>
   );
 };
 

@@ -25,7 +25,7 @@ const links = [
     title: "Dashboard",
     links: [
       {
-        name: "Dashboard",
+        name: "ecommerce",
         icon: <FiShoppingBag />,
       },
     ],
