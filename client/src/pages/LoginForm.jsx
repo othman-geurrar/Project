@@ -36,7 +36,7 @@ const LoginForm = () => {
       alert("Success to login ");
       console.log(data);
       storeLoggedInStatus(); 
-      navigate("/lifestyle");
+      navigate("/lifestyles");
     }
   }, [isSuccess , navigate]);
 

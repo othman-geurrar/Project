@@ -1,5 +1,6 @@
 import React from 'react';
-import { useGetAllLifeStyleQuery } from '../../redux/services/LifeStyleData'
+import { useGetAllLifeStyleQuery } from '../../redux/services/LifeStyleData';
+
 
 
 const LifestyleSection = ({ lifestyles }) => {
@@ -17,12 +18,14 @@ const LifestyleSection = ({ lifestyles }) => {
 
   return (
     <>
+     
     {data && <div className="md:col-span-2 p-2 ml-4">
+    
       {lifestyles.map((item, index) => (
-        <div key={index} className=" p-4 mt-4">
+        <div key={index} className=" p-4 ">
           <div className="flex justify-center">
             <div className="block rounded-lg justify-center h-fit bg-slate-200 shadow-secondary-2 dark:bg-surface-dark dark:text-white text-surface md:max-w-5xl">
-              <div className="relative overflow-hidden bg-cover p-2">
+              <div className=" overflow-hidden bg-cover p-2">
                 <img
                   className="rounded-t-lg"
                   src={item.imgSrc}

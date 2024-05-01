@@ -1,4 +1,5 @@
 import React from "react";
+import { useGetAlleventsQuery } from "../../redux/services/EventData";
 
 const EventCard = () => {
   const events = [
@@ -32,6 +33,10 @@ const EventCard = () => {
         image: "https://www.anime-japan.jp/2023/img/index/img_sld-1_2023_e.jpg",
       },
   ];
+
+  const { data, isLoading, isError } = useGetAlleventsQuery();
+ 
+  console.log(data);
 
   return (
     <div>
