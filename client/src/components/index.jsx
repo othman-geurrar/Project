@@ -10,5 +10,6 @@ export { default as Pie } from './Charts/Pie';
 export { default as SparkLine } from './Charts/SparkLine';
 export { default as Stacked } from './Charts/Stacked';
 export { default as ChartPie } from './Charts/ChartPie';
+export { default as AddForm} from './AddForm'
 
 

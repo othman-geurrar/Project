@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const Event_Schema = new mongoose.Schema({
   EventID: { type: String, required: true, unique: true },
-  EventName: { type: String, required: true, unique: true },
-  Description: { type: String, required: true },
-  EventDate: { type: Date, required: true, default: new Date() },
-  Organizer: { type: String, required: true },
-  Location: { type: String, required: true },
+  EventName: { type: String, unique: true },
+  Description: { type: String, },
+  EventDate: { type: Date, default: new Date() },
+  Organizer: { type: String, },
+  Location: { type: String,  },
   RegistrationDeadline: { type: Date },
   EventType: { type: String },
   ImageURL: { type: String },
