@@ -49,4 +49,4 @@ export const lifeStyleApi = createApi({
     }),
 })
 
-export const { useGetAllLifeStyleQuery , useGetLifeStyleByIdQuery , useAddLifeStyleMutation } = lifeStyleApi
+export const { useGetAllLifeStyleQuery , useGetLifeStyleByIdQuery , useAddLifeStyleMutation , useDeleteLifeStyleMutation, useUpdateLifeStyleMutation } = lifeStyleApi

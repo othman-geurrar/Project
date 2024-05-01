@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import EventCard from "../../components/Events/EventCard";
 import { MdAdd } from "react-icons/md";
-import AddForm from "../../components/Events/AddForm";
+import AddForm from "../../components/AddForm";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { setShowForm } from "../../redux/formState/form";
 
 const EventList = () => {
-  const [showForm, setShowForm] = useState(false);
+  const showForm = useSelector((state) => state.form.showForm);
+  const dispatch = useDispatch();
 
   const toggleForm = () => {
-    setShowForm(!showForm);
+    dispatch(setShowForm());
   };
 
   return (
