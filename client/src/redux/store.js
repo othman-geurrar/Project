@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import sideBarSlice from "./SideBar/sideBarSlice";
-import OrderReducer from "./Orders/orderSlice";
+import OrderSlice from "./Orders/orderSlice";
+import ProductSlice from "./Products/productsSlice"
 
 const store = configureStore({
   reducer: {
     sideBar: sideBarSlice,
-    Orders: OrderReducer,
+    Orders: OrderSlice,
+    Products: ProductSlice,
   },
 });
 

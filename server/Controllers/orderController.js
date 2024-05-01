@@ -23,20 +23,28 @@ const addOrder = async (req, res) => {
 
 const getOrders = (req, res) => {
   Order.find()
+    .populate({ path: "user", select: "UserName", model: "users" })
+    .populate({
+      path: "products",
+      select: "name imageURL productQuantity price id ",
+      model: "Products",
+    })
     .then((orders) => {
       res.status(200).json(orders);
     })
     .catch((e) => {
-      res.status(400).send({ message: "Failed getting orders" });
+      res
+        .status(400)
+        .send({ message: "Failed getting orders", details: e.messages });
     });
 };
 const getOrderById = (req, res) => {
   const orderId = req.params.id; // Assuming you pass the order ID in the URL
   Order.findOne({ id: orderId })
-   .then((order) => {
+    .then((order) => {
       res.status(200).json(order);
     })
-   .catch((e) => {
+    .catch((e) => {
       res.status(400).send({ message: "Failed getting order" });
     });
 };

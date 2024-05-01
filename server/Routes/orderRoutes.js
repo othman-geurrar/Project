@@ -13,9 +13,9 @@ const {
 
 orderRouter
   .post("/addOrder",isAuthenticated, addOrder)
-  .get("/getOrders",isAdminAuthenticated, getOrders)
+  .get("/getOrders", getOrders)
   .get("/getOrder/:id",isAuthenticated, getOrderById)
   .patch("/updateOrder/:id",isAdminAuthenticated, updateOrder)
-  .delete("/deleteOrder/:id",isAdminAuthenticated, deleteOrder);
+  .delete("/deleteOrder/:id", deleteOrder);
 
 module.exports = orderRouter;
