@@ -6,11 +6,11 @@ const {
   getAllPayments,
   getPaymentById,
   deletePayment,
-} = require('../Controllers/paymentController');
+} = require("../Controllers/paymentController");
 
-paymentRouter.use(isAdminAuthenticated)
+paymentRouter.use(isAdminAuthenticated);
 
-paymentRouter.post("/addPayment",Addpayment)
+paymentRouter.post("/addPayment", Addpayment);
 // Route to retrieve all payment transactions
 paymentRouter.get("/getAll", getAllPayments);
 
@@ -19,6 +19,5 @@ paymentRouter.get("/getPayment/:transactionId", getPaymentById);
 
 // Route to delete a payment transaction
 paymentRouter.delete("/delete/:transactionId", deletePayment);
-
 
 module.exports = paymentRouter;

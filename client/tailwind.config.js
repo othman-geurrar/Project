@@ -1,5 +1,9 @@
 module.exports = {
-  content: ["./src/App.jsx", "./src/**/*.{js,jsx,ts,tsx}", "./node_modules/tw-elements-react/dist/js/**/*.js"],
+  content: [
+    "./src/App.jsx",
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/tw-elements-react/dist/js/**/*.js",
+  ],
   darkMode: "class",
   theme: {
     fontFamily: {
@@ -140,6 +144,10 @@ module.exports = {
     },
   },
   plugins: [
-    require('daisyui'),
+    require("tw-elements-react/dist/plugin.cjs"),
+    require("tailwindcss"),
+    require("autoprefixer"),
+    require("daisyui"),
+    require("preline/plugin"),
   ],
 };

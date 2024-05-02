@@ -6,40 +6,30 @@ const orderSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  userId: {
-    type: String,
-    required: true,
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: "users",
   },
   orderStatus: {
     type: String,
+    default: "pending",
     required: true,
   },
-  orderDate: {
-    type: String,
-  },
-  Product: [
+  products: [
     {
-      productName: {
-        type: String,
-      },
-      productId: {
-        type: String,
-      },
-      productPrice: {
-        type: String,
-      },
-      productQuantity: {
-        type: String,
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Products",
+      required: true,
     },
   ],
+  productstyleQuantity: { type: Number },
   totalPrice: {
-    type: String,
+    type: Number,
     required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: new Date(),
   },
 });
 

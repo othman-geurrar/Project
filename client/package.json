@@ -28,8 +28,10 @@
     "@syncfusion/ej2-react-charts": "^25.1.41",
     "@syncfusion/ej2-react-inputs": "^25.1.40",
     "@syncfusion/ej2-react-popups": "^25.1.41",
+    "axios": "^1.6.8",
     "boxicons": "^2.1.4",
     "date-fns": "^3.6.0",
+    "preline": "^2.1.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-datepicker": "^6.9.0",
@@ -40,9 +42,9 @@
     "react-scripts": "^5.0.1",
     "reactstrap": "^9.2.2",
     "redux": "^5.0.1",
-    "simplebar-react": "^3.2.4",
+    "sweetalert2": "^11.10.8",
     "tw-elements-react": "^1.0.0-alpha2",
-    "zod": "^3.23.4"
+    "zod": "^3.23.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
