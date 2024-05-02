@@ -13,6 +13,8 @@ const paymentRouter=require("./Routes/payementRoutes");
 const passport = require("passport");
 const PORT = process.env.PORT || 4000;
 
+
+
 require("./strategies/userLocal");
 require("./strategies/adminLocal");
 require("./strategies/google")
@@ -21,13 +23,12 @@ require("./strategies/google")
 
 const app = express();
 
-app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+app.use(express.json());
 
 app.use(
   session({

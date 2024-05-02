@@ -463,7 +463,7 @@ function Orders() {
                                   {/* avatar */}
                                   <div className="avatar">
                                     <div className="w-24 rounded-full">
-                                      <img src={item.user.userPic} />
+                                      <img src={item.user.profilePictureURL} />
                                     </div>
                                   </div>
                                 </td>

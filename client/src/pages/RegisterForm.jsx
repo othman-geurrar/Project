@@ -1,4 +1,3 @@
-import React from "react";
 import NavBar from "../components/NavBar";
 import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
 import logo from "../assets/img/logo2.png";
@@ -7,12 +6,13 @@ const RegisterForm = () => {
   return (
     <>
       <NavBar />
-      <div className="h-full bg-neutral-200 dark:bg-neutral-700">
+      <div className="h-screen bg-neutral-200 dark:bg-neutral-700">
         <div className="mx-auto">
           <div className="flex justify-center px-6 py-12">
-            <div className="w-full xl:w-3/4 lg:w-11/12 flex">
+            <div className="w-full mt-10 xl:w-3/4 lg:w-11/12 flex">
               <div
-                className="w-full h-auto bg-gray-400 dark:bg-gray-800 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
+                className="w-full h-auto bg-gray-400 dark:bg-gray-800 hidden md:block lg:block lg:w-7/12 bg-cover rounded-l-lg"
+
                 style={{
                   background:
                     // "linear-gradient(to right, #009079, #00A98F, #00C3A5, #00DCBA)",

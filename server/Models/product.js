@@ -29,23 +29,18 @@ const productSchema = new mongoose.Schema({
   imageURL: {
     type: String,
     default:
-      "https://st4.depositphotos.com/2208684/20873/i/450/depositphotos_208734482-stock-photo-portrait-middle-aged-businessman-wearing.jpg",
+      "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-madebymath-90946.jpg&fm=jpg",
   },
   //
   productQuantity: {
     type: Number,
   },
-  color: {
-    type: String,
-  },
+  color: [{ type: String }],
   inStock: {
     type: Boolean,
     required: true,
   },
-  size: {
-    type: String,
-    required: true,
-  },
+  size: [{ type: String, required: true }],
   LifeStyle: {
     type: String,
     required: true,
