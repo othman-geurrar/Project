@@ -62,7 +62,7 @@ const onSubmit = async (formData) => {
       console.log(response.data); 
       navigate("/lifestyles");
       refetchLifestyles();
-      dispatch(setShowForm());
+      dispatch(setShowForm(false));
       setEditingLifestyle(null); // Reset the editingLifestyle state variable
     } catch (err) {
       console.log(err);

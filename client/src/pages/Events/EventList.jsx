@@ -5,10 +5,16 @@ import AddForm from "../../components/AddForm";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowForm } from "../../redux/formState/form";
+import { useGetAlleventsQuery } from "../../redux/services/EventData";
 
 const EventList = () => {
+  const { data, isLoading, isError, refetch } = useGetAlleventsQuery();
   const showForm = useSelector((state) => state.form.showForm);
   const dispatch = useDispatch();
+
+  const refetchEvents = () => {
+    refetch(); // Refetch data after adding a new lifestyle
+  };
 
   const toggleForm = () => {
     dispatch(setShowForm());
@@ -42,7 +48,7 @@ const EventList = () => {
               <h2 className="text-xl font-bold mb-4 text-teal-600">
                 Add Event
               </h2>
-              <AddForm />
+              <AddForm refetchEvents={refetchEvents} />
             </div>
           </div>
         )}

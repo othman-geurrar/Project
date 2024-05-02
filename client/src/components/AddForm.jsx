@@ -4,11 +4,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useAddEventMutation } from "../redux/services/EventData";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowForm } from "../redux/formState/form";
-import { addEventSuccess } from "../redux/formState/addEventSlice"; 
+import { useNavigate } from "react-router-dom";
+// import { addEventSuccess } from "../redux/formState/addEventSlice"; 
 
 
-function AddForm() {
+function AddForm({refetchEvents}) {
    const dispatch = useDispatch();
+   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [eventData, setEventData] = useState({
     EventName: "",
@@ -19,7 +21,7 @@ function AddForm() {
     EventType: "",
     ImageURL: "",
   });
-  const [addEvent, { data , isLoading, isError }] = useAddEventMutation();
+  const [addEvent, { isLoading, isError }] = useAddEventMutation();
 
   const handleChange = (date) => {
     setSelectedDate(date);
@@ -35,9 +37,10 @@ function AddForm() {
     e.preventDefault();
 
     try {
-       await addEvent(eventData);
-      
-      // dispatch(addEventSuccess(addedEvent)); 
+      const addedEvent = await addEvent(eventData).unwrap();
+      console.log("Event added successfully", addedEvent);
+      navigate("/events/list");
+      refetchEvents();
       dispatch(setShowForm());
     } catch (error) {
       console.error("Error adding event:", error);
