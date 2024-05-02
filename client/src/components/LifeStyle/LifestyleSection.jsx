@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDeleteLifeStyleMutation, useGetAllLifeStyleQuery } from '../../redux/services/LifeStyleData';
+import { AddFormLs } from '../../components'
 
 
 
 const LifestyleSection = () => {
   const { data , isLoading , isError , refetch } = useGetAllLifeStyleQuery();
   const [deleteLifeStyle , {data:deleteData , isLoading:loading , isError:err}] = useDeleteLifeStyleMutation();
+  const [editingLifestyle, setEditingLifestyle] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(false); // State to toggle edit form
 
   useEffect(() => {
     // This effect will refetch data whenever deleteData changes, indicating a successful deletion
@@ -33,6 +36,11 @@ const LifestyleSection = () => {
     }
   };
 
+  const handleEdit = (item) => {
+    setEditingLifestyle(item);
+    setShowEditForm(true);
+  }
+
   console.log(data.LifeStyle);
   const refetchLifestyles = () => {
     refetch(); // Refetch data after adding a new lifestyle
@@ -40,6 +48,20 @@ const LifestyleSection = () => {
 
   return (
     <>
+    {showEditForm && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <div className="bg-slate-200 p-8 rounded shadow-lg">
+            <button
+              onClick={() => setShowEditForm(false)}
+              className="absolute top-15 right-115 mt-4 text-gray-600 hover:text-gray-800 text-teal-600 rounded-full text-xl"
+            >
+              Close
+            </button>
+            <h2 className="text-xl font-bold mb-4 text-teal-600">Edit Lifestyle</h2>
+            <AddFormLs refetchLifestyles={refetchLifestyles} editingLifestyle={editingLifestyle} setEditingLifestyle={setEditingLifestyle} />
+          </div>
+        </div>
+      )}
      
     {data && <div className="md:col-span-2 p-2 ml-4">
     
@@ -66,9 +88,8 @@ const LifestyleSection = () => {
                 
               </div>
               <div className="p-2 ">
-                <button className="bg-teal-500 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-teal-400 hover:text-slate-100">
-                  View
-                </button>
+                
+                <button className="bg-slate-500 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-slate-400 hover:text-slate-100" onClick={() => handleEdit(item)}>Edit</button>
                 <button className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 " onClick={() => { handleDelete(item.LifeStyleID) }}> <span className=" text-white">Delete</span> </button>
 
               </div>

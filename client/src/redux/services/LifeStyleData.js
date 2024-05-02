@@ -33,10 +33,11 @@ export const lifeStyleApi = createApi({
         }),
         // update lifeStyle
         updateLifeStyle: builder.mutation({
-            query: (id , lifeStyle) => ({
+            query: ({id , lifeStyle}) => ({
                 url: `/update/${id}`,
-                method: 'Patch',
+                method: 'PUT',
                 body: lifeStyle,
+                headers: { 'Content-Type': 'application/json' }
             }),
         }),
         // delete lifeStyle

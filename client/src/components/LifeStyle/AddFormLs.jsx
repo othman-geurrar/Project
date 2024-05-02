@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import "react-datepicker/dist/react-datepicker.css";
-import { useAddLifeStyleMutation } from "../../redux/services/LifeStyleData";
+import { useAddLifeStyleMutation, useUpdateLifeStyleMutation } from "../../redux/services/LifeStyleData";
 import { useNavigate } from "react-router-dom";
 import { setShowForm } from "../../redux/formState/form"
 import { useDispatch } from "react-redux";
@@ -15,7 +15,7 @@ const schema = zod.object({
   LifeStyle_imgurl: zod.string().min(4),
 });
 
-function AddFormLs({refetchLifestyles}) {
+function AddFormLs({refetchLifestyles , editingLifestyle , setEditingLifestyle}) {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
@@ -23,33 +23,63 @@ function AddFormLs({refetchLifestyles}) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: zodResolver(schema),
   });
   const [addLifeStyle, { data, error, isLoading }] = useAddLifeStyleMutation();
+  const [updateLifeStyle] = useUpdateLifeStyleMutation();
 
-  const onSubmit = async (formData) => {
-    console.log(formData);
-    const newData = {
-      LifeStyleName: formData.LifeStyle_name,
-      styleType: formData.LifeStyle_Type,
-      ImageURL: formData.LifeStyle_imgurl,
-      Content: {
-        story: formData.LifeStyle_Story,
-      },
-    };
-    console.log(newData);
+
+  useEffect(() => {
+    reset({
+      LifeStyle_name: editingLifestyle ? editingLifestyle.LifeStyleName : '',
+      LifeStyle_Type: editingLifestyle ? editingLifestyle.LifeStyle_Type : '',
+      LifeStyle_Story: editingLifestyle ? editingLifestyle.LifeStyle_Story : '',
+      LifeStyle_imgurl: editingLifestyle ? editingLifestyle.LifeStyle_imgurl : '',
+    });
+  }, [editingLifestyle, reset]);
+
+  
+
+
+  // Step 3: Modify your form to handle both creating and editing
+const onSubmit = async (formData) => {
+  const newData = {
+    LifeStyleName: formData.LifeStyle_name,
+    styleType: formData.LifeStyle_Type,
+    ImageURL: formData.LifeStyle_imgurl,
+    Content: {
+      story: formData.LifeStyle_Story,
+    },
+  };
+
+  if (editingLifestyle) {
+    // Step 4: If editingLifestyle isn't null, update the lifestyle
 
     try {
+      const response = await updateLifeStyle({id:editingLifestyle.LifeStyleID, lifeStyle:newData});
+      console.log(response.data); 
+      navigate("/lifestyles");
+      refetchLifestyles();
+      dispatch(setShowForm());
+      setEditingLifestyle(null); // Reset the editingLifestyle state variable
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    // If editingLifestyle is null, create a new lifestyle
+    try {
       const response = await addLifeStyle(newData);
-      console.log(response.data); // Assuming response contains the data
+      console.log(response.data);
       navigate("/lifestyles");
       refetchLifestyles();
       dispatch(setShowForm());
     } catch (err) {
       console.log(err);
     }
-  };
+  }
+};
 
   return (
     <div className="w-400 bg-slate-200">
@@ -60,6 +90,7 @@ function AddFormLs({refetchLifestyles}) {
             type="text"
             name="LifeStyle_name"
             id="LifeStyle_name"
+            defaultValue={editingLifestyle ? editingLifestyle.LifeStyleName : ''}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             {...register("LifeStyle_name")}
@@ -80,6 +111,7 @@ function AddFormLs({refetchLifestyles}) {
             type="text"
             name="LifeStyle_Type"
             id="LifeStyle_Type"
+            defaultValue={editingLifestyle ? editingLifestyle.LifeStyle_Type : ''}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=""
             required
@@ -100,6 +132,7 @@ function AddFormLs({refetchLifestyles}) {
             type="textarea"
             name="LifeStyle_Story"
             id="LifeStyle_Story"
+            defaultValue={editingLifestyle ? editingLifestyle.LifeStyle_Story : ''}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required
@@ -121,6 +154,7 @@ function AddFormLs({refetchLifestyles}) {
             type="text"
             name="LifeStyle_imgurl"
             id="LifeStyle_imgurl"
+            defaultValue={editingLifestyle ? editingLifestyle.LifeStyle_imgurl : ''}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             required
