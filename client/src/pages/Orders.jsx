@@ -4,13 +4,16 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getorders, deleteorder } from "../redux/Orders/orderSlice";
+import { getorders } from "../redux/Orders/orderSlice";
 import Header from "../components/Header";
-
+import TableOrderStatus from "../components/Order/TableOrderStatus";
+import { Deletebutton } from "../components/Order/DeleteOrder";
 function Orders() {
   const { error, isLoadingorders, orders } = useSelector(
     (state) => state.Orders
   );
+  //orderid for dialog
+  const [orderidp, setorderidp] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(3);
   const indexOfLastorder = currentPage * ordersPerPage;
@@ -21,86 +24,6 @@ function Orders() {
     pageNumber.push(i);
   }
   const dispatch = useDispatch();
-
-  function TableOrderStatus({ status }) {
-    let bg;
-    let iconstatus;
-    if (status == "completed") {
-      bg = "#23BC06";
-      iconstatus = <i className="fa-regular fa-circle-check ml-1" />;
-    }
-    if (status == "pending") {
-      bg = "#9CAFAA";
-      iconstatus = <i className="fa-regular fa-hourglass-half ml-1" />;
-    }
-    if (status == "canceled") {
-      bg = "#A0153E";
-      iconstatus = <i className="fa-solid fa-xmark ml-1" />;
-    }
-    return (
-      <>
-        <button
-          type="button"
-          style={{ background: bg }}
-          className="text-white w-50 py-1 px-2 capitalize rounded-2xl text-center  "
-        >
-          {status}
-          {iconstatus}
-        </button>
-      </>
-    );
-  }
-  function Deletebutton({ id }) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-outline btn-success",
-        cancelButton: "btn btn-outline btn-error",
-      },
-      buttonsStyling: false,
-    });
-    return (
-      <>
-        <button
-          type="button"
-          className="text-white w-20 py-1 px-2 bg-red-700 capitalize rounded-2xl text-md "
-          onClick={() => {
-            swalWithBootstrapButtons
-              .fire({
-                title: "Are u Sure ?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it !",
-                cancelButtonText: "No, cancel !",
-                reverseButtons: true,
-              })
-              .then((result) => {
-                if (result.isConfirmed) {
-                  swalWithBootstrapButtons.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success",
-                  });
-                  dispatch(deleteorder(id));
-                } else if (
-                  /* Read more about handling dismissals below */
-                  result.dismiss === Swal.DismissReason.cancel
-                ) {
-                  swalWithBootstrapButtons.fire({
-                    title: "Cancelled",
-                    text: "Your imaginary file is safe :)",
-                    icon: "error",
-                  });
-                }
-              });
-          }}
-        >
-          <span className="mr-1">Delete</span>
-          <i className="fa-solid fa-trash" />
-        </button>
-      </>
-    );
-  }
 
   useEffect(() => {
     dispatch(getorders());
@@ -437,7 +360,6 @@ function Orders() {
                             <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
                               Status
                             </span>
-                      
                           </th>
 
                           <th scope="col" className="px-6 py-3 text-center">
@@ -459,147 +381,218 @@ function Orders() {
                           return (
                             <>
                               <tr className="bg-white hover:bg-gray-50 text-center">
-                                <td className="size-px whitespace-nowrap align-center text-center ">
+                                <td className="  whitespace-nowrap flex justify-center p-2 ">
                                   {/* avatar */}
                                   <div className="avatar">
-                                    <div className="w-24 rounded-full">
-                                      <img src={item.user.userPic} />
+                                    <div className="w-24 rounded-full ring ring-teal-600  ring-offset-2">
+                                      <img src={item.user.profilePictureURL} />{" "}
                                     </div>
                                   </div>
                                 </td>
                                 {/* OrderName */}
-                                <td className="size-px whitespace-nowrap align-center text-center">
+                                <td className="whitespace-nowrap align-center text-center">
                                   {item.user.UserName}
                                 </td>
                                 {/* OrderDate */}
-                                <td className="size-px whitespace-nowrap align-center text-center">
+                                <td className="whitespace-nowrap align-center text-center">
                                   {/* {item.createdAt} */}
                                   10 Apr 2024
                                 </td>
                                 {/* OrderProducts */}
-                                <td className="size-px whitespace-nowrap align-center text-center">
+                                <td className="whitespace-nowrap align-center text-center">
                                   {/* Open the modal using document.getElementById('ID').showModal() method */}
                                   <button
-                                    className="btn btn-outline btn-accent"
-                                    onClick={() =>
+                                    onClick={() => {
                                       document
                                         .getElementById("my_modal_5")
-                                        .showModal()
-                                    }
+                                        .showModal();
+                                      setorderidp(item.id);
+                                    }}
                                   >
                                     {item.products.length} Products
+                                    <i className="fa-solid fa-caret-down ml-1"></i>
                                   </button>
-                                  <dialog
-                                    id="my_modal_5"
-                                    className="modal modal-bottom sm:modal-middle "
-                                  >
-                                    <div className="overflow-x-auto bg-black rounded-[15px]">
-                                      <table className="table">
-                                        {/* head */}
-                                        <thead>
-                                          <tr>
-                                            <th className="text-center">
-                                              Image
-                                            </th>
-                                            <th className="text-center">
-                                              Name
-                                            </th>
-                                            <th className="text-center">
-                                              Price
-                                            </th>
-                                            <th className="text-center">
-                                              Quantity
-                                            </th>
-                                            <th className="text-center"></th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          {/* row 1 */}
-                                          {item.products.map(
-                                            (product, index) => {
-                                              return (
-                                                <>
-                                                  <tr>
-                                                    <td className="flex items-center justify-center">
-                                                      <div className="avatar">
-                                                        <div className="mask mask-squircle w-12 h-12">
-                                                          <img
-                                                            src={
-                                                              product.imageURL
-                                                            }
-                                                            alt="Avatar Tailwind CSS Component"
-                                                          />
-                                                        </div>
-                                                      </div>
-                                                    </td>
-                                                    <td>
-                                                      <span className="badge badge-ghost badge-sm">
-                                                        {product.name}
-                                                      </span>
-                                                    </td>
-                                                    <td className="text-center">
-                                                      {product.price}
-                                                    </td>
-                                                    <td className="text-center">
-                                                      {product.productQuantity}
-                                                    </td>
-                                                    <th>
-                                                      <button className="btn btn-ghost btn-xs">
-                                                        details
-                                                      </button>
-                                                    </th>
-                                                  </tr>
-                                                </>
-                                              );
-                                            }
-                                          )}
-                                        </tbody>
-                                        {/* foot */}
-                                        <tfoot>
-                                          <tr>
-                                            <th className="text-center">
-                                              Image
-                                            </th>
-                                            <th className="text-center">
-                                              Name
-                                            </th>
-                                            <th className="text-center">
-                                              Price
-                                            </th>
-                                            <th className="text-center">
-                                              Quantity
-                                            </th>
-                                          </tr>
-                                          <tr>
-                                            <td className="modal-action flex justify-center">
-                                              <form method="dialog">
-                                                <button className="btn">
-                                                  Close
-                                                </button>
-                                              </form>
-                                            </td>
-                                          </tr>
-                                        </tfoot>
-                                      </table>
-                                    </div>
-                                  </dialog>
                                 </td>
                                 {/* OrderStatus */}
-                                <td className="size-px whitespace-nowrap align-center text-center">
+                                <td className="whitespace-nowrap align-center text-center">
                                   <TableOrderStatus status={item.orderStatus} />
                                 </td>
                                 {/* OrderId */}
-                                <td className="size-px whitespace-nowrap align-center text-center">
+                                <td className="whitespace-nowrap align-center text-center">
                                   {item.id}
                                 </td>
                                 {/* Delete */}
-                                <td className="size-px whitespace-nowrap align-center text-center">
+                                <td className="whitespace-nowrap align-center text-center">
                                   <Deletebutton id={item.id} />
                                 </td>
                               </tr>
                             </>
                           );
                         })}
+                        {/* Dialog */}
+                        <dialog
+                          id="my_modal_5"
+                          className="modal modal-bottom sm:modal-middle "
+                        >
+                          <div className="overflow-x-auto bg-slate-300 rounded-[15px]">
+                            <table className="table">
+                              {/* head */}
+                              <thead>
+                                <tr>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-3 text-center"
+                                  >
+                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                      Review
+                                    </span>
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-3 text-center"
+                                  >
+                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                      Name
+                                    </span>
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-3 text-center"
+                                  >
+                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                      Colors
+                                    </span>
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-3 text-center"
+                                  >
+                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                      Sizes
+                                    </span>
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-3 text-center"
+                                  >
+                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                     Quantity_Commander
+                                    </span>
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-3 text-center"
+                                  >
+                                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                                      Price
+                                    </span>
+                                  </th>
+                                  <th className="text-center"></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {/* row 1 */}
+                                {currentorders.map((item, index) => {
+                                  if (item.id == orderidp)
+                                    return (
+                                      <>
+                                        {item.products.map((product) => {
+                                          return (
+                                            <>
+                                              {" "}
+                                              <tr>
+                                                {/* ProductImage */}
+                                                <td className="  whitespace-nowrap flex justify-center p-2 ">
+                                                  <div className="avatar">
+                                                    <div className="mask mask-squircle w-12 h-12">
+                                                      <img
+                                                        src={product.imageURL}
+                                                        alt="Avatar Tailwind CSS Component"
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                </td>
+                                                {/* ProductName */}
+                                                <td className=" whitespace-nowrap align-center text-center">
+                                                  <span className="badge badge-ghost badge-sm">
+                                                    {product.name}
+                                                  </span>
+                                                </td>
+                                                {/* ProductColor */}
+                                                <td className=" whitespace-nowrap align-center text-center">
+                                                  {item.color.map((color) => {
+                                                    return (
+                                                      <>
+                                                        <span className="pr-2">
+                                                          <i
+                                                            className="fa-solid fa-circle"
+                                                            style={{
+                                                              color: color,
+                                                            }}
+                                                          ></i>
+                                                        </span>
+                                                      </>
+                                                    );
+                                                  })}
+                                                </td>
+                                                {/* ProductSize */}
+                                                <td className=" whitespace-nowrap align-center text-center">
+                                                  {item.size.map((size) => {
+                                                    return (
+                                                      <>
+                                                        <span className="pr-2">
+                                                          {size}
+                                                        </span>
+                                                      </>
+                                                    );
+                                                  })}
+                                                </td>
+                                                {/* ProductQCommander */}
+                                                <td className=" whitespace-nowrap align-center text-center">
+                                                  <span className="pr-2">
+                                                    {item.productQCommander}
+                                                  </span>
+                                                  <i className="fa-solid fa-boxes-stacked " />
+                                                </td>
+                                                {/* Price */}
+                                                <td className=" whitespace-nowrap align-center text-center">
+                                                  <span>
+                                                    {product.price}
+                                                  </span>{" "}
+                                                  <i className="fa-solid fa-dollar-sign"></i>
+                                                </td>
+                                                <th>
+                                                  <button className="btn btn-ghost btn-xs">
+                                                    details
+                                                  </button>
+                                                </th>
+                                              </tr>
+                                            </>
+                                          );
+                                        })}
+                                      </>
+                                    );
+                                })}
+                              </tbody>
+                              {/* foot */}
+                              <tfoot>
+                                
+                                <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td className="modal-action ">
+                                    {" "}
+                                    {/* Using text-align: center */}
+                                    <form method="dialog">
+                                      <button className="btn">Close</button>
+                                    </form>
+                                  </td>
+                                </tr>
+                              </tfoot>
+                            </table>
+                          </div>
+                        </dialog>
                       </tbody>
                     </table>
                     {/* Pagination */}

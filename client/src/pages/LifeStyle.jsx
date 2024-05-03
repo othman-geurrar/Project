@@ -44,21 +44,17 @@ const LifeStyle = () => {
     dispatch(setShowForm());
   };
   return (
-    <div>
-      <h1
-        className="
-      text-center text-3xl p-6 font-bold text-gray-800 dark:text-gray-100 md:text-6xl
-      "
-      >
-        {" "}
-        All life Style
+    <div className="block">
+      <h1 className="mt-26 md:mt-4 pl-8 pb-4 text-3xl font-bold text-teal-500">
+        Life Style
       </h1>
-      <div className="flex flex-wrap ml-10 md:px-8">
+      <div className="flex flex-wrap md:justify-start md:px-8">
         <button
-          className="btn glass  bg-teal-600 hover:bg-teal-500"
+          className="btn  bg-teal-600 hover:bg-teal-500"
           onClick={toggleForm}
         >
-          <MdAdd /> Add LifeStyle
+          <MdAdd />
+          Add LifeStyle
         </button>
       </div>
       {showForm && (

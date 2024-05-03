@@ -13,8 +13,8 @@ const {
 productRouter
   .get("/getAll", viewAllProduct)
   .get("/getOne/:id", isAuthenticated,viewOneProduct)
-  .post("/newer",isAdminAuthenticated, addProduct)
-  .patch("/update/:id",isAdminAuthenticated, updateProduct)
+  .post("/newer", addProduct)
+  .patch("/update/:id", updateProduct)
   .delete("/delete/:id", deleteProduct);
 
 

@@ -3,6 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const updateproduct = createAsyncThunk(
+  "products/updateproduct",
+  async ({ productdata, id }, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await axios.patch(
+        `http://localhost:3000/product/update/${id}`,
+        productdata,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 export const deleteproduct = createAsyncThunk(
   "products/deleteproduct",
   async (productId, thunkAPI) => {
@@ -16,10 +36,8 @@ export const deleteproduct = createAsyncThunk(
           },
         }
       );
-      console.log(res);
       return productId;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.message);
     }
   }
@@ -36,17 +54,44 @@ export const getproducts = createAsyncThunk(
     }
   }
 );
+
 const productSlice = createSlice({
   name: "products",
   initialState: {
+    showForm: false,
+    isLoadingEditProduct: false,
     isLoadingproducts: false,
     error: null,
     products: [],
   },
-  reducers: {},
+  reducers: {
+    toggleForm: (state, action) => {
+      state.showForm = !state.showForm;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
+      //updateproduct
+      .addCase(updateproduct.fulfilled, (state, action) => {
+        state.isLoadingEditProduct = false;
+        state.products = state.products.map((item) => {
+          if (item.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return item;
+          }
+        });
+        console.log(state.products);
+      })
+      .addCase(updateproduct.pending, (state, action) => {
+        state.isLoadingEditProduct = true;
+        state.error = null;
+      })
+      .addCase(updateproduct.rejected, (state, action) => {
+        state.isLoadingEditProduct = false;
+        state.error = action.payload;
+      })
       //deleteorder
       .addCase(deleteproduct.fulfilled, (state, action) => {
         state.isLoadingproducts = false;
@@ -75,7 +120,8 @@ const productSlice = createSlice({
         state.isLoadingproducts = false;
         state.error = action.payload;
       });
+    //showform
   },
 });
-
+export const { toggleForm } = productSlice.actions;
 export default productSlice.reducer;

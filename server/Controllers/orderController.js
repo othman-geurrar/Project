@@ -23,7 +23,11 @@ const addOrder = async (req, res) => {
 
 const getOrders = (req, res) => {
   Order.find()
-    .populate({ path: "user", select: "UserName", model: "users" })
+    .populate({
+      path: "user",
+      select: "UserName profilePictureURL",
+      model: "users",
+    })
     .populate({
       path: "products",
       select: "name imageURL productQuantity price id ",

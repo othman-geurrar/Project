@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDeleteLifeStyleMutation, useGetAllLifeStyleQuery } from '../../redux/services/LifeStyleData';
 import { AddFormLs } from '../../components'
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowEditForm } from '../../redux/formState/form'
 
 
 
@@ -8,7 +10,9 @@ const LifestyleSection = () => {
   const { data , isLoading , isError , refetch } = useGetAllLifeStyleQuery();
   const [deleteLifeStyle , {data:deleteData , isLoading:loading , isError:err}] = useDeleteLifeStyleMutation();
   const [editingLifestyle, setEditingLifestyle] = useState(null);
-  const [showEditForm, setShowEditForm] = useState(false); // State to toggle edit form
+  // const [showEditForm, setShowEditForm] = useState(false); // State to toggle edit form
+  const showEditForm = useSelector((state) => state.form.showEditForm);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // This effect will refetch data whenever deleteData changes, indicating a successful deletion
@@ -38,7 +42,7 @@ const LifestyleSection = () => {
 
   const handleEdit = (item) => {
     setEditingLifestyle(item);
-    setShowEditForm(true);
+    dispatch(setShowEditForm());
   }
 
   console.log(data.LifeStyle);
@@ -52,7 +56,7 @@ const LifestyleSection = () => {
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
           <div className="bg-slate-200 p-8 rounded shadow-lg">
             <button
-              onClick={() => setShowEditForm(false)}
+              onClick={() => dispatch(setShowEditForm())}
               className="absolute top-15 right-115 mt-4 text-gray-600 hover:text-gray-800 text-teal-600 rounded-full text-xl"
             >
               Close
@@ -72,7 +76,7 @@ const LifestyleSection = () => {
               <div className=" overflow-hidden bg-cover p-2">
                 <img
                   className="rounded-t-lg"
-                  src="/src/assets/img/anime-style-bg.jpg"
+                  src={item.ImageURL}
                   alt={item.title}
                 />
               </div>

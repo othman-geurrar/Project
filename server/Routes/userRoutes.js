@@ -21,7 +21,7 @@ const {
 
 userRouter.post("/register",registerUserValidationRules, registerUser);
 userRouter.post("/login", loginUserValidationRules, userAuth);
-userRouter.get("/getUsers", isAdminAuthenticated,getUsers);
+userRouter.get("/getUsers",getUsers);
 userRouter.patch("/update/:id",updateAdminValidationRules,isAdminAuthenticated,updateUserByid);
 userRouter.delete("/delete/:id",isAdminAuthenticated, deleteUser);
 userRouter.get("/", (req, res) => {

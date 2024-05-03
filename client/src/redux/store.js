@@ -7,7 +7,8 @@ import { lifeStyleApi } from "./services/LifeStyleData";
 import { eventsApi } from "./services/EventData";
 import { adminAuthApi } from "./services/AuthApi";
 import addEventReducer from "./formState/addEventSlice"; 
-
+import UserSlice from "./Users/usersSlice";
+import AdminSlice from "./Admin/adminsSlice";
 import ProductSlice from "./Products/productsSlice"
 
 const store = configureStore({
@@ -15,6 +16,8 @@ const store = configureStore({
     sideBar: sideBarSlice,
     Orders: OrderSlice,
     Products: ProductSlice,
+    Admins: AdminSlice,
+    Users: UserSlice,
     form: formSlice,
     addEvent: addEventReducer,
     [lifeStyleApi.reducerPath]: lifeStyleApi.reducer,

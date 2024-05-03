@@ -69,7 +69,7 @@ const EventCard = () => {
                 </p>
                 <div className=" justify-end">
                   <button
-                    className="btn mr-2 bg-slate-400"
+                    className="btn mr-2 w-[77px] bg-slate-400"
                     onClick={() => handleEdit(event)}
                   >
                     <span className=" text-white">Edit</span>

@@ -44,11 +44,7 @@ const links = [
   {
     title: "Pages",
     links: [
-      {
-        name: "Events",
-        link: "events/list",
-        icon: <AiOutlineShoppingCart />,
-      },
+     
       {
         name: "Products",
         link: "products",
@@ -63,6 +59,11 @@ const links = [
         name: "Life Style",
         link: "lifestyles",
         icon: <SiStylelint />,
+      },
+      {
+        name: "Events",
+        link: "events/list",
+        icon: <AiOutlineShoppingCart />,
       },
     ],
   },
@@ -131,7 +132,7 @@ const SideBar = () => {
   const isActiveMenu = useSelector((state)=> state.sideBar.isActiveMenu);
   const dispatch = useDispatch();
 
-  const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';
+  const activeLink = 'flex items-center bg-teal-500 gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';
   const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
 
   return (

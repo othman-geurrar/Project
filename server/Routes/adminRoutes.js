@@ -14,7 +14,7 @@ const {
 adminRouter
   .post("/register", registerAdminValidationRules, registerAdmin)
   .post("/login", loginAdminValidationRules, adminAuth)
-  .get("/getAdmins",isAdminAuthenticated, getAllAdmins)
+  .get("/getAdmins", getAllAdmins)
   .patch("/update/:id", updateAdminValidationRules, isAdminAuthenticated, updateAdminByEmail)
   .delete("/delete/:id",isAdminAuthenticated, deleteAdmin);
 

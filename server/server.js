@@ -15,7 +15,6 @@ const PORT = process.env.PORT || 4000;
 
 
 
-
 require("./strategies/userLocal");
 require("./strategies/adminLocal");
 require("./strategies/google")

@@ -1,4 +1,3 @@
-import React from "react";
 import NavBar from "../components/NavBar";
 import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
 import logo from "../assets/img/logo2.png";

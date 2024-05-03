@@ -19,9 +19,10 @@ function App() {
 
   return (
    <div >
+      
      
      <div className="flex relative h-full dark:bg-main-dark-bg">
-          <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
+          {/* <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
             <TooltipComponent
               content="Settings"
               position="Top"
@@ -35,7 +36,7 @@ function App() {
               </button>
 
             </TooltipComponent>
-          </div>
+          </div> */}
           {isActiveMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
             <SideBar />
@@ -61,7 +62,8 @@ function App() {
           <div>
           <Routes>
                 {/* dashboard  */}
-                <Route path="/" element={(<Ecommerce />)} />
+                
+                {/* <Route path="/" element={(<Ecommerce />)} /> */}
                 <Route path="/ecommerce" element={(<Ecommerce />)} />
 
                 {/* pages  */}

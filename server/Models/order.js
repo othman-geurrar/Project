@@ -22,11 +22,23 @@ const orderSchema = new mongoose.Schema({
       required: true,
     },
   ],
-  productstyleQuantity: { type: Number },
+  productQCommander: { type: Number },
   totalPrice: {
     type: Number,
     required: true,
   },
+  size: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+  color: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
   createdAt: {
     type: Date,
     default: new Date(),

@@ -6,6 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useAddLifeStyleMutation, useUpdateLifeStyleMutation } from "../../redux/services/LifeStyleData";
 import { useNavigate } from "react-router-dom";
 import { setShowForm } from "../../redux/formState/form"
+import { setShowEditForm } from "../../redux/formState/form"
+
 import { useDispatch } from "react-redux";
 
 const schema = zod.object({
@@ -34,9 +36,9 @@ function AddFormLs({refetchLifestyles , editingLifestyle , setEditingLifestyle})
   useEffect(() => {
     reset({
       LifeStyle_name: editingLifestyle ? editingLifestyle.LifeStyleName : '',
-      LifeStyle_Type: editingLifestyle ? editingLifestyle.LifeStyle_Type : '',
-      LifeStyle_Story: editingLifestyle ? editingLifestyle.LifeStyle_Story : '',
-      LifeStyle_imgurl: editingLifestyle ? editingLifestyle.LifeStyle_imgurl : '',
+      LifeStyle_Type: editingLifestyle ? editingLifestyle.styleType : '',
+      LifeStyle_Story: editingLifestyle ? editingLifestyle.Content.story : '',
+      LifeStyle_imgurl: editingLifestyle ? editingLifestyle.ImageURL : '',
     });
   }, [editingLifestyle, reset]);
 
@@ -53,23 +55,21 @@ const onSubmit = async (formData) => {
       story: formData.LifeStyle_Story,
     },
   };
-
   if (editingLifestyle) {
     // Step 4: If editingLifestyle isn't null, update the lifestyle
-
     try {
       const response = await updateLifeStyle({id:editingLifestyle.LifeStyleID, lifeStyle:newData});
       console.log(response.data); 
-      navigate("/lifestyles");
       refetchLifestyles();
-      dispatch(setShowForm(false));
       setEditingLifestyle(null); // Reset the editingLifestyle state variable
+      dispatch(setShowEditForm());
     } catch (err) {
       console.log(err);
     }
   } else {
     // If editingLifestyle is null, create a new lifestyle
     try {
+      console.log("Adding new")
       const response = await addLifeStyle(newData);
       console.log(response.data);
       navigate("/lifestyles");

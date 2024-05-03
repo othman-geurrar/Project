@@ -22,12 +22,12 @@ const EventList = () => {
 
   return (
     <div className="block">
-      <h1 className="mt-26 md:mt-4 pl-14 pb-6 text-3xl font-bold text-teal-700">
+      <h1 className="mt-26 md:mt-4 pl-8 pb-6 text-3xl font-bold text-teal-500">
         Events
       </h1>
-      <div className="flex flex-wrap md:justify-end md:px-8">
+      <div className="flex flex-wrap md:justify-start md:px-8">
         <button
-          className="btn glass bg-teal-500 hover:bg-teal-400"
+          className="btn  bg-teal-600 hover:bg-teal-500"
           onClick={toggleForm}
         >
           <MdAdd />
