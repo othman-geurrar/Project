@@ -58,7 +58,7 @@ const NavBar = () => {
           color="blue"
           icon={<FiShoppingCart />}
         />
-        <NavButton
+        {/* <NavButton
           title="Chat"
           customFunc={() =>dispatch(setchat())}
           dotColor="#03C9D7"
@@ -71,7 +71,7 @@ const NavBar = () => {
           dotColor="#03C9D7"
           color="blue"
           icon={<RiNotification3Line />}
-        />
+        /> */}
         <TooltipComponent content="UserProfile" position="BottomCenter">
           <div
             className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
@@ -87,9 +87,9 @@ const NavBar = () => {
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>
         </TooltipComponent>
-        {chat && (<Chat />)}
+        {/* {chat && (<Chat />)}
         {cart && (<Cart/>)}
-        {notification && (<Notification />)}
+        {notification && (<Notification />)} */}
         {profile && (<UserProfile />)}
       </div>
     </div>
