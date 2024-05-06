@@ -158,7 +158,7 @@ const SideBar = () => {
               <button
                 type="button"
                 onClick={() => { dispatch(setisActiveMenu())}}
-                className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block "
+                className="text-xl rounded-full p-3 md:hidden hover:bg-light-gray mt-4 block "
               >
                 <MdOutlineCancel />
               </button>

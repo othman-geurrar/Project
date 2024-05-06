@@ -14,12 +14,22 @@ const schema = zod.object({
   LifeStyle_name: zod.string().min(4),
   LifeStyle_Type: zod.string().min(4),
   LifeStyle_Story: zod.string().min(4),
-  LifeStyle_imgurl: zod.string().min(4),
+  
 });
 
 function AddFormLs({refetchLifestyles , editingLifestyle , setEditingLifestyle}) {
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const [image, setImage] = useState(null);
+
+  const handlePhoto = (event) => {
+    const file = event.target.files[0];
+    console.log(file)
+    setImage(file);
+    };
+
+    
+
 
   const {
     register,
@@ -38,7 +48,6 @@ function AddFormLs({refetchLifestyles , editingLifestyle , setEditingLifestyle})
       LifeStyle_name: editingLifestyle ? editingLifestyle.LifeStyleName : '',
       LifeStyle_Type: editingLifestyle ? editingLifestyle.styleType : '',
       LifeStyle_Story: editingLifestyle ? editingLifestyle.Content.story : '',
-      LifeStyle_imgurl: editingLifestyle ? editingLifestyle.ImageURL : '',
     });
   }, [editingLifestyle, reset]);
 
@@ -47,11 +56,41 @@ function AddFormLs({refetchLifestyles , editingLifestyle , setEditingLifestyle})
 
   // Step 3: Modify your form to handle both creating and editing
 const onSubmit = async (formData) => {
+
+  const uploadImage = async () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "lpkk0jkj");
+    data.append("cloud_name", "duvf9j212");
+    data.append("folder", "Cloudinary-React");
+
+    try {
+      const response = await fetch( `https://api.cloudinary.com/v1_1/duvf9j212/image/upload`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const responseData = await response.json(); // Parse response JSON
+      console.log("Cloudinary API Response:", responseData); // Log entire response
+      if (responseData && responseData.secure_url) {
+        // Check if secure_url is available in the response
+      console.log(responseData.secure_url);
+      return responseData.secure_url;
+      }else {
+        console.error("Image upload failed: Secure URL not found in response");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+
   console.log(formData);
   const newData = {
     LifeStyleName: formData.LifeStyle_name,
     styleType: formData.LifeStyle_Type,
-    ImageURL: formData.LifeStyle_imgurl,
+    ImageURL: await uploadImage(),
     Content: {
       story: formData.LifeStyle_Story,
     },
@@ -71,6 +110,8 @@ const onSubmit = async (formData) => {
     // If editingLifestyle is null, create a new lifestyle
     try {
       console.log("Adding new")
+      console.log(newData);
+      uploadImage();
       const response = await addLifeStyle(newData);
       console.log(response.data);
       refetchLifestyles();
@@ -149,7 +190,7 @@ const onSubmit = async (formData) => {
           </span>
         </div>
 
-        <div className="relative z-0 w-full mb-5 group">
+        {/* <div className="relative z-0 w-full mb-5 group">
           <input
             type="text"
             name="LifeStyle_imgurl"
@@ -169,7 +210,7 @@ const onSubmit = async (formData) => {
           <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
             {errors.LifeStyle_imgurl?.message}
           </span>
-        </div>
+        </div> */}
 
         <label
           className="my-6 peer-focus:font-medium block mb-2 text-sm text-gray-500 dark:text-white"
@@ -182,11 +223,11 @@ const onSubmit = async (formData) => {
           aria-describedby="image"
           id="image"
           type="file"
-          {...register("LifeStyle_image")}
+          onChange={(e)=> handlePhoto(e)}
         />
-        <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
+        {/* <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
           {errors.LifeStyle_image?.message}
-        </span>
+        </span> */}
         <button
           type="submit"
           className="mt-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
