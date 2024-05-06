@@ -8,6 +8,7 @@ import LoginForm from "./pages/LoginForm.jsx";
 import RegisterForm from "./pages/RegisterForm.jsx";
 import store from "./redux/store.js";
 import { registerLicense } from '@syncfusion/ej2-base';
+import Protected from './Routes/Protected.jsx'
 
 
 
@@ -24,7 +25,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<LoginForm />} />
         {/* <Route path="/register" element={<RegisterForm />} /> */}
-        <Route path="*" element={<App />} />
+        <Route element={<Protected />}>
+          <Route path="*" element={<App />} />
+        </Route>
       </Routes>
     </Provider>
   </BrowserRouter>

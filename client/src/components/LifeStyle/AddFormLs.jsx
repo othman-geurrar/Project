@@ -47,6 +47,7 @@ function AddFormLs({refetchLifestyles , editingLifestyle , setEditingLifestyle})
 
   // Step 3: Modify your form to handle both creating and editing
 const onSubmit = async (formData) => {
+  console.log(formData);
   const newData = {
     LifeStyleName: formData.LifeStyle_name,
     styleType: formData.LifeStyle_Type,
@@ -72,7 +73,6 @@ const onSubmit = async (formData) => {
       console.log("Adding new")
       const response = await addLifeStyle(newData);
       console.log(response.data);
-      navigate("/lifestyles");
       refetchLifestyles();
       dispatch(setShowForm());
     } catch (err) {

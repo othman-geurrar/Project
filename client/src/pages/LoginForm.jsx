@@ -23,34 +23,47 @@ const LoginForm = () => {
   const [loginAdmin, { data, isLoading, isError, error, isSuccess }] =
     useLoginAdminMutation();
 
-  const handleLogin = async (formData) => {
-    const res = await loginAdmin(formData);
-    console.log(res.data);
-  };
-
-  useEffect(() => {
-    const storeLoggedInStatus = () => {
-      // Store the logged-in status in local storage
-      localStorage.setItem("isLoggedIn", "true");
-    };
-
-    if (isSuccess) {
-      // toast.success("Login successful!");
-      alert('Login successful')
-      console.log(data);
-      storeLoggedInStatus(); 
-      navigate("/ecommerce");
-    }
-  }, [isSuccess , navigate]);
-
-  // const isLoggedInStatus =()=>{
+    // const isLoggedInStatus =()=>{
   //   const isLoggedIn = localStorage.getItem("isLoggedIn")
   //   console.log(isLoggedIn);
 
   // }
 
+  const handleLogin = async (formData) => {
+    try {
+      await loginAdmin(formData).unwrap();
+      // If login succeeds, navigate to the desired page
+      localStorage.setItem("isLoggedIn", "true");
+      navigate("/ecommerce");
+    } catch (error) {
+     console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.data.message, {
+        position: "top-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  
+    if (isSuccess) {
+      
+      navigate("/ecommerce");
+    }
+  }, [isSuccess, isError, error, data, navigate]);
+  
+
   return (
     <>
+    <ToastContainer />
       <section className="h-screen bg-neutral-200 dark:bg-neutral-700">
         <div className="container h-full p-10">
           <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
@@ -121,7 +134,6 @@ const LoginForm = () => {
                             
                           </div>
                         </form>
-                        <ToastContainer />
                       </div>
                     </div>
                   </div>
@@ -155,7 +167,7 @@ const LoginForm = () => {
           </div>
         </div>
       </section>
-      
+     
     </>
   );
 };

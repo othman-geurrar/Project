@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
@@ -10,6 +10,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import { CiShoppingBasket } from "react-icons/ci";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { SiStylelint } from "react-icons/si";
+import { Button } from "flowbite-react";
 
 
 
@@ -125,15 +126,21 @@ const links = [
   // },
 ];
 
-
-
 const SideBar = () => {
- 
-  const isActiveMenu = useSelector((state)=> state.sideBar.isActiveMenu);
+  const isActiveMenu = useSelector((state) => state.sideBar.isActiveMenu);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const activeLink = 'flex items-center bg-teal-500 gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';
-  const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
+  const SingOut = () => {
+    // localStorage.setItem("isLoggedIn", "");
+    localStorage.removeItem('isLoggedIn');
+    navigate('/');
+  }
+
+  const activeLink =
+    "flex items-center bg-teal-500 gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2";
+  const normalLink =
+    "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2";
 
   return (
     <div className="ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
@@ -178,6 +185,11 @@ const SideBar = () => {
               </div>
             ))}
           </div>
+          <div className="absolute bottom-0 left-0 w-full">
+            <div className=" mx-6 mb-4">
+              <Button onClick={SingOut} pill>Sign Out</Button>
+            </div>
+          </div>
         </>
       )}
     </div>
@@ -185,3 +197,11 @@ const SideBar = () => {
 };
 
 export default SideBar;
+
+
+
+
+
+
+  
+

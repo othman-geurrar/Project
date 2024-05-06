@@ -3,6 +3,7 @@ import { useDeleteLifeStyleMutation, useGetAllLifeStyleQuery } from '../../redux
 import { AddFormLs } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowEditForm } from '../../redux/formState/form'
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -13,6 +14,7 @@ const LifestyleSection = () => {
   // const [showEditForm, setShowEditForm] = useState(false); // State to toggle edit form
   const showEditForm = useSelector((state) => state.form.showEditForm);
   const dispatch = useDispatch();
+  const navigate  = useNavigate();
 
   useEffect(() => {
     // This effect will refetch data whenever deleteData changes, indicating a successful deletion
@@ -44,6 +46,11 @@ const LifestyleSection = () => {
     setEditingLifestyle(item);
     dispatch(setShowEditForm());
   }
+
+  const handleView = (item) => {
+    navigate(`/lifestyles/${item.LifeStyleID}`);
+
+  };
 
   console.log(data.LifeStyle);
   const refetchLifestyles = () => {
@@ -92,7 +99,7 @@ const LifestyleSection = () => {
                 
               </div>
               <div className="p-2 ">
-                
+                <button className=" bg-blue-700 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-blue-500 hover:text-slate-100" onClick={() => handleView(item)}>View</button>
                 <button className="bg-slate-500 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-slate-400 hover:text-slate-100" onClick={() => handleEdit(item)}>Edit</button>
                 <button className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 " onClick={() => { handleDelete(item.LifeStyleID) }}> <span className=" text-white">Delete</span> </button>
 

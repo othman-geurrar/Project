@@ -20,9 +20,11 @@ import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { faMoneyCheckDollar } from "@fortawesome/free-solid-svg-icons";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 
+
 const Ecommerce = () => {
   return (
     <div >
+      
       <div className="flex flex-wrap mt-10 p-4">
         <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
           <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">

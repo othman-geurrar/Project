@@ -1,8 +1,10 @@
+const flowbite = require("flowbite-react/tailwind");
 module.exports = {
   content: [
     "./src/App.jsx",
     "./src/**/*.{js,jsx,ts,tsx}",
     "./node_modules/tw-elements-react/dist/js/**/*.js",
+    flowbite.content(),
   ],
   darkMode: "class",
   theme: {
@@ -185,5 +187,6 @@ module.exports = {
     require("autoprefixer"),
     require("daisyui"),
     require("preline/plugin"),
+    flowbite.plugin(),
   ],
 };
