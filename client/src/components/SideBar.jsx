@@ -6,6 +6,15 @@ import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { IoMdContacts } from 'react-icons/io';
 import { RiContactsLine, RiStockLine } from 'react-icons/ri';
 import { GiLouvrePyramid } from 'react-icons/gi';
+import { CiShoppingCart } from "react-icons/ci";
+import { CiShoppingBasket } from "react-icons/ci";
+import { MdOutlineShoppingBag } from "react-icons/md";
+import { SiStylelint } from "react-icons/si";
+
+
+
+
+
 import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
 import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock } from 'react-icons/ai';
 import {
@@ -26,6 +35,7 @@ const links = [
     links: [
       {
         name: "ecommerce",
+        link: "ecommerce",
         icon: <FiShoppingBag />,
       },
     ],
@@ -34,17 +44,26 @@ const links = [
   {
     title: "Pages",
     links: [
+     
+      {
+        name: "Products",
+        link: "products",
+        icon: <CiShoppingCart />,
+      },
       {
         name: "Orders",
+        link: "orders",
+        icon: <MdOutlineShoppingBag />,
+      },
+      {
+        name: "Life Style",
+        link: "lifestyles",
+        icon: <SiStylelint />,
+      },
+      {
+        name: "Events",
+        link: "events",
         icon: <AiOutlineShoppingCart />,
-      },
-      {
-        name: "Admins",
-        icon: <IoMdContacts />,
-      },
-      {
-        name: "Users",
-        icon: <RiContactsLine />,
       },
     ],
   },
@@ -66,44 +85,6 @@ const links = [
       
     ],
   },
-  {
-    title: "Charts",
-    links: [
-      {
-        name: "line",
-        icon: <AiOutlineStock />,
-      },
-      {
-        name: "area",
-        icon: <AiOutlineAreaChart />,
-      },
-
-      {
-        name: "bar",
-        icon: <AiOutlineBarChart />,
-      },
-      {
-        name: "pie",
-        icon: <FiPieChart />,
-      },
-      {
-        name: "financial",
-        icon: <RiStockLine />,
-      },
-      {
-        name: "color-mapping",
-        icon: <BsBarChart />,
-      },
-      {
-        name: "pyramid",
-        icon: <GiLouvrePyramid />,
-      },
-      {
-        name: "stacked",
-        icon: <AiOutlineBarChart />,
-      },
-    ],
-  },
 ];
 
 
@@ -113,7 +94,7 @@ const SideBar = () => {
   const isActiveMenu = useSelector((state)=> state.sideBar.isActiveMenu);
   const dispatch = useDispatch();
 
-  const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';
+  const activeLink = 'flex items-center bg-teal-500 gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';
   const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
 
   return (
@@ -146,7 +127,7 @@ const SideBar = () => {
                 </p>
                 {item.links.map((link) => (
                   <NavLink
-                    to={`/${link.name}`}
+                    to={`/${link.link}`}
                     key={link.name}
                     onClick={()=>{}}
                     

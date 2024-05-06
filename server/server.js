@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const session = require("express-session");
 const productRouter = require("./Routes/productRoutes");
 const connectDB = require("./Config/database");
@@ -11,7 +12,6 @@ const userRouter=require("./Routes/userRoutes")
 const paymentRouter=require("./Routes/payementRoutes");
 const passport = require("passport");
 const PORT = process.env.PORT || 4000;
-const cors = require("cors");
 
 
 
@@ -25,10 +25,14 @@ const app = express();
 
 app.use(cors({
   origin: 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
 
 app.use(express.json());
+
+
 
 app.use(
   session({

@@ -11,11 +11,11 @@ const {
 } = require("../Controllers/productController");
 
 productRouter
-  .get("/getAll",isAuthenticated, viewAllProduct)
+  .get("/getAll", viewAllProduct)
   .get("/getOne/:id", isAuthenticated,viewOneProduct)
-  .post("/newer",isAdminAuthenticated, addProduct)
-  .patch("/update/:id",isAdminAuthenticated, updateProduct)
-  .delete("/delete/:id", isAdminAuthenticated,deleteProduct);
+  .post("/newer", addProduct)
+  .patch("/update/:id", updateProduct)
+  .delete("/delete/:id", deleteProduct);
 
 
 module.exports = productRouter;

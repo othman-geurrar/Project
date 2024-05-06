@@ -33,9 +33,9 @@ export const eventsApi = createApi({
     }),
     // update lifeStyle
     updateEvent: builder.mutation({
-      query: (id, event) => ({
+      query: ({id, event}) => ({
         url: `/update/${id}`,
-        method: "Put",
+        method: "PUT",
         body: event,
       }),
     }),
@@ -57,4 +57,3 @@ export const {
   useUpdateEventMutation,
   useDeleteEventMutation,
 } = eventsApi;
-

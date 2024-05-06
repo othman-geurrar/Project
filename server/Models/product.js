@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
+  //
   id: {
     type: Number,
     required: true,
     unique: true,
   },
+  //
   name: {
     type: String,
     required: true,
@@ -14,6 +16,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  //
   price: {
     type: Number,
     required: true,
@@ -22,25 +25,27 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  //
   imageURL: {
     type: String,
+    default:
+      "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-madebymath-90946.jpg&fm=jpg",
   },
-  color: {
-    type: String,
+  //
+  productQuantity: {
+    type: Number,
   },
+  color: [{ type: String }],
   inStock: {
     type: Boolean,
     required: true,
   },
-  size: {
+  size: [{ type: String, required: true }],
+  LifeStyle: {
     type: String,
     required: true,
   },
-  LifeStyle:{
-    type: String,
-    required: true,
-  },
-  Review:[
+  Review: [
     {
       comment: {
         type: String,
@@ -54,7 +59,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      productinfo:{
+      productinfo: {
         size: String,
         color: String,
         name: String,
@@ -66,7 +71,7 @@ const productSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
       },
-    }
+    },
   ],
   createdAt: {
     type: Date,

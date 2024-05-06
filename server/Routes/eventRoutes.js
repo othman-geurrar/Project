@@ -14,7 +14,7 @@ const {
 
 EventRouter.get("/getAll",isAuthenticated, viewAllEvents)
   .get("/getEvent/:id", isAuthenticated,viewEvent)
-  .post("/addEvent",isAdminAuthenticated, addEvent)
+  .post("/addEvent", addEvent)
   .put("/update/:id",isAdminAuthenticated, updateEvent)
   .delete("/delete/:id", isAdminAuthenticated,deleteEvent);
 

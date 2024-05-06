@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const schema = zod.object({
   email: zod.string().email(),
@@ -33,10 +35,11 @@ const LoginForm = () => {
     };
 
     if (isSuccess) {
-      alert("Success to login ");
+      // toast.success("Login successful!");
+      alert('Login successful')
       console.log(data);
       storeLoggedInStatus(); 
-      navigate("/lifestyle");
+      navigate("/ecommerce");
     }
   }, [isSuccess , navigate]);
 
@@ -49,7 +52,7 @@ const LoginForm = () => {
   return (
     <>
       <section className="h-screen bg-neutral-200 dark:bg-neutral-700">
-        <div className="container lg:ml-10 h-full p-10">
+        <div className="container h-full p-10">
           <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
             <div className="w-full">
               <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
@@ -115,8 +118,10 @@ const LoginForm = () => {
                             >
                               Sign in
                             </button>
+                            
                           </div>
                         </form>
+                        <ToastContainer />
                       </div>
                     </div>
                   </div>
@@ -150,6 +155,7 @@ const LoginForm = () => {
           </div>
         </div>
       </section>
+      
     </>
   );
 };

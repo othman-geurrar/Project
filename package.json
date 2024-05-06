@@ -2,6 +2,7 @@
   "dependencies": {
     "@syncfusion/ej2-react-popups": "^25.1.41",
     "react-icons": "^5.1.0",
+    "tw-elements": "^2.0.0",
     "tw-elements-react": "^1.0.0-alpha2"
   }
 }

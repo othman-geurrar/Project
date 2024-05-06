@@ -32,7 +32,7 @@ exports.addEvent = async(req, res) => {
       })
     }
     catch(err){
-      res.status(401).send({ message: "Error adding Event" });
+      res.status(401).send("Error adding Event");
     };
 };
 exports.updateEvent = (req, res) => {
