@@ -1,26 +1,26 @@
-import React, { useState , useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   useAddEventMutation,
   useUpdateEventMutation,
-} from "../redux/services/EventData";
+} from "../../redux/services/EventData";
 import * as zod from "zod";
 import { useDispatch } from "react-redux";
-import { setShowForm } from "../redux/formState/form";
+import { setShowForm } from "../../redux/formState/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { setShowEditForm } from "../redux/formState/form";
+import { setShowEditForm } from "../../redux/formState/form";
 
 const schema = zod.object({
   EventName: zod.string(),
   Description: zod.string(),
   Organizer: zod.string(),
-  EventDate: zod.date(),
+  Location: zod.string(),
+  ImageURL: zod.string(),
 });
 
-
-function AddForm({refetchEvents , editingEvent, setEditingEvent}) {
+function AddFormEvent({ refetchEvents, editingEvent, setEditingEvent }) {
   const dispatch = useDispatch();
   const {
     register,
@@ -28,15 +28,25 @@ function AddForm({refetchEvents , editingEvent, setEditingEvent}) {
     formState: { errors },
     reset,
   } = useForm({ resolver: zodResolver(schema) });
-  const [addEvent, { error, isLoading , isError }] = useAddEventMutation();
+  const [addEvent, { error, isLoading }] = useAddEventMutation();
   const [selectedDate, setSelectedDate] = useState(null);
   const [updatEvent] = useUpdateEventMutation();
+  const [image, setImage] = useState(null);
+
+  const handlePhoto = (event) => {
+    const file = event.target.files[0];
+    console.log(file)
+    setImage(file);
+    };
 
   useEffect(() => {
     reset({
       EventName: editingEvent ? editingEvent.EventName : "",
       Description: editingEvent ? editingEvent.Description : "",
       Organizer: editingEvent ? editingEvent.Organizer : "",
+      Location: editingEvent ? editingEvent.Location : "",
+      EventDate: editingEvent ? new Date(editingEvent.EventDate) : null,
+      ImageURL: editingEvent ? editingEvent.ImageURL : "",
     });
     setSelectedDate(editingEvent ? new Date(editingEvent.EventDate) : null);
   }, [editingEvent, reset]);
@@ -46,13 +56,47 @@ function AddForm({refetchEvents , editingEvent, setEditingEvent}) {
   };
 
   const onSubmit = async (formData) => {
+
+    const uploadImage = async () => {
+        const data = new FormData();
+        data.append("file", image);
+        data.append("upload_preset", "lpkk0jkj");
+        data.append("cloud_name", "duvf9j212");
+        data.append("folder", "Cloudinary-React");
+    
+        try {
+          const response = await fetch( `https://api.cloudinary.com/v1_1/duvf9j212/image/upload`,
+            {
+              method: "POST",
+              body: data,
+            }
+          );
+          const responseData = await response.json(); // Parse response JSON
+          console.log("Cloudinary API Response:", responseData); // Log entire response
+          if (responseData && responseData.secure_url) {
+            // Check if secure_url is available in the response
+          console.log(responseData.secure_url);
+          return responseData.secure_url;
+          }else {
+            console.error("Image upload failed: Secure URL not found in response");
+          }
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
+      };
+
+
     console.log(formData);
+   
     const newData = {
       EventName: formData.EventName,
       Description: formData.Description,
       Organizer: formData.Organizer,
+      Location: formData.Location,
+      ImageURL: await uploadImage(),
       EventDate: selectedDate,
     };
+    console.log(newData);
     if (editingEvent) {
       try {
         console.log(editingEvent);
@@ -80,8 +124,9 @@ function AddForm({refetchEvents , editingEvent, setEditingEvent}) {
   };
 
   return (
+   
     <div className="w-400 ">
-       <form className="max-w-lg mx-auto " onSubmit={handleSubmit(onSubmit)}>
+       <form className=" max-w-3xl mx-auto " onSubmit={handleSubmit(onSubmit)}>
         <div className="relative z-0 w-full mb-5 group">
           <input
             type="text"
@@ -140,6 +185,24 @@ function AddForm({refetchEvents , editingEvent, setEditingEvent}) {
           </label>
         </div>
         <div className="relative z-0 w-full mb-5 group">
+          <input
+            type="text"
+            name="Location"
+            id="Location"
+            defaultValue={editingEvent ? editingEvent.Location : ""}
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-teal-500 focus:outline-none focus:ring-0 focus:border-teal-600 peer"
+            placeholder=" "
+            {...register("Location")}
+            required
+          />
+          <label
+            htmlFor="Location"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-teal-600 peer-focus:dark:text-teal-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            Event Location
+          </label>
+        </div>
+        <div className="relative z-0 w-full mb-5 group">
         </div>
         <div>
           <DatePicker
@@ -155,15 +218,16 @@ function AddForm({refetchEvents , editingEvent, setEditingEvent}) {
         </div>
         <label
           className="my-6 font-large block mb-2 text-sm text-gray-500 dark:text-gray-400"
-          htmlFor="user_avatar"
+          htmlFor="image"
         >
           Upload File
         </label>
         <input
           className="mt-3 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          aria-describedby="user_avatar_help"
-          id="user_avatar"
+          aria-describedby="image"
+          id="image"
           type="file"
+          onChange={(e)=> handlePhoto(e)}
         />
         <button
           type="submit"
@@ -173,10 +237,10 @@ function AddForm({refetchEvents , editingEvent, setEditingEvent}) {
         >
           {isLoading ? "Adding Event..." : "Submit"}
         </button>
-        {isError && <div>Error adding event. Please try again.</div>}
+        {error && <div>Error adding event. Please try again.</div>}
       </form>
     </div>
   );
 }
 
-export default AddForm;
+export default AddFormEvent;

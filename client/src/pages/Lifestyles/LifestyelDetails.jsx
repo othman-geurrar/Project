@@ -51,14 +51,7 @@ const LifestyelDetails = () => {
                     <a href="#" className="block text-blue-600 hover:underline mt-4">View More 🚀</a>
                 </div>
             </div>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden mb-4">
-                <img src="https://www.universityoffashion.com/blog/wp-content/uploads/2019/11/Louis-Vuittons-spring-2020-show.-vogue.jpg" alt="Project Image" className="w-full h-56 object-cover" />
-                <div className="p-6">
-                    <h3 className="text-2xl font-bold mb-4">Event Title</h3>
-                    <p className="text-gray-700">This project is so cool, even my cat approves! 🐱</p>
-                    <a href="#" className="block text-blue-600 hover:underline mt-4">View More 🚀</a>
-                </div>
-            </div>
+           
            
 
         </div>

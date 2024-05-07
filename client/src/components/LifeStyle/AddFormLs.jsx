@@ -190,27 +190,6 @@ const onSubmit = async (formData) => {
           </span>
         </div>
 
-        {/* <div className="relative z-0 w-full mb-5 group">
-          <input
-            type="text"
-            name="LifeStyle_imgurl"
-            id="LifeStyle_imgurl"
-            defaultValue={editingLifestyle ? editingLifestyle.LifeStyle_imgurl : ''}
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-            {...register("LifeStyle_imgurl")}
-          />
-          <label
-            htmlFor="LifeStyle_imgurl"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Image Url
-          </label>
-          <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
-            {errors.LifeStyle_imgurl?.message}
-          </span>
-        </div> */}
 
         <label
           className="my-6 peer-focus:font-medium block mb-2 text-sm text-gray-500 dark:text-white"

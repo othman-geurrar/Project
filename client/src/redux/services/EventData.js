@@ -33,7 +33,7 @@ export const eventsApi = createApi({
     }),
     // update lifeStyle
     updateEvent: builder.mutation({
-      query: (id, event) => ({
+      query: ({id, event}) => ({
         url: `/update/${id}`,
         method: "Put",
         body: event,

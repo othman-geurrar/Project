@@ -4,6 +4,7 @@ import { AddFormLs } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowEditForm } from '../../redux/formState/form'
 import { Link, useNavigate } from 'react-router-dom';
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 
 
@@ -60,15 +61,18 @@ const LifestyleSection = () => {
   return (
     <>
     {showEditForm && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center  bg-opacity-50">
           <div className="bg-slate-200 p-8 rounded shadow-lg">
-            <button
+           <div className='flex justify-between items-center mb-6'>
+           <h2 className="text-xl font-bold  text-teal-600">Edit Lifestyle</h2>
+           <button
               onClick={() => dispatch(setShowEditForm())}
-              className="absolute top-15 right-115 mt-4 text-gray-600 hover:text-gray-800 text-teal-600 rounded-full text-xl"
+              className=" text-gray-600 hover:text-gray-800 text-teal-600 rounded-full text-xl"
             >
-              Close
+             <IoCloseCircleOutline />
             </button>
-            <h2 className="text-xl font-bold mb-4 text-teal-600">Edit Lifestyle</h2>
+            
+           </div>
             <AddFormLs refetchLifestyles={refetchLifestyles} editingLifestyle={editingLifestyle} setEditingLifestyle={setEditingLifestyle} />
           </div>
         </div>

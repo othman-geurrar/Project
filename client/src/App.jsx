@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux';
 import { registerLicense } from '@syncfusion/ej2-base';
 import LifeStyleById from './components/LifeStyle/LifeStyleById';
 import AddLifeStyle from './components/LifeStyle/AddLifeStyle';
+import EventDetails from './components/Events/EventDetails';
+
 
 
 
@@ -80,6 +82,7 @@ function App() {
                 <Route path="/products" element={<Products />} />
                 <Route path='/lifestyles/:id' element={<LifestyleDetail />} />
                 <Route path='/events/list' element={<EventList />} />
+                <Route path='/events/:id' element={<EventDetails />} />
                
             </Routes>
           </div>

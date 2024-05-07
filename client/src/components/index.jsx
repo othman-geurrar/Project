@@ -12,6 +12,7 @@ export { default as Stacked } from './Charts/Stacked';
 export { default as ChartPie } from './Charts/ChartPie';
 export { default as AddForm} from './AddForm'
 export { default as AddFormLs } from './LifeStyle/AddFormLs'
+export { default as AddFormEvent } from './Events/AddFormEvent'
 export { default as LifeStyleById } from './LifeStyle/LifeStyleById';
 
 
