@@ -31,7 +31,7 @@ function Orders() {
 
   return (
     <>
-      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-slate-200 rounded-3xl  ">
+      <div className="p-[50px]  rounded-3xl  ">
         <Header category="Page" title="Orders" />
         {isLoadingorders ? (
           <>
@@ -60,12 +60,14 @@ function Orders() {
             </div>
           </>
         ) : (
-          <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+          <div className="max-w-[85rem] mx-auto">
             <div className="flex flex-col">
+              {/* overflow-x-scroll */}
               <div className="-m-1.5 overflow-x-auto">
                 <div className="p-1.5 min-w-full inline-block align-middle">
                   <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                    <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                    {/* search_addd-filtre */}
+                    <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center bg-customGreen border-b border-gray-200">
                       <div className="sm:col-span-1">
                         <label
                           htmlFor="hs-as-table-product-review-search"
@@ -476,7 +478,7 @@ function Orders() {
                                     className="px-6 py-3 text-center"
                                   >
                                     <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
-                                     Quantity_Commander
+                                      Quantity_Commander
                                     </span>
                                   </th>
                                   <th
@@ -502,12 +504,12 @@ function Orders() {
                                               {" "}
                                               <tr>
                                                 {/* ProductImage */}
-                                                <td className="  whitespace-nowrap flex justify-center p-2 ">
+                                                <td className="whitespace-nowrap flex justify-center p-2 ">
                                                   <div className="avatar">
                                                     <div className="mask mask-squircle w-12 h-12">
                                                       <img
                                                         src={product.imageURL}
-                                                        alt="Avatar Tailwind CSS Component"
+                                                        alt="Img"
                                                       />
                                                     </div>
                                                   </div>
@@ -556,9 +558,7 @@ function Orders() {
                                                 </td>
                                                 {/* Price */}
                                                 <td className=" whitespace-nowrap align-center text-center">
-                                                  <span>
-                                                    {product.price}
-                                                  </span>{" "}
+                                                  <span>{product.price}</span>{" "}
                                                   <i className="fa-solid fa-dollar-sign"></i>
                                                 </td>
                                                 <th>
@@ -576,7 +576,6 @@ function Orders() {
                               </tbody>
                               {/* foot */}
                               <tfoot>
-                                
                                 <tr>
                                   <td></td>
                                   <td></td>

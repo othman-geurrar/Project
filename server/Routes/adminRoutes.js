@@ -1,6 +1,6 @@
 const adminRouter = require("express").Router();
-const isAdminAuthenticated = require('../Middleware/adminLogin')
-const {adminAuth} = require('../Middleware/authMiddleware')
+const isAdminAuthenticated = require("../Middleware/adminLogin");
+const { adminAuth } = require("../Middleware/authMiddleware");
 const {
   registerAdmin,
   registerAdminValidationRules,
@@ -15,7 +15,7 @@ adminRouter
   .post("/register", registerAdminValidationRules, registerAdmin)
   .post("/login", loginAdminValidationRules, adminAuth)
   .get("/getAdmins", getAllAdmins)
-  .patch("/update/:id", updateAdminValidationRules, isAdminAuthenticated, updateAdminByEmail)
-  .delete("/delete/:id",isAdminAuthenticated, deleteAdmin);
+  .patch("/update/:id", updateAdminByEmail)
+  .delete("/delete/:id", deleteAdmin);
 
 module.exports = adminRouter;

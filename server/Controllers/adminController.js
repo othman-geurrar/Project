@@ -75,12 +75,12 @@ const updateAdminByEmail = async (req, res) => {
   }
 
   const { id } = req.params;
-  const { name, newEmail, newPassword } = req.body;
+  const { name, email, newPassword } = req.body;
  
   try {
     let updateFields = {};
     if (name) updateFields.name = name;
-    if (newEmail) updateFields.email = newEmail;
+    if (email) updateFields.email = email;
     if (newPassword) {
       const hashedPassword = bcrypt.hashSync(newPassword, 10);
       updateFields.password = hashedPassword;

@@ -3,11 +3,13 @@
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getproducts,
   updateproduct,
   toggleForm,
+  addproduct,
 } from "../redux/Products/productsSlice";
 import { Deletebutton } from "../components/Product/DeleteProduct";
 import Header from "../components/Header";
@@ -27,7 +29,6 @@ const schema = zod.object({
 function Products() {
   const {
     handleSubmit,
-    register,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -36,36 +37,40 @@ function Products() {
 
   const { error, isLoadingEditProduct, isLoadingproducts, products, showForm } =
     useSelector((state) => state.Products);
+  //products size select
+  const options = [
+    { label: "Small", value: "S" },
+    { label: "Meduim", value: "M" },
+    { label: "Large", value: "L" },
+    { label: "XLarge", value: "XL" },
+  ];
+  const handlechange = (selectedOption) => {
+    setproductdata((prevState) => ({
+      ...prevState,
+      size: selectedOption,
+    }));
+  };
+  // product_image
+  const [image, setImage] = useState(null);
+
+  //product_inputs
   const [productdata, setproductdata] = useState({
     name: "",
     category: "",
     productQuantity: null,
+    price: null,
+    size: [],
     inStock: true,
     imageURL: "",
   });
-  //Sorting
-  const [data, setdata] = useState(products);
-  const [order, setorder] = useState("ASC");
-  const sorting = (col) => {
-    if (order === "ASC") {
-      const sorted = [...data].sort((a, b) =>
-        a[col].toLowerCase() > b[col].toLowwerCase() ? 1 : -1
-      );
-      setdata(sorted);
-      setorder("DSC");
-    }
-    if (order === "DSC") {
-      const sorted = [...data].sort((a, b) =>
-        a[col].toLowerCase() < b[col].toLowwerCase() ? 1 : -1
-      );
-      setdata(sorted);
-      setorder("ASC");
-    }
-  };
-  console.log(productdata.imageURL);
+  console.log(productdata.size);
+  // addform & editform
+  const [addform, setaddform] = useState(false);
+  const [editform, seteditform] = useState(false);
+  //pagination
   const [productId, setproductId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setproductsPerPage] = useState(3);
+  const [productsPerPage, setproductsPerPage] = useState(5);
   const indexOfLastorder = currentPage * productsPerPage;
   const indexOfFirstorder = indexOfLastorder - productsPerPage;
   const pageNumber = [];
@@ -73,23 +78,63 @@ function Products() {
   for (let i = 1; i <= Math.ceil(products.length / productsPerPage); i++) {
     pageNumber.push(i);
   }
-  const dispatch = useDispatch();
-  const [productform, setproductform] = useState(false);
-  // function emptyinputs() {
+  const uploadImage = async () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "lpkk0jkj");
+    data.append("cloud_name", "duvf9j212");
+    data.append("folder", "Cloudinary-React");
 
-  // }
-  function OnSubmit(e, id) {
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/duvf9j212/image/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const responseData = await response.json(); // Parse response JSON
+      console.log("Cloudinary API Response:", responseData); // Log entire response
+      if (responseData && responseData.secure_url) {
+        // Check if secure_url is available in the response
+        setproductdata((prevState) => ({
+          ...prevState,
+          imageURL: responseData.secure_url, // Set imageURL to the secure_url from Cloudinary
+        }));
+      } else {
+        console.error("Image upload failed: Secure URL not found in response");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const Handlerphoto = (event) => {
+    const file = event.target.files[0];
+    console.log(file);
+    setImage(file);
+  };
+  const dispatch = useDispatch();
+  // console.log(addform);
+  async function OnSubmit(e, id) {
     e.preventDefault();
-    setproductdata({
-      name: "",
-      category: "",
-      productQuantity: null,
-      inStock: true,
-      imageURL: "",
-    });
+    await uploadImage();
+    console.log(productdata)
     dispatch(toggleForm());
-    dispatch(updateproduct({ productdata, id }));
+    if (editform) dispatch(updateproduct({ productdata, id }));
+    if (addform) dispatch(addproduct(productdata));
+
+    // setproductdata({
+    //   name: "",
+    //   category: "",
+    //   productQuantity: null,
+    //   inStock: true,
+    //   price: null,
+    //   size: [],
+    //   imageURL: "",
+    // });
   }
+  console.log(productdata.imageURL);
 
   useEffect(() => {
     dispatch(getproducts());
@@ -97,7 +142,7 @@ function Products() {
 
   return (
     <>
-      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-slate-200 rounded-3xl  ">
+      <div className="p-[50px] rounded-3xl overflow-x-auto ">
         <Header category="Page" title="Products" />
         {isLoadingproducts ? (
           <>
@@ -108,7 +153,7 @@ function Products() {
           </>
         ) : error ? (
           <>
-            <div role="alert" className="alert alert-error">
+            <div role="alert" className="alert alert-error flex  ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="stroke-current shrink-0 h-6 w-6"
@@ -127,17 +172,14 @@ function Products() {
           </>
         ) : (
           <>
-            <div className="flex flex-wrap md:justify-end md:px-8">
-              <button className=" btn btn-outline btn-accent flex justify-end">
-                Add Product
-              </button>
-            </div>
-            <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-              <div className="flex flex-col">
-                <div className="-m-1.5 overflow-x-auto">
+            <div className="max-w-[85rem]  mx-auto ">
+              <div className="flex flex-col ">
+                {/* overflow-x-scroll */}
+                <div className="-m-1.5 ">
                   <div className="p-1.5 min-w-full inline-block align-middle">
-                    <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                      <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                    <div className="bg-white border border-gray-200 rounded-xl shadow-sm ">
+                      {/* search_addd_filtre */}
+                      <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center rounded-tl-xl rounded-tr-xl border-b bg-customGreen">
                         <div className="sm:col-span-1">
                           <label
                             htmlFor="hs-as-table-product-review-search"
@@ -174,7 +216,7 @@ function Products() {
                         </div>
                         <div className="sm:col-span-2 md:grow">
                           <div className="flex justify-end gap-x-2">
-                            <div className="hs-dropdown [--placement:bottom-right] relative inline-block">
+                            {/* <div className="hs-dropdown [--placement:bottom-right] relative inline-block">
                               <button
                                 id="hs-as-table-table-export-dropdown"
                                 type="button"
@@ -321,7 +363,18 @@ function Products() {
                                   </a>
                                 </div>
                               </div>
-                            </div>
+                            </div> */}
+                            <button
+                              className="py-2 px-3 inline-flex items-center transition duration-500 gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-teal-500 text-white shadow-sm hover:bg-white disabled:opacity-50 disabled:pointer-events-none hover:text-black"
+                              onClick={() => {
+                                dispatch(toggleForm());
+                                setaddform(true);
+                                seteditform(false);
+                              }}
+                            >
+                              <i className="fa-solid fa-plus text-[14px]"></i>
+                              Add Product
+                            </button>
                             <div
                               className="hs-dropdown [--placement:bottom-right] relative inline-block"
                               data-hs-dropdown-auto-close="inside"
@@ -403,8 +456,9 @@ function Products() {
                           </div>
                         </div>
                       </div>
+
                       {/* Table */}
-                      <table className="min-w-full divide-y divide-gray-200">
+                      <table className="min-w-full divide-y bg-teal-200 divide-gray-200">
                         {/* Thead */}
                         <thead className="bg-gray-50">
                           <tr>
@@ -589,7 +643,9 @@ function Products() {
                                         {item.size.map((s) => {
                                           return (
                                             <>
-                                              <span className="pr-2">{s}</span>
+                                              <span className="pr-2">
+                                                {s.value}
+                                              </span>
                                             </>
                                           );
                                         })}
@@ -606,16 +662,18 @@ function Products() {
                                           onClick={() => {
                                             dispatch(toggleForm());
                                             setproductId(item.id);
-                                            console.log(item.id);
-                                            setproductdata((prevData) => ({
-                                              ...prevData,
-
+                                            seteditform(true);
+                                            setaddform(false);
+                                            setproductdata({
                                               name: item.name,
                                               category: item.category,
-                                              imageURL: item.imageURL,
                                               productQuantity:
                                                 item.productQuantity,
-                                            }));
+                                              inStock: item.inStock,
+                                              imageURL: item.imageURL,
+                                              price: item.price,
+                                              size: item.size,
+                                            });
                                           }}
                                         >
                                           <i
@@ -632,19 +690,13 @@ function Products() {
                             );
                           })}
                           {showForm && (
-                            <div className=" z-20 fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
-                              <div className="bg-slate-200 p-8 rounded shadow-lg">
-                                <div className="w-400 bg-slate-200">
+                            <div className=" z-20 fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50  ">
+                              <div className="bg-slate-200 p-8 rounded shadow-lg overflow-auto">
+                                <div className="w-400 overflow-auto h-[500px] bg-slate-200">
                                   <form
-                                    className="max-w-lg mx-auto "
+                                    className="max-w-lg mx-auto mr-[40px]"
                                     onSubmit={(e) => {
                                       handleSubmit(OnSubmit(e, productId));
-                                      setproductdata({
-                                        name: "",
-                                        category: "",
-                                        inStock: true,
-                                        imageURL: "",
-                                      });
                                     }}
                                   >
                                     <div className="flex justify-end">
@@ -653,9 +705,12 @@ function Products() {
                                           setproductdata({
                                             name: "",
                                             category: "",
+                                            productQuantity: null,
                                             inStock: true,
                                             imageURL: "",
+                                            size: [],
                                           });
+
                                           dispatch(toggleForm());
                                         }}
                                         className="  text-gray-600 hover:text-gray-800 text-teal-600 rounded-full text-xl"
@@ -663,24 +718,24 @@ function Products() {
                                         <IoCloseCircleOutline />
                                       </button>
                                     </div>
+                                    {/* Product_Name */}
                                     <div className="relative z-0 w-full mb-5 group">
-                                      {/* Name */}
                                       <input
                                         type="text"
                                         name="Product_Name"
                                         id="Product_Name"
+                                        value={productdata.name}
                                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" "
-                                        {...register("Product_Name")}
+                                        required
                                         onChange={(e) =>
                                           setproductdata({
                                             ...productdata,
                                             name: e.target.value,
                                           })
                                         }
-                                        value={productdata.name}
-                                        required
                                       />
+
                                       <label
                                         htmlFor="LifeStyle_name"
                                         className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -699,7 +754,7 @@ function Products() {
                                         id="Product_Category"
                                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=""
-                                        {...register("Product_Category")}
+                                        value={productdata.category}
                                         required
                                         onChange={(e) =>
                                           setproductdata({
@@ -707,7 +762,6 @@ function Products() {
                                             category: e.target.value,
                                           })
                                         }
-                                        value={productdata.category}
                                       />
                                       <label
                                         htmlFor="Product_Category"
@@ -723,11 +777,11 @@ function Products() {
                                     <div className="relative z-0 w-full mb-5 group">
                                       <input
                                         type="number"
+                                        min="0"
                                         name="Product_Quantity"
                                         id="Product_Quantity"
                                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=""
-                                        {...register("Product_Quantity")}
                                         onChange={(e) =>
                                           setproductdata({
                                             ...productdata,
@@ -746,6 +800,33 @@ function Products() {
                                         errorcategory
                                       </span>
                                     </div>
+                                    {/* Product_Price */}
+                                    <div className="relative z-0 w-full mb-5 group">
+                                      <input
+                                        type="number"
+                                        min="0"
+                                        name="Product_Price"
+                                        id="Product_Price"
+                                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=""
+                                        onChange={(e) =>
+                                          setproductdata({
+                                            ...productdata,
+                                            price: e.target.value,
+                                          })
+                                        }
+                                        value={productdata.price}
+                                      />
+                                      <label
+                                        htmlFor="Product_Price"
+                                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                      >
+                                        Price
+                                      </label>
+                                      <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
+                                        errorprice
+                                      </span>
+                                    </div>
                                     {/* Product_InStock */}
                                     <div className="relative z-0 w-full mb-5 group">
                                       <select
@@ -754,6 +835,7 @@ function Products() {
                                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" "
                                         required
+                                        // value={productdata.inStock}
                                         onChange={(e) =>
                                           setproductdata({
                                             ...productdata,
@@ -761,10 +843,26 @@ function Products() {
                                           })
                                         }
                                       >
-                                        <option value={true} selected>
-                                          inStock
-                                        </option>
-                                        <option value={false}>OutStock</option>
+                                        {productdata.inStock && (
+                                          <>
+                                            <option value={true} selected>
+                                              inStock
+                                            </option>
+                                            <option value={false}>
+                                              OutStock
+                                            </option>
+                                          </>
+                                        )}
+                                        {!productdata.inStock && (
+                                          <>
+                                            <option value={true}>
+                                              inStock
+                                            </option>
+                                            <option value={false} selected>
+                                              OutStock
+                                            </option>
+                                          </>
+                                        )}
                                       </select>
                                       <label
                                         htmlFor="Product_isAvailable"
@@ -774,6 +872,43 @@ function Products() {
                                       </label>
                                       <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
                                         error isavailable
+                                      </span>
+                                    </div>
+                                    {/* Product_Size */}
+                                    <div className="relative z-1000 w-full mb-5 group">
+                                      <Select
+                                        options={options}
+                                        value={productdata.size}
+                                        isMulti={true}
+                                        onChange={handlechange}
+                                        styles={{
+                                          // Style for the dropdown container
+                                          container: (provided, state) => ({
+                                            ...provided,
+                                            backgroundColor: "white", // Change background color
+                                          }),
+                                          // Style for the dropdown menu
+                                          menu: (provided, state) => ({
+                                            ...provided,
+                                            backgroundColor: "lightblue",
+                                            fontFamily: "cursive", // Change background color
+                                          }),
+                                          // Style for the options in the dropdown
+                                          option: (provided, state) => ({
+                                            ...provided,
+                                            color: "black",
+                                            backgroundColor: "white", // Change background color
+                                          }),
+                                        }}
+                                      ></Select>
+                                      <label
+                                        htmlFor="Product_Size"
+                                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                      >
+                                        Size
+                                      </label>
+                                      <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
+                                        errorSize
                                       </span>
                                     </div>
                                     {/* Product_Image */}
@@ -788,21 +923,24 @@ function Products() {
                                         className="mt-3 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                         aria-describedby="image"
                                         id="image"
+                                        name="imageURL"
                                         type="file"
+                                        onChange={Handlerphoto}
                                         // value={`${productdata.imageURL}`}
-                                        onChange={(e) =>
-                                          setproductdata({
-                                            ...productdata,
-                                            imageURL: URL.createObjectURL(
-                                              e.target.files[0]
-                                            ),
-                                          })
-                                        }
+                                        // onChange={(e) =>
+                                        //   setproductdata({
+                                        //     ...productdata,
+                                        //     imageURL: URL.createObjectURL(
+                                        //       e.target.files[0]
+                                        //     ),
+                                        //   })
+                                        // }
                                       />
                                       <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
                                         errrror{" "}
                                       </span>
                                     </div>
+                                    {/* Button_Submit */}
                                     <div className="flex justify-center">
                                       <button
                                         type="submit"

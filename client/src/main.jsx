@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <Routes>
         <Route path="/" element={<LoginForm />} />
-        {/* <Route path="/register" element={<RegisterForm />} /> */}
+        <Route path="/register" element={<RegisterForm />} />
         <Route path="*" element={<App />} />
       </Routes>
     </Provider>
