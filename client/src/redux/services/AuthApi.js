@@ -12,7 +12,7 @@ export const adminAuthApi = createApi({
         }),
       }),
     }),
-  });
+  }); 
   
   // Export the generated hooks for using the login endpoint
   export const { useLoginAdminMutation, useLogoutAdminMutation } = adminAuthApi;

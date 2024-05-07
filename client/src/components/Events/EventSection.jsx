@@ -57,6 +57,10 @@ const EventSection = () => {
     refetch(); // Refetch data after adding a new lifestyle
   };
 
+//   const date = new Date(data.events.EventDate);
+// //   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+// //   console.log(formattedDate);
+
   return (
     <>
       {showEditForm && (
@@ -97,16 +101,16 @@ const EventSection = () => {
                     </h3>
                     <div>
                       <span className="font-semibold mb-3">
-                      Location
-                        <span className="text-xm font-medium">{item.Location}</span>
+                      Location : 
+                        <span className="text-xm ml-2 font-medium">{item.Location}</span>
                       </span>
                       
                     </div>
                     <div>
                       <span className="font-semibold  mb-3">
-                        Event Date :
-                        <span className="text-xm font-medium">
-                          {item.EventDate}
+                        Event Date : 
+                        <span className="text-xm ml-2 font-medium">
+                        {new Date(item.EventDate).toLocaleDateString("en-GB")}
                         </span>
                       </span>
                     </div>

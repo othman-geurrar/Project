@@ -18,7 +18,7 @@ const loginUserValidationRules = [
 ];
 const updateAdminValidationRules = [
   body("name").optional().trim().notEmpty().withMessage("Name is required"),
-  body("newEmail").optional().isEmail().withMessage("Invalid email format"),
+  body("email").optional().isEmail().withMessage("Invalid email format"),
   body("newPassword")
     .optional()
     .isLength({ min: 8 })
@@ -83,12 +83,12 @@ const updateUserByid = async (req, res) => {
   }
 
   const { id } = req.params;
-  const { UserName, newEmail, newPassword } = req.body;
+  const { UserName, email, newPassword } = req.body;
 
   try {
     let updateFields = {};
     if (UserName) updateFields.UserName = UserName;
-    if (newEmail) updateFields.email = newEmail;
+    if (email) updateFields.email = email;
     if (newPassword) {
       const hashedPassword = bcrypt.hashSync(newPassword, 10);
       updateFields.password = hashedPassword;

@@ -17,7 +17,7 @@ const schema = zod.object({
   LifeStyle_name: zod.string().min(4),
   LifeStyle_Type: zod.string().min(4),
   LifeStyle_Story: zod.string().min(4),
-  LifeStyle_imgurl: zod.string().min(4),
+  
 });
 
 function AddFormLs({
@@ -27,6 +27,16 @@ function AddFormLs({
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [image, setImage] = useState(null);
+
+  const handlePhoto = (event) => {
+    const file = event.target.files[0];
+    console.log(file)
+    setImage(file);
+    };
+
+    
+
 
   const {
     register,
@@ -41,51 +51,79 @@ function AddFormLs({
 
   useEffect(() => {
     reset({
-      LifeStyle_name: editingLifestyle ? editingLifestyle.LifeStyleName : "",
-      LifeStyle_Type: editingLifestyle ? editingLifestyle.styleType : "",
-      LifeStyle_Story: editingLifestyle ? editingLifestyle.Content.story : "",
-      LifeStyle_imgurl: editingLifestyle ? editingLifestyle.ImageURL : "",
+      LifeStyle_name: editingLifestyle ? editingLifestyle.LifeStyleName : '',
+      LifeStyle_Type: editingLifestyle ? editingLifestyle.styleType : '',
+      LifeStyle_Story: editingLifestyle ? editingLifestyle.Content.story : '',
     });
   }, [editingLifestyle, reset]);
 
   // Step 3: Modify your form to handle both creating and editing
-  const onSubmit = async (formData) => {
-    const newData = {
-      LifeStyleName: formData.LifeStyle_name,
-      styleType: formData.LifeStyle_Type,
-      ImageURL: formData.LifeStyle_imgurl,
-      Content: {
-        story: formData.LifeStyle_Story,
-      },
-    };
-    if (editingLifestyle) {
-      // Step 4: If editingLifestyle isn't null, update the lifestyle
-      try {
-        const response = await updateLifeStyle({
-          id: editingLifestyle.LifeStyleID,
-          lifeStyle: newData,
-        });
-        console.log(response.data);
-        refetchLifestyles();
-        setEditingLifestyle(null); // Reset the editingLifestyle state variable
-        dispatch(setShowEditForm());
-      } catch (err) {
-        console.log(err);
+const onSubmit = async (formData) => {
+
+  const uploadImage = async () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "lpkk0jkj");
+    data.append("cloud_name", "duvf9j212");
+    data.append("folder", "Cloudinary-React");
+
+    try {
+      const response = await fetch( `https://api.cloudinary.com/v1_1/duvf9j212/image/upload`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const responseData = await response.json(); // Parse response JSON
+      console.log("Cloudinary API Response:", responseData); // Log entire response
+      if (responseData && responseData.secure_url) {
+        // Check if secure_url is available in the response
+      console.log(responseData.secure_url);
+      return responseData.secure_url;
+      }else {
+        console.error("Image upload failed: Secure URL not found in response");
       }
-    } else {
-      // If editingLifestyle is null, create a new lifestyle
-      try {
-        console.log("Adding new");
-        const response = await addLifeStyle(newData);
-        console.log(response.data);
-        navigate("/lifestyles");
-        refetchLifestyles();
-        dispatch(setShowForm());
-      } catch (err) {
-        console.log(err);
-      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
     }
   };
+
+
+  console.log(formData);
+  const newData = {
+    LifeStyleName: formData.LifeStyle_name,
+    styleType: formData.LifeStyle_Type,
+    ImageURL: await uploadImage(),
+    Content: {
+      story: formData.LifeStyle_Story,
+    },
+  };
+  if (editingLifestyle) {
+    // Step 4: If editingLifestyle isn't null, update the lifestyle
+    try {
+      const response = await updateLifeStyle({id:editingLifestyle.LifeStyleID, lifeStyle:newData});
+      console.log(response.data); 
+      refetchLifestyles();
+      setEditingLifestyle(null); // Reset the editingLifestyle state variable
+      dispatch(setShowEditForm());
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    // If editingLifestyle is null, create a new lifestyle
+    try {
+      console.log("Adding new")
+      console.log(newData);
+      uploadImage();
+      const response = await addLifeStyle(newData);
+      console.log(response.data);
+      refetchLifestyles();
+      dispatch(setShowForm());
+    } catch (err) {
+      console.log(err);
+    }
+  }
+};
 
   return (
     <div className="w-400 bg-slate-200">
@@ -161,29 +199,6 @@ function AddFormLs({
           </span>
         </div>
 
-        <div className="relative z-0 w-full mb-5 group">
-          <input
-            type="text"
-            name="LifeStyle_imgurl"
-            id="LifeStyle_imgurl"
-            defaultValue={
-              editingLifestyle ? editingLifestyle.LifeStyle_imgurl : ""
-            }
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-            {...register("LifeStyle_imgurl")}
-          />
-          <label
-            htmlFor="LifeStyle_imgurl"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Image Url
-          </label>
-          <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
-            {errors.LifeStyle_imgurl?.message}
-          </span>
-        </div>
 
         <label
           className="my-6 peer-focus:font-medium block mb-2 text-sm text-gray-500 dark:text-white"
@@ -196,11 +211,11 @@ function AddFormLs({
           aria-describedby="image"
           id="image"
           type="file"
-          {...register("LifeStyle_image")}
+          onChange={(e)=> handlePhoto(e)}
         />
-        <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
+        {/* <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
           {errors.LifeStyle_image?.message}
-        </span>
+        </span> */}
         <button
           type="submit"
           className="mt-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState =  {
-    isActiveMenu : true,
+    isActiveMenu : false,
     chat: false,
     cart: false,
     notification: false,

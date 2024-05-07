@@ -58,20 +58,9 @@ const NavBar = () => {
           color="blue"
           icon={<FiShoppingCart />}
         />
-        {/* <NavButton
-          title="Chat"
-          customFunc={() =>dispatch(setchat())}
-          dotColor="#03C9D7"
-          color="blue"
-          icon={<BsChatLeft />}
-        />
-        <NavButton
-          title="Notifications"
-          customFunc={() => dispatch(setnotification())}
-          dotColor="#03C9D7"
-          color="blue"
-          icon={<RiNotification3Line />}
-        /> */}
+       
+        
+        
         <TooltipComponent content="UserProfile" position="BottomCenter">
           <div
             className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"

@@ -4,14 +4,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Footer , Header , NavBar , SideBar, ThemeSetting , UserProfile   } from './components';
-import { Ecommerce , LoginForm , Orders , Products , RegisterForm , Users , Admins , LifeStyle, AdminProfile , Event } from './pages';
+import { Ecommerce , LoginForm , Orders , Products , RegisterForm , Users , Admins , LifeStyle, AdminProfile , Event , LifestyleDetail } from './pages';
 import { useSelector } from 'react-redux';
 import { registerLicense } from '@syncfusion/ej2-base';
 import LifeStyleById from './components/LifeStyle/LifeStyleById';
 import AddLifeStyle from './components/LifeStyle/AddLifeStyle';
-import AddEvent from './components/Events/AddEvent';
 import EventDetails from './components/Events/EventDetails';
-// import EventById from './components/Events/EventById';
+
+
 
 
 
@@ -67,7 +67,7 @@ function App() {
           <div>
           <Routes>
                 {/* dashboard  */}
-                
+               
                 {/* <Route path="/" element={(<Ecommerce />)} /> */}
                 <Route path="/ecommerce" element={(<Ecommerce />)} />
 
@@ -80,14 +80,15 @@ function App() {
                 <Route path="/lifestyle/add" element={<AddLifeStyle />} />
                 <Route path="/admin/profile" element={<AdminProfile />} />
                 <Route path="/products" element={<Products />} />
+                <Route path='/lifestyles/:id' element={<LifestyleDetail />} />
                 <Route path='/events' element={<Event />} />
-                <Route path="/events/add" element={<AddEvent />} />
                 <Route path='/events/:id' element={<EventDetails />} />
+               
             </Routes>
           </div>
           </div> 
           </div>
-     
+         
    </div>
   )
 }
