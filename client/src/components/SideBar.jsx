@@ -63,7 +63,7 @@ const links = [
       },
       {
         name: "Events",
-        link: "events/list",
+        link: "events",
         icon: <AiOutlineShoppingCart />,
       },
     ],
