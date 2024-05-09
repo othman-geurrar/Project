@@ -133,7 +133,8 @@ const SideBar = () => {
 
   const SingOut = () => {
     // localStorage.setItem("isLoggedIn", "");
-    localStorage.removeItem('isLoggedIn');
+    // localStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('isLoggedIn');
     navigate('/');
   }
 

@@ -33,7 +33,8 @@ const LoginForm = () => {
     try {
       await loginAdmin(formData).unwrap();
       // If login succeeds, navigate to the desired page
-      localStorage.setItem("isLoggedIn", "true");
+      // localStorage.setItem("isLoggedIn", "true");
+      sessionStorage.setItem("isLoggedIn", "true");
       navigate("/ecommerce");
     } catch (error) {
      console.log(error);
