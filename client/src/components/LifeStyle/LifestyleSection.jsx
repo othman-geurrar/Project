@@ -30,7 +30,16 @@ const LifestyleSection = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div><div className="flex flex-col gap-6 w-72">
+    <div className="flex gap-6 items-center">
+      <div className="skeleton w-24 h-26 rounded-full shrink-0"></div>
+      <div className="flex flex-col gap-6">
+        <div className="skeleton h-6 w-32"></div>
+        <div className="skeleton h-6 w-40"></div>
+      </div>
+    </div>
+    <div className="skeleton h-40 w-full"></div>
+  </div></div>;
   }
 
   

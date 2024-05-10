@@ -3,21 +3,30 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-import { IoMdContacts } from 'react-icons/io';
-import { RiContactsLine, RiStockLine } from 'react-icons/ri';
-import { GiLouvrePyramid } from 'react-icons/gi';
+import { IoMdContacts } from "react-icons/io";
+import { RiContactsLine, RiStockLine } from "react-icons/ri";
+import { GiLouvrePyramid } from "react-icons/gi";
 import { CiShoppingCart } from "react-icons/ci";
 import { CiShoppingBasket } from "react-icons/ci";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { SiStylelint } from "react-icons/si";
 import { Button } from "flowbite-react";
 
-
-
-
-
-import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
-import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock } from 'react-icons/ai';
+import {
+  BsKanban,
+  BsBarChart,
+  BsBoxSeam,
+  BsCurrencyDollar,
+  BsShield,
+  BsChatLeft,
+} from "react-icons/bs";
+import {
+  AiOutlineCalendar,
+  AiOutlineShoppingCart,
+  AiOutlineAreaChart,
+  AiOutlineBarChart,
+  AiOutlineStock,
+} from "react-icons/ai";
 import {
   FiShoppingBag,
   FiEdit,
@@ -45,7 +54,6 @@ const links = [
   {
     title: "Pages",
     links: [
-     
       {
         name: "Products",
         link: "products",
@@ -83,7 +91,6 @@ const links = [
         name: "editor",
         icon: <FiEdit />,
       },
-      
     ],
   },
   // {
@@ -133,9 +140,9 @@ const SideBar = () => {
 
   const SingOut = () => {
     // localStorage.setItem("isLoggedIn", "");
-    localStorage.removeItem('isLoggedIn');
-    navigate('/');
-  }
+    localStorage.removeItem("isLoggedIn");
+    navigate("/");
+  };
 
   const activeLink =
     "flex items-center bg-teal-500 gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2";
@@ -157,7 +164,9 @@ const SideBar = () => {
             <TooltipComponent content="Menu" position="BottomCenter">
               <button
                 type="button"
-                onClick={() => { dispatch(setisActiveMenu())}}
+                onClick={() => {
+                  dispatch(setisActiveMenu());
+                }}
                 className="text-xl rounded-full p-3 md:hidden hover:bg-light-gray mt-4 block "
               >
                 <MdOutlineCancel />
@@ -174,9 +183,10 @@ const SideBar = () => {
                   <NavLink
                     to={`/${link.link}`}
                     key={link.name}
-                    onClick={()=>{}}
-                    
-                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                    onClick={() => {}}
+                    className={({ isActive }) =>
+                      isActive ? activeLink : normalLink
+                    }
                   >
                     {link.icon}
                     <span className="capitalize ">{link.name}</span>
@@ -187,7 +197,9 @@ const SideBar = () => {
           </div>
           <div className="absolute bottom-0 left-0 w-full">
             <div className=" mx-6 mb-4">
-              <Button onClick={SingOut} pill>Sign Out</Button>
+              <Button onClick={SingOut} pill>
+                Sign Out
+              </Button>
             </div>
           </div>
         </>
@@ -197,10 +209,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-
-
-
-
-
-
-  
