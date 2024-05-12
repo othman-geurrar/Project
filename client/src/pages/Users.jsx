@@ -4,7 +4,12 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getusers, toggleForm } from "../redux/Users/usersSlice";
+import {
+  getusers,
+  toggleForm,
+  updateuser,
+  adduser,
+} from "../redux/Users/usersSlice";
 import { Deletebutton } from "../components/users/DeleteUser";
 import Header from "../components/Header";
 import { FaBoxesStacked } from "react-icons/fa6";
@@ -15,51 +20,31 @@ import { MdAdd } from "react-icons/md";
 import * as zod from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const schema = zod.object({
-  Product_Name: zod.string().min(4),
-  Product_Category: zod.string().min(4),
+  User_Name: zod.string().min(4),
+  User_Email: zod.string().min(4),
 });
 //Users Componnent
 function Users() {
   const {
     handleSubmit,
-    register,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
   });
   initTWE({ Dropdown, Ripple });
 
-  const { error, isLoadingusers, isLoadingEditUser, users, showForm } =
-    useSelector((state) => state.Users);
-  const [productdata, setproductdata] = useState({
-    name: "",
-    category: "",
-    productQuantity: null,
-    inStock: true,
-    imageURL: "",
+  const { error, isLoadingusers, users, showForm } = useSelector(
+    (state) => state.Users
+  );
+  const [userdata, setuserdata] = useState({
+    UserName: "",
+    email: "",
+    password: "",
   });
-  //Sorting
-  // const [data, setdata] = useState(products);
-  // const [order, setorder] = useState("ASC");
-  // const sorting = (col) => {
-  //   if (order === "ASC") {
-  //     const sorted = [...data].sort((a, b) =>
-  //       a[col].toLowerCase() > b[col].toLowwerCase() ? 1 : -1
-  //     );
-  //     setdata(sorted);
-  //     setorder("DSC");
-  //   }
-  //   if (order === "DSC") {
-  //     const sorted = [...data].sort((a, b) =>
-  //       a[col].toLowerCase() < b[col].toLowwerCase() ? 1 : -1
-  //     );
-  //     setdata(sorted);
-  //     setorder("ASC");
-  //   }
-  // };
-  console.log(productdata.imageURL);
   const [userId, setuserId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setusersPerPage] = useState(3);
@@ -70,31 +55,44 @@ function Users() {
   for (let i = 1; i <= Math.ceil(users.length / usersPerPage); i++) {
     pageNumber.push(i);
   }
+  // addform & editform
+  const [addform, setaddform] = useState(false);
+  const [editform, seteditform] = useState(false);
   const dispatch = useDispatch();
-  const [productform, setproductform] = useState(false);
-  // function emptyinputs() {
 
-  // }
   function OnSubmit(e, id) {
     e.preventDefault();
-    setproductdata({
-      name: "",
-      category: "",
-      productQuantity: null,
-      inStock: true,
-      imageURL: "",
-    });
     dispatch(toggleForm());
-    // dispatch(updateproduct({ productdata, id }));
-  }
+    if (editform) dispatch(updateuser({ userdata, id }));
+    if (addform) {
+      dispatch(adduser(userdata));
+      toast.success('New User added successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        // You might want to import Bounce from 'react-toastify/dist/react-toastify.css' if it's not already imported
+        // transition: Bounce,
+      });
 
+    };
+    setuserdata({
+      UserName: "",
+      email: "",
+      password: "",
+    });
+  }
   useEffect(() => {
     dispatch(getusers());
   }, [dispatch]);
 
   return (
     <>
-      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-slate-200 rounded-3xl  ">
+      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl  ">
         <Header category="Page" title="Users" />
         {isLoadingusers ? (
           <>
@@ -124,17 +122,12 @@ function Users() {
           </>
         ) : (
           <>
-            <div className="flex flex-wrap md:justify-end md:px-8">
-              <button className=" btn btn-outline btn-accent flex justify-end">
-                Add User
-              </button>
-            </div>
-            <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+            <div className="max-w-[85rem] mx-auto">
               <div className="flex flex-col">
                 <div className="-m-1.5 overflow-x-auto">
                   <div className="p-1.5 min-w-full inline-block align-middle">
                     <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-                      <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                      <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b bg-customGreen border-gray-200">
                         <div className="sm:col-span-1">
                           <label
                             htmlFor="hs-as-table-product-review-search"
@@ -171,7 +164,7 @@ function Users() {
                         </div>
                         <div className="sm:col-span-2 md:grow">
                           <div className="flex justify-end gap-x-2">
-                            <div className="hs-dropdown [--placement:bottom-right] relative inline-block">
+                            {/* <div className="hs-dropdown [--placement:bottom-right] relative inline-block">
                               <button
                                 id="hs-as-table-table-export-dropdown"
                                 type="button"
@@ -318,7 +311,18 @@ function Users() {
                                   </a>
                                 </div>
                               </div>
-                            </div>
+                            </div> */}
+                            <button
+                              className="py-2 px-3 inline-flex items-center transition duration-500 gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-teal-500 text-white shadow-sm hover:bg-white disabled:opacity-50 disabled:pointer-events-none hover:text-black"
+                              onClick={() => {
+                                dispatch(toggleForm());
+                                setaddform(true);
+                                seteditform(false);
+                              }}
+                            >
+                              <i className="fa-solid fa-plus text-[14px]"></i>
+                              Add User
+                            </button>
                             <div
                               className="hs-dropdown [--placement:bottom-right] relative inline-block"
                               data-hs-dropdown-auto-close="inside"
@@ -407,7 +411,7 @@ function Users() {
                           <tr>
                             <th scope="col" className="px-6 py-3 text-center">
                               <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
-                                User
+                                Users
                               </span>
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
@@ -444,92 +448,57 @@ function Users() {
                           {currentusers.map((item, index) => {
                             return (
                               <>
-                                {userId == item.id && isLoadingEditUser ? (
-                                  <>
-                                    <tr>
-                                      <td colSpan="10">
-                                        <div
-                                          className="flex items-center justify-center p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-                                          role="alert"
-                                        >
-                                          <svg
-                                            className="flex-shrink-0 inline w-4 h-4 me-3"
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20"
-                                          >
-                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                                          </svg>
-                                          <span className="sr-only">Info</span>
-                                          <div>
-                                            <span className="font-medium">
-                                              Success Update!
-                                            </span>{" "}
-                                            Your edits have been successfully
-                                            saved.
-                                          </div>
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  </>
-                                ) : (
-                                  <>
-                                    <tr className="bg-white hover:bg-gray-50 text-center">
-                                      {/* UserImage */}
-                                      <td className="  whitespace-nowrap flex justify-center p-2 ">
-                                        {/* avatar */}
-                                        <div className="avatar">
-                                          <div className="w-24 rounded-full ring ring-teal-600  ring-offset-2">
-                                            <img src={item.profilePictureURL} />{" "}
-                                          </div>
-                                        </div>
-                                      </td>
-                                      {/* UserName */}
-                                      <td className=" whitespace-nowrap align-center text-center">
-                                        {item.UserName}
-                                      </td>
-                                      {/* UserEmail */}
-                                      <td className=" whitespace-nowrap align-center text-center">
-                                        {item.email}
-                                      </td>
-                                      {/* UserId */}
-                                      <td className=" whitespace-nowrap align-center text-center">
-                                        {item.id}
-                                      </td>
-                                      <td className=" whitespace-nowrap align-center text-center">
-                                        {item.createdAt}
-                                      </td>
-                                      {/* Delete */}
-                                      <td className=" whitespace-nowrap align-center text-center ">
-                                        {/* edit */}
-                                        <button
-                                          onClick={() => {
-                                            dispatch(toggleForm());
-                                            setuserId(item.id);
-                                            console.log(item.id);
-                                            setproductdata((prevData) => ({
-                                              ...prevData,
-
-                                              name: item.name,
-                                              category: item.category,
-                                              imageURL: item.imageURL,
-                                              productQuantity:
-                                                item.productQuantity,
-                                            }));
-                                          }}
-                                        >
-                                          <i
-                                            className="fa-solid fa-pen-to-square mr-[20px]"
-                                            style={{ color: "#00215E" }}
-                                          ></i>{" "}
-                                        </button>
-                                        <Deletebutton id={item.id} />
-                                      </td>
-                                      {/* Edit */}
-                                    </tr>
-                                  </>
-                                )}
+                                <tr className="bg-white hover:bg-gray-50 text-center">
+                                  {/* UserImage */}
+                                  <td className="  whitespace-nowrap flex justify-center p-2 ">
+                                    {/* avatar */}
+                                    <div className="avatar">
+                                      <div className="w-24 rounded-full ring ring-teal-600  ring-offset-2">
+                                        <img src={item.profilePictureURL} />{" "}
+                                      </div>
+                                    </div>
+                                  </td>
+                                  {/* UserName */}
+                                  <td className=" whitespace-nowrap align-center text-center">
+                                    {item.UserName}
+                                  </td>
+                                  {/* UserEmail */}
+                                  <td className=" whitespace-nowrap align-center text-center">
+                                    {item.email}
+                                  </td>
+                                  {/* UserId */}
+                                  <td className=" whitespace-nowrap align-center text-center">
+                                    {item.id}
+                                  </td>
+                                  <td className=" whitespace-nowrap align-center text-center">
+                                    {item.createdAt}
+                                  </td>
+                                  {/* Delete */}
+                                  <td className=" whitespace-nowrap align-center text-center ">
+                                    {/* edit */}
+                                    <button
+                                      onClick={() => {
+                                        dispatch(toggleForm());
+                                        setuserId(item.id);
+                                        setaddform(false);
+                                        seteditform(true);
+                                        console.log(item.id);
+                                        setuserdata((prevData) => ({
+                                          ...prevData,
+                                          UserName: item.UserName,
+                                          email: item.email,
+                                        }));
+                                      }}
+                                    >
+                                      <i
+                                        className="fa-solid fa-pen-to-square mr-[20px]"
+                                        style={{ color: "#00215E" }}
+                                      ></i>{" "}
+                                    </button>
+                                    <Deletebutton id={item.id} />
+                                  </td>
+                                  {/* Edit */}
+                                </tr>
                               </>
                             );
                           })}
@@ -541,22 +510,14 @@ function Users() {
                                     className="max-w-lg mx-auto "
                                     onSubmit={(e) => {
                                       handleSubmit(OnSubmit(e, userId));
-                                      setproductdata({
-                                        name: "",
-                                        category: "",
-                                        inStock: true,
-                                        imageURL: "",
-                                      });
                                     }}
                                   >
                                     <div className="flex justify-end">
                                       <button
                                         onClick={() => {
-                                          setproductdata({
-                                            name: "",
-                                            category: "",
-                                            inStock: true,
-                                            imageURL: "",
+                                          setuserdata({
+                                            UserName: "",
+                                            email: "",
                                           });
                                           dispatch(toggleForm());
                                         }}
@@ -565,146 +526,92 @@ function Users() {
                                         <IoCloseCircleOutline />
                                       </button>
                                     </div>
+                                    {/* User_Name */}
                                     <div className="relative z-0 w-full mb-5 group">
-                                      {/* Name */}
                                       <input
                                         type="text"
-                                        name="Product_Name"
-                                        id="Product_Name"
+                                        name="User_Name"
+                                        id="User_Name"
                                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" "
-                                        {...register("Product_Name")}
                                         onChange={(e) =>
-                                          setproductdata({
-                                            ...productdata,
-                                            name: e.target.value,
+                                          setuserdata({
+                                            ...userdata,
+                                            UserName: e.target.value,
                                           })
                                         }
-                                        value={productdata.name}
+                                        value={userdata.UserName}
                                         required
                                       />
                                       <label
-                                        htmlFor="LifeStyle_name"
+                                        htmlFor="User_Name"
                                         className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                       >
-                                        Life Style Name
+                                        UserName
                                       </label>
                                       <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
                                         errorName
                                       </span>
                                     </div>
-                                    {/* Product_Category */}
+                                    {/* User_Email */}
                                     <div className="relative z-0 w-full mb-5 group">
                                       <input
                                         type="text"
-                                        name="Product_Category"
-                                        id="Product_Category"
+                                        name="User_Email"
+                                        id="User_Email"
                                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=""
-                                        {...register("Product_Category")}
                                         required
                                         onChange={(e) =>
-                                          setproductdata({
-                                            ...productdata,
-                                            category: e.target.value,
+                                          setuserdata({
+                                            ...userdata,
+                                            email: e.target.value,
                                           })
                                         }
-                                        value={productdata.category}
+                                        value={userdata.email}
                                       />
                                       <label
-                                        htmlFor="Product_Category"
+                                        htmlFor="User_Email"
                                         className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                       >
-                                        Product Category
+                                        Email
                                       </label>
                                       <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
                                         errorcategory
                                       </span>
                                     </div>
-                                    {/* Product_Quantity */}
-                                    <div className="relative z-0 w-full mb-5 group">
-                                      <input
-                                        type="number"
-                                        name="Product_Quantity"
-                                        id="Product_Quantity"
-                                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                        placeholder=""
-                                        {...register("Product_Quantity")}
-                                        onChange={(e) =>
-                                          setproductdata({
-                                            ...productdata,
-                                            productQuantity: e.target.value,
-                                          })
-                                        }
-                                        value={productdata.productQuantity}
-                                      />
-                                      <label
-                                        htmlFor="Product_Category"
-                                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                      >
-                                        Product Quantity
-                                      </label>
-                                      <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
-                                        errorcategory
-                                      </span>
-                                    </div>
-                                    {/* Product_InStock */}
-                                    <div className="relative z-0 w-full mb-5 group">
-                                      <select
-                                        name="Product_isAvailable"
-                                        id="Product_isAvailable"
-                                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                        placeholder=" "
-                                        required
-                                        onChange={(e) =>
-                                          setproductdata({
-                                            ...productdata,
-                                            inStock: e.target.value,
-                                          })
-                                        }
-                                      >
-                                        <option value={true} selected>
-                                          inStock
-                                        </option>
-                                        <option value={false}>OutStock</option>
-                                      </select>
-                                      <label
-                                        htmlFor="Product_isAvailable"
-                                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                      >
-                                        isAvailable
-                                      </label>
-                                      <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
-                                        error isavailable
-                                      </span>
-                                    </div>
-                                    {/* Product_Image */}
-                                    <div className="relative z-0 w-full mb-5 group">
-                                      <label
-                                        className="my-6 peer-focus:font-medium block mb-2 text-sm text-gray-500 dark:text-white"
-                                        htmlFor="image"
-                                      >
-                                        Upload file
-                                      </label>
-                                      <input
-                                        className="mt-3 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        aria-describedby="image"
-                                        id="image"
-                                        type="file"
-                                        // value={`${productdata.imageURL}`}
-                                        onChange={(e) =>
-                                          setproductdata({
-                                            ...productdata,
-                                            imageURL: URL.createObjectURL(
-                                              e.target.files[0]
-                                            ),
-                                          })
-                                        }
-                                      />
-                                      <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
-                                        errrror{" "}
-                                      </span>
-                                    </div>
+                                    {addform && (
+                                      <>
+                                        {" "}
+                                        {/* User_Password */}
+                                        <div className="relative z-0 w-full mb-5 group">
+                                          <input
+                                            type="password"
+                                            name="User_Password"
+                                            id="User_Password"
+                                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=""
+                                            required
+                                            onChange={(e) =>
+                                              setuserdata({
+                                                ...userdata,
+                                                password: e.target.value,
+                                              })
+                                            }
+                                            value={userdata.password}
+                                          />
+                                          <label
+                                            htmlFor="User_Email"
+                                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                          >
+                                            Password
+                                          </label>
+                                          <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
+                                            errorPassword
+                                          </span>
+                                        </div>
+                                      </>
+                                    )}
                                     <div className="flex justify-center">
                                       <button
                                         type="submit"

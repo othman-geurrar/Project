@@ -25,11 +25,8 @@ const AddLifeStyle = () => {
     
 
   return (
-    <div className='flex flex-wrap mt-10 mx-20 gap-6'>
-        
-            
-            <button className=" bg-slate-200 p-2 rounded-xl" onClick={handleAddLifeStyle} disabled={isLoading} >Add Life Style</button>
-        
+    <div className='flex flex-wrap mt-10 mx-20 gap-6'> 
+            <button className=" bg-slate-200 p-2 rounded-xl" onClick={handleAddLifeStyle} disabled={isLoading} >Add Life Style</button>  
     </div>
   )
 }

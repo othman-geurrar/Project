@@ -1,35 +1,13 @@
 import React, { useState } from "react";
 // bg-[url("/src/assets/img/sport_bg.jpg")]
 import LifestyleSection from "../components/LifeStyle/LifestyleSection";
-import ProductCard from "../components/Product/ProductSection";
 import { MdAdd } from "react-icons/md";
 import { setShowForm } from "../redux/formState/form";
-
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { AddFormLs } from "../components";
 import { useGetAllLifeStyleQuery } from "../redux/services/LifeStyleData";
 import { useDispatch, useSelector } from "react-redux";
 
-// const lifestyles = [
-//   {
-//     imgSrc: "/src/assets/img/sport_bg.jpg",
-//     title: "Lifestyle 1",
-//     description: "Description of lifestyle 1.",
-//     lastUpdated: "3 mins ago",
-//   },
-//   {
-//     imgSrc: "/src/assets/img/fashion-styles-bg.webp",
-//     title: "Lifestyle 2",
-//     description: "Description of lifestyle 2.",
-//     lastUpdated: "5 mins ago",
-//   },
-//   {
-//     imgSrc: "/src/assets/img/anime-style-bg.jpg",
-//     title: "Lifestyle 2",
-//     description: "Description of lifestyle 2.",
-//     lastUpdated: "5 mins ago",
-//   },
-// ];
 
 const LifeStyle = () => {
   const { data, isLoading, isError, refetch } = useGetAllLifeStyleQuery();

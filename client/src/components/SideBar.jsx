@@ -11,6 +11,9 @@ import { CiShoppingBasket } from "react-icons/ci";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { SiStylelint } from "react-icons/si";
 import { Button } from "flowbite-react";
+import { FaUser } from "react-icons/fa6";
+import { FaUserShield } from "react-icons/fa6";
+
 
 
 
@@ -65,6 +68,18 @@ const links = [
         name: "Events",
         link: "events",
         icon: <AiOutlineShoppingCart />,
+      },
+      {
+        name: "Admins",
+        link: "admins",
+        icon: <FaUserShield />
+        ,
+      },
+      {
+        name: "Users",
+        link: "users",
+        icon: <FaUser />
+        ,
       },
     ],
   },

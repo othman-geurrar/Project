@@ -6,9 +6,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useAddLifeStyleMutation, useUpdateLifeStyleMutation } from "../../redux/services/LifeStyleData";
 import { useNavigate } from "react-router-dom";
 import { setShowForm } from "../../redux/formState/form"
-import { setShowEditForm } from "../../redux/formState/form"
-
+import { setShowEditForm } from "../../redux/formState/form";
 import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const schema = zod.object({
   LifeStyle_name: zod.string().min(4),
@@ -16,7 +18,6 @@ const schema = zod.object({
   LifeStyle_Story: zod.string().min(4),
   
 });
-
 function AddFormLs({refetchLifestyles , editingLifestyle , setEditingLifestyle}) {
   const dispatch = useDispatch()
   const navigate = useNavigate();
@@ -27,9 +28,6 @@ function AddFormLs({refetchLifestyles , editingLifestyle , setEditingLifestyle})
     console.log(file)
     setImage(file);
     };
-
-    
-
 
   const {
     register,
@@ -50,10 +48,6 @@ function AddFormLs({refetchLifestyles , editingLifestyle , setEditingLifestyle})
       LifeStyle_Story: editingLifestyle ? editingLifestyle.Content.story : '',
     });
   }, [editingLifestyle, reset]);
-
-  
-
-
   // Step 3: Modify your form to handle both creating and editing
 const onSubmit = async (formData) => {
 
@@ -84,9 +78,6 @@ const onSubmit = async (formData) => {
       console.error("Error uploading image:", error);
     }
   };
-
-
-  console.log(formData);
   const newData = {
     LifeStyleName: formData.LifeStyle_name,
     styleType: formData.LifeStyle_Type,
@@ -116,6 +107,18 @@ const onSubmit = async (formData) => {
       console.log(response.data);
       refetchLifestyles();
       dispatch(setShowForm());
+      toast.success('New lifestyle added successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        // You might want to import Bounce from 'react-toastify/dist/react-toastify.css' if it's not already imported
+        // transition: Bounce,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -204,9 +207,6 @@ const onSubmit = async (formData) => {
           type="file"
           onChange={(e)=> handlePhoto(e)}
         />
-        {/* <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
-          {errors.LifeStyle_image?.message}
-        </span> */}
         <button
           type="submit"
           className="mt-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -218,5 +218,4 @@ const onSubmit = async (formData) => {
     </div>
   );
 }
-
 export default AddFormLs;

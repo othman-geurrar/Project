@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setShowEditForm } from "../../redux/formState/form";
 import { useNavigate } from "react-router-dom";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import Swal from "sweetalert2";
+
 
 
 const EventSection = () => {
@@ -34,6 +36,15 @@ const EventSection = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-outline btn-success",
+      cancelButton: "btn btn-outline btn-error",
+    },
+    buttonsStyling: false,
+  });
+
 
   const handleDelete = async (id) => {
     try {
@@ -130,8 +141,39 @@ const EventSection = () => {
                     </button>
                     <button
                       className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 "
+                      // onClick={() => {
+                      //   handleDelete(item.EventID);
+                      // }}
                       onClick={() => {
-                        handleDelete(item.EventID);
+                        swalWithBootstrapButtons
+                          .fire({
+                            title: "Are u Sure ?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Yes, delete it !",
+                            cancelButtonText: "No, cancel !",
+                            reverseButtons: true,
+                          })
+                          .then((result) => {
+                            if (result.isConfirmed) {
+                              swalWithBootstrapButtons.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success",
+                              });
+                              handleDelete(item.EventID)
+                            } else if (
+                              /* Read more about handling dismissals below */
+                              result.dismiss === Swal.DismissReason.cancel
+                            ) {
+                              swalWithBootstrapButtons.fire({
+                                title: "Cancelled",
+                                text: "Your imaginary file is safe :)",
+                                icon: "error",
+                              });
+                            }
+                          });
                       }}
                     >
                       <span className=" text-white">Delete</span>{" "}

@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 
 const adminSchema = new mongoose.Schema({
-  name: {
+  firstName : {
     type: String,
-    required: true,
+    
+  },
+  lastName : { 
+    type: String,
+    
   },
   email: {
     type: String,
@@ -23,6 +27,10 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+  },
+  adminImage: {
+    type: String,
+    default: "https://cdn-icons-png.flaticon.com/512/560/560199.png",
   },
   createdAt: {
     type: Date,

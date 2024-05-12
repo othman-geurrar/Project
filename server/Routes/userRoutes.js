@@ -22,8 +22,8 @@ const {
 userRouter.post("/register",registerUserValidationRules, registerUser);
 userRouter.post("/login", loginUserValidationRules, userAuth);
 userRouter.get("/getUsers",getUsers);
-userRouter.patch("/update/:id",updateAdminValidationRules,isAdminAuthenticated,updateUserByid);
-userRouter.delete("/delete/:id",isAdminAuthenticated, deleteUser);
+userRouter.patch("/update/:id",updateAdminValidationRules,updateUserByid);
+userRouter.delete("/delete/:id", deleteUser);
 userRouter.get("/", (req, res) => {
   res.send('<a href="/auth/google">google</a>');
 });

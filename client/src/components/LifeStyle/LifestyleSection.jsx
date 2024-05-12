@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setShowEditForm } from '../../redux/formState/form'
 import { Link, useNavigate } from 'react-router-dom';
 import { IoCloseCircleOutline } from "react-icons/io5";
+import Swal from "sweetalert2";
+
 
 
 
@@ -32,6 +34,14 @@ const LifestyleSection = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-outline btn-success",
+      cancelButton: "btn btn-outline btn-error",
+    },
+    buttonsStyling: false,
+  });
 
   
 
@@ -105,7 +115,40 @@ const LifestyleSection = () => {
               <div className="p-2 ">
                 <button className=" bg-blue-700 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-blue-500 hover:text-slate-100" onClick={() => handleView(item)}>View</button>
                 <button className="bg-slate-500 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-slate-400 hover:text-slate-100" onClick={() => handleEdit(item)}>Edit</button>
-                <button className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 " onClick={() => { handleDelete(item.LifeStyleID) }}> <span className=" text-white">Delete</span> </button>
+                {/* <button className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 " onClick={() => { handleDelete(item.LifeStyleID) }}> <span className=" text-white">Delete</span> </button> */}
+                <button className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 " 
+                onClick={() => {
+            swalWithBootstrapButtons
+              .fire({
+                title: "Are u Sure ?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it !",
+                cancelButtonText: "No, cancel !",
+                reverseButtons: true,
+              })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success",
+                  });
+                  handleDelete(item.LifeStyleID)
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "Your imaginary file is safe :)",
+                    icon: "error",
+                  });
+                }
+              });
+          }}> <span className=" text-white">Delete</span> </button>
+
 
               </div>
             </div>

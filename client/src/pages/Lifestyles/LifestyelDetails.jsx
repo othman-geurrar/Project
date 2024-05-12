@@ -12,7 +12,8 @@ const LifestyelDetails = () => {
    
    
 
-    console.log(data);
+    console.log(data);3.
+    
 
 
 
