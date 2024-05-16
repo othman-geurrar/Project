@@ -1,6 +1,6 @@
 const adminRouter = require("express").Router();
-const isAdminAuthenticated = require('../Middleware/adminLogin')
-const {adminAuth} = require('../Middleware/authMiddleware')
+const isAdminAuthenticated = require("../Middleware/adminLogin");
+const { adminAuth } = require("../Middleware/authMiddleware");
 const {
   registerAdmin,
   registerAdminValidationRules,

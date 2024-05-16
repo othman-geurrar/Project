@@ -23,6 +23,28 @@ export const updateproduct = createAsyncThunk(
     }
   }
 );
+export const addproduct = createAsyncThunk(
+  "products/addproduct",
+  async (productdata, thunkAPI) => {
+    console.log(productdata)
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const res = await axios.post(
+        `http://localhost:3000/product/newer`,
+        productdata,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 export const deleteproduct = createAsyncThunk(
   "products/deleteproduct",
   async (productId, thunkAPI) => {
@@ -72,6 +94,17 @@ const productSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      //addproduct
+      .addCase(addproduct.fulfilled, (state, action) => {
+        // console.log(action.payload);
+        state.products = [...state.products, action.payload];
+      })
+      .addCase(addproduct.pending, (state, action) => {
+        state.error = null;
+      })
+      .addCase(addproduct.rejected, (state, action) => {
+        state.error = action.payload;
+      })
       //updateproduct
       .addCase(updateproduct.fulfilled, (state, action) => {
         state.isLoadingEditProduct = false;

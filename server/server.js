@@ -8,31 +8,27 @@ const adminRouter = require("./Routes/adminRoutes");
 const orderRouter = require("./Routes/orderRoutes");
 const LifeStyleRouter = require("./Routes/lifeStyleRoutes");
 const EventRouter = require("./Routes/eventRoutes");
-const userRouter=require("./Routes/userRoutes")
-const paymentRouter=require("./Routes/payementRoutes");
+const userRouter = require("./Routes/userRoutes");
+const paymentRouter = require("./Routes/payementRoutes");
 const passport = require("passport");
 const PORT = process.env.PORT || 4000;
 
-
-
 require("./strategies/userLocal");
 require("./strategies/adminLocal");
-require("./strategies/google")
-
-
+require("./strategies/google");
 
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5174",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
-
-
 
 app.use(
   session({
@@ -52,10 +48,9 @@ app.use("/orders", orderRouter);
 app.use("/product", productRouter);
 app.use("/lifeStyle", LifeStyleRouter);
 app.use("/events", EventRouter);
-app.use("/users",userRouter);
-app.use("/payments",paymentRouter);
-app.use("/auth",userRouter)
-
+app.use("/users", userRouter);
+app.use("/payments", paymentRouter);
+app.use("/auth", userRouter);
 
 app.listen(PORT, () => {
   console.log("app listening on port 3000!");

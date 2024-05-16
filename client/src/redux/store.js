@@ -9,7 +9,9 @@ import { adminAuthApi } from "./services/AuthApi";
 import addEventReducer from "./formState/addEventSlice"; 
 import UserSlice from "./Users/usersSlice";
 import AdminSlice from "./Admin/adminsSlice";
-import ProductSlice from "./Products/productsSlice"
+import ProductSlice from "./Products/productsSlice";
+import {AdminApi} from "./services/adminApi";
+import { ProductApi } from "./services/ProductData";
 
 const store = configureStore({
   reducer: {
@@ -23,12 +25,18 @@ const store = configureStore({
     [lifeStyleApi.reducerPath]: lifeStyleApi.reducer,
     [adminAuthApi.reducerPath]: adminAuthApi.reducer,
     [eventsApi.reducerPath]: eventsApi.reducer,
+    [AdminApi.reducerPath]: AdminApi.reducer,
+    [ProductApi.reducerPath]: ProductApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       lifeStyleApi.middleware,
       adminAuthApi.middleware,
-      eventsApi.middleware
+      eventsApi.middleware,
+      AdminApi.middleware,
+      ProductApi.middleware,
+      
+
     ),
 });
 
