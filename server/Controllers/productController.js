@@ -3,8 +3,15 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+
 const viewAllProduct = (req, res) => {
-  Product.find()
+  const page = parseInt(req.query.p || 1) ;
+  const options = {
+    page: page,
+    limit: 9,
+  };
+
+  Product.paginate({},options)
     .then((data) => {
       res.status(201).send(data);
     })
