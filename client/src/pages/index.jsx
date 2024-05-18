@@ -10,5 +10,6 @@ export { default as AdminProfile } from './AdminProfile';
 export { default as Event } from './Events/Event';
 export { default as LifestyleDetail } from './Lifestyles/LifestyelDetails';
 export { default as ProductsDetails } from "./ProductsDetails";
+export {default as ProductPage} from  "./ProductPage"
 
 

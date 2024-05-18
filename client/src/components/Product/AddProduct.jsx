@@ -8,7 +8,7 @@ const ProductForm = () => {
     description: "",
     color: [],
     size: [],
-    imageURL: "",
+    image: [],
     category: "",
     inStock: "",
   });
@@ -44,10 +44,12 @@ const ProductForm = () => {
   };
 
   const Handlerphoto = (e) => {
+    const files = Array.from(e.target.files);
     setproductdata((prevstate) => ({
       ...prevstate,
-      imageURL: e.target.files[0],
+      image: prevstate.image.concat(files),
     }));
+    console.log(image)
   };
 
   const onChangeHandler = (e) => {
@@ -58,7 +60,9 @@ const ProductForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("imageURL", productdata.imageURL);
+    productdata.image.forEach((file, index) => {
+      formData.append(`image${index}`, file);
+    });
     formData.append("name", productdata.name);
     formData.append("description", productdata.description);
     formData.append("price", productdata.price);
@@ -256,6 +260,7 @@ const ProductForm = () => {
           className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           name="imagURL"
           accept=".jpg,.png, .jpeg"
+          value={productdata.image}
           type="file"
           onChange={(e) => Handlerphoto(e)}
         />

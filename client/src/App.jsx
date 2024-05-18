@@ -16,6 +16,7 @@ import {
   LifeStyle,
   AdminProfile,
   Event ,
+  ProductPage,
 } from "./pages";
 import { useSelector } from 'react-redux';
 import { registerLicense } from '@syncfusion/ej2-base';
@@ -91,6 +92,7 @@ function App() {
               <Route path="/lifestyle/add" element={<AddLifeStyle />} />
               <Route path="/admin/profile" element={<AdminProfile />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/product/:id" element={<ProductPage/>} />
               <Route path="/productdetail" element={<ProductsDetails />} />
               <Route path='/events' element={<Event />} />
               <Route path='/events/:id' element={<EventDetails />} />
