@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AllProductCard, Footer, MainNav, NavBaar, Pagination, ProductCard, ProductsCategory } from "../../components";
+import { AllProductCard, Footer, IntsaFollow, MainNav, NavBaar, Pagination, ProductCard, ProductsCategory } from "../../components";
 import Slider from "@mui/material/Slider";
 import { useGetAllProductsQuery } from "../../redux/services/ProductData";
 import { useNavigate  , useLocation } from 'react-router-dom'; // Corrected import
@@ -21,7 +21,7 @@ const ProductsPage = () => {
   const page = parseInt(searchParams.get("p")) || 1;
    
   
-  const min = 9
+  const min = 12
   const [value, setValue] = useState("");
   console.log(value)
   const { data, refetch } = useGetAllProductsQuery({page , search ,min , value});
@@ -223,6 +223,7 @@ const ProductsPage = () => {
           <Pagination total={total} limit={limit} currentPage={page} search={search}  />
         </div>
     </div>
+    <IntsaFollow />
     <div>
       <Footer />
     </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ProductCard from './ProductCard';
 
 const ProductComponent = () => {
-  const [activeButton, setActiveButton] = useState('button1');
+  const [activeButton, setActiveButton] = useState('button2');
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -91,7 +91,7 @@ const ProductComponent = () => {
         },
         {
           name: 'Pink Watch',
-          imageURL: ['https://i.etsystatic.com/9761356/r/il/a4366a/5985107209/il_794xN.5985107209_2axe.jpg'],
+          imageURL: ['https://i.etsystatic.com/51971923/r/il/d760ee/5957142522/il_794xN.5957142522_3cjk.jpg'],
           newPrice: 25,
           oldPrice: 15,
           stars: 4,

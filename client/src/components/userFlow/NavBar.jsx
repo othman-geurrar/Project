@@ -19,7 +19,7 @@ export default function NavBaar() {
   }
 
   return (
-    <header className="flex h-18 w-full items-center justify-between px-4 md:px-6 border-b">
+    <header className="flex h-18 w-full bg-slate-200 items-center justify-between px-4 md:px-6 border-b">
       <div className="flex items-center gap-4">
         <Link className="flex items-center gap-2" href="#">
           {/* <MountainIcon className="h-6 w-6" /> */}
