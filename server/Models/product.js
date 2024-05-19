@@ -20,13 +20,23 @@ const productSchema = new mongoose.Schema({
   price: {
     type: Number,
   },
+  stars:{
+    type:Number,
+  },
+  newPrice:{
+    type:Number,
+  },
+  oldPrice:{
+    type:Number,
+  },
   description: {
     type: String,
   },
   //
   imageURL: {
-    type: String,
+    type: [String],
   },
+ 
   //
   productQuantity: {
     type: Number,
