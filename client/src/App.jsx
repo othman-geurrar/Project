@@ -85,13 +85,13 @@ function App() {
               <Route path="/orders" element={<Orders />} />
               <Route path="/admins" element={<Admins />} />
               <Route path="/users" element={<Users />} />
-              <Route path="/lifestyles" element={<LifeStyle />} />
-              <Route path="/lifestyle/:id" element={<LifestyelDetails />} />
+              <Route path="/admin/lifestyles" element={<LifeStyle />} />
+              <Route path="/admin/lifestyle/:id" element={<LifestyelDetails />} />
               <Route path="/lifestyle/add" element={<AddLifeStyle />} />
               <Route path="/admin/profile" element={<AdminProfile />} />
-              <Route path="/products" element={<Products />} />
+              <Route path="/admin/products" element={<Products />} />
               <Route path="/productdetail" element={<ProductsDetails />} />
-              <Route path='/events' element={<Event />} />
+              <Route path='/admin/events' element={<Event />} />
               <Route path='/events/:id' element={<EventDetails />} />
             </Routes>
             

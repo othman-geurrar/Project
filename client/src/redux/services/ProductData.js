@@ -9,12 +9,19 @@ export const ProductApi = createApi({
     endpoints: (builder) => ({
         // get All products
         getAllProducts: builder.query({
-            query: (page) => ({
-                url: `/getAll?p=${page}`,
+            query: ({page , search , min , value}) => ({
+                url: `/getAll?p=${page}&search=${search}&min=${min}&maxprice=${value}`,
                 method: 'GET',
             })
-        })
+        }),
+        getProductById: builder.query({
+            query: (id) => ({
+              url: `/getOne/${id}`,
+              method: "GET",
+            }),
+          }),
     })
+   
 })
 
-export const { useGetAllProductsQuery } = ProductApi
+export const { useGetAllProductsQuery , useGetProductByIdQuery } = ProductApi

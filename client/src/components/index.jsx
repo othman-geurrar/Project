@@ -16,7 +16,10 @@ export { default as AddFormEvent } from "./AdminBackLock/Events/AddFormEvent";
 
 // User Flow ecports
 export { default as MainNav } from './userFlow/MainNavBar';
+export { default as NavBaar } from './userFlow/NavBar'
 export { default as ProductCard } from './userFlow/ProductCard'
 export { default as ProductComponent } from './userFlow/ProductComponent'
 export { default as AllProductCard } from './userFlow/allProductCard'
 export { default as Pagination } from './userFlow/Pagination'
+export { default as Footer } from './userFlow/Footer'
+export { default as ProductsCategory } from './userFlow/ProductsCategory'

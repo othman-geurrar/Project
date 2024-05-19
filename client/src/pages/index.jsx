@@ -16,4 +16,7 @@ export { default as ProductsDetails } from "./adminPages/ProductsDetails";
 export { default as LandingPage } from './usersPages/LandingPage';
 export { default as ProductsPage } from './usersPages/ProductsPage';
 export { default as EventDetails } from './usersPages/EventDetail';
-export { default as EventPage } from './usersPages/EventsPage'
+export { default as EventPage } from './usersPages/EventsPage';
+export { default as LifeStyleFront } from './usersPages/LifeStylePage';
+export { default as LifeStyleDetail } from './usersPages/LifeStylesDetail';
+export { default as ProductDetail } from './usersPages/ProductDetail'

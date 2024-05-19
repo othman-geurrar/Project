@@ -1,13 +1,14 @@
 import React from 'react'
 import { Carousel, DarkThemeToggle, } from "flowbite-react";
-import { MainNav } from '../../components'
+import { MainNav, NavBaar } from '../../components'
 import {ProductCard} from '../../components'
 import {ProductComponent} from '../../components'
 
 const LandingPage = () => {
   return (
     <div className='h-screen'>
-        <MainNav />
+        {/* <MainNav /> */}
+        <NavBaar />
         <Carousel  slideInterval ={5000} >
           <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
             {/* Slide 1 */}
@@ -59,7 +60,7 @@ const LandingPage = () => {
         </div>
           </div>
         </Carousel>
-        <div className="mt-24 mx-4 rounded-md h-fit p-8 bg-cover bg-product-bg  ">
+        <div className="mt-24 mx-4 bg-slate-200 rounded-md h-fit p-8 bg-cover bg-product-bg  ">
           <ProductComponent />
         </div>
         <div className="mt-14 text-center h-fit">
@@ -85,19 +86,19 @@ const LandingPage = () => {
           <Carousel >
           <div className="grid h-fit grid-cols-2 gap-4 ">
             <div className="grid gap-2 h-80 md:h-fit w-fit py-2 justify-center items-center">
-              <ProductCard title="key" price={20} image="https://images.pexels.com/photos/1833082/pexels-photo-1833082.jpeg?auto=compress&cs=tinysrgb&w=600" />
+              <ProductCard name="key" stars={3} newPrice={20} oldPrice={25} imageURL={["https://images.pexels.com/photos/1833082/pexels-photo-1833082.jpeg?auto=compress&cs=tinysrgb&w=600"]} />
             </div>
             <div className="grid gap-2 h-80 md:h-fit w-fit py-2 justify-center items-center">
-              <ProductCard title="key" price={20} image="https://images.pexels.com/photos/1833082/pexels-photo-1833082.jpeg?auto=compress&cs=tinysrgb&w=600" />
+              <ProductCard name="key" stars={3} newPrice={20} oldPrice={25} imageURL={["https://images.pexels.com/photos/1833082/pexels-photo-1833082.jpeg?auto=compress&cs=tinysrgb&w=600"]} />
             </div>
       
           </div>
           <div className="grid h-fit grid-cols-2 gap-4 ">
             <div className="grid gap-2 h-80 md:h-fit w-fit py-2 justify-center items-center">
-              <ProductCard title="key" price={20} image="https://images.pexels.com/photos/1833082/pexels-photo-1833082.jpeg?auto=compress&cs=tinysrgb&w=600" />
+              <ProductCard name="key" stars={3} newPrice={20} oldPrice={25} imageURL={["https://images.pexels.com/photos/1833082/pexels-photo-1833082.jpeg?auto=compress&cs=tinysrgb&w=600"]} />
             </div>
             <div className="grid gap-2 h-80 md:h-fit w-fit py-2 justify-center items-center">
-              <ProductCard title="key" price={20} image="https://images.pexels.com/photos/1833082/pexels-photo-1833082.jpeg?auto=compress&cs=tinysrgb&w=600" />
+              <ProductCard name="key" stars={3} newPrice={20} oldPrice={25} imageURL={["https://images.pexels.com/photos/1833082/pexels-photo-1833082.jpeg?auto=compress&cs=tinysrgb&w=600"]} />
             </div>
       
           </div>  

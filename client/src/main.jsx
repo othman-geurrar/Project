@@ -9,7 +9,8 @@ import RegisterForm from "./pages/adminPages/RegisterForm.jsx";
 import store from "./redux/store.js";
 import { registerLicense } from '@syncfusion/ej2-base';
 import Protected from './Routes/Protected.jsx'
-import { EventDetails, EventPage, LandingPage, ProductsPage } from "./pages/index.jsx";
+import { EventDetails, EventPage, LandingPage, LifeStyleDetail, LifeStyleFront, ProductDetail, ProductsPage } from "./pages/index.jsx";
+import LifestyelDetails from "./components/AdminBackLock/LifeStyle/LifestyelDetails.jsx";
 
 
 
@@ -26,6 +27,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/lifestyles" element={<LifeStyleFront />} />
+        <Route path="/lifestyles/detail" element={<LifeStyleDetail />} />
         <Route path="/events" element={<EventPage />} />
         <Route path="/event/detail" element={<EventDetails />} />
         <Route path="/admin/login" element={<LoginForm />} />

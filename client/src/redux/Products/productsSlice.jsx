@@ -3,13 +3,35 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const updateproduct = createAsyncThunk(
-  "products/updateproduct",
-  async ({ productdata, id }, thunkAPI) => {
+export const getOneProduct = createAsyncThunk(
+  "products/getOneProduct",
+  async (productid, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
+      const res = await axios.get(
+        `http://localhost:3000/product/getOne/${productid}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateproduct = createAsyncThunk(
+  "products/updateproduct",
+  async ({ productdata, productId }, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 600));
       const res = await axios.patch(
-        `http://localhost:3000/product/update/${id}`,
+        `http://localhost:3000/product/update/${productId}`,
         productdata,
         {
           headers: {
@@ -26,7 +48,7 @@ export const updateproduct = createAsyncThunk(
 export const addproduct = createAsyncThunk(
   "products/addproduct",
   async (productdata, thunkAPI) => {
-    console.log(productdata)
+    console.log(productdata);
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.post(
@@ -70,7 +92,7 @@ export const getproducts = createAsyncThunk(
     let { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.get(`http://localhost:3000/product/getAll`);
-      return res.data;
+      return res.data.docs;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -84,6 +106,7 @@ const productSlice = createSlice({
     isLoadingEditProduct: false,
     isLoadingproducts: false,
     error: null,
+    currentproduct: {},
     products: [],
   },
   reducers: {
@@ -94,6 +117,17 @@ const productSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      // getoneproduct
+      .addCase(getOneProduct.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.currentproduct = action.payload;
+      })
+      .addCase(getOneProduct.pending, (state, action) => {
+        state.error = null;
+      })
+      .addCase(getOneProduct.rejected, (state, action) => {
+        state.error = action.payload;
+      })
       //addproduct
       .addCase(addproduct.fulfilled, (state, action) => {
         // console.log(action.payload);
