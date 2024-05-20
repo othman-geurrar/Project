@@ -18,7 +18,10 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   //
-  price: {
+  newPrice: {
+    type: Number,
+  },
+  oldPrice: {
     type: Number,
   },
   description: {
@@ -26,7 +29,7 @@ const productSchema = new mongoose.Schema({
   },
   //
   imageURL: {
-    type: String,
+    type: [String],
   },
   //
   productQuantity: {
@@ -41,6 +44,10 @@ const productSchema = new mongoose.Schema({
   size: [{ label: { type: String }, value: { type: String } }],
   LifeStyle: {
     type: String,
+  },
+  stars:{
+    type: Number,
+    default: 0,
   },
   Review: [
     {

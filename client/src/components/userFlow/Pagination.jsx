@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-const Pagination = ({ total, limit, currentPage }) => {
+const Pagination = ({ total, limit, currentPage , search }) => {
   const totalPages = Math.ceil(total / limit);
-
+  const min = 12
   const nextPage = useMemo(() => {
-    return `?p=${currentPage + 1}`;
+    return `?p=${currentPage + 1}&search=${search}&min=${min}`;
   }, [currentPage, limit]);
   
   const prevPage = useMemo(() => {
-    return `?p=${currentPage - 1}`;
+    return `?p=${currentPage - 1}&search=${search}&min=${min}`;
   }, [currentPage, limit]);
 
   const pagesArray = useMemo(() => {
@@ -48,7 +48,7 @@ const Pagination = ({ total, limit, currentPage }) => {
           {pagesArray.map((page) => (
             <li key={page}>
               <Link
-                to={`?p=${page}`}
+                to={`?p=${page}&search=${search}&min=${min}`}
                 className={`flex items-center justify-center px-4 h-10 leading-tight ${
                   currentPage !== page
                     ? 'text-gray-500 bg-white border border-gray-300'

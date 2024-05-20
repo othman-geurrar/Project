@@ -29,8 +29,8 @@ const AllProductCard = ({ name, imageURL, stars , oldPrice , newPrice }) => {
             <span className="text-sm text-gray-500 dark:text-gray-400">({stars})</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-lg font-semibold">{newPrice}</span>
-            <span className="text-sm text-gray-500 line-through dark:text-gray-400">{oldPrice}</span>
+            <span className="text-lg font-semibold">{`$${newPrice}`}</span>
+            <span className="text-sm text-gray-500 line-through dark:text-gray-400">{`$${oldPrice}`}</span>
           </div>
         </div>
       </div>

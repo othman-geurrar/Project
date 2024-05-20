@@ -12,8 +12,14 @@ module.exports = {
       display: ["Open Sans", "sans-serif"],
       body: ["Open Sans", "sans-serif"],
       productTitle: ["Poetsen One", "sans-serif"],
+      lifestylename: ["Caveat", "cursive"],
+      followus: ["Volkhov", "serif"],
+      descriptionLS: ["Poppins", "sans-serif"],
     },
     extend: {
+      scale: {
+        '120': '1.15',
+      },
       colors: {
         customGreen: "#9AD0C2",
         //   current: 'currentColor',
@@ -171,6 +177,7 @@ module.exports = {
       },
       backgroundImage: {
         "hero-pattern": "url('https://i.ibb.co/MkvLDfb/Rectangle-4389.png')",
+        "newsletter": "url('https://hongotheme.myshopify.com/cdn/shop/files/demo-jewellery-newslettet-bg.jpg?v=1661405139')",
       },
       zIndex: {
         999999: "999999",
@@ -191,4 +198,5 @@ module.exports = {
     require("preline/plugin"),
     flowbite.plugin(),
   ],
+  
 };

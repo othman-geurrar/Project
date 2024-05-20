@@ -8,7 +8,6 @@ const LifestyelDetails = () => {
   const { data } = useGetLifeStyleByIdQuery(id);
 
   console.log(data);
-  3;
 
   return (
     <div className="grid  md:grid-cols-3 md:grid-rows-12 md:gap-10 gap-6 p-6 h-screen  overflow-scroll mb-10 ">

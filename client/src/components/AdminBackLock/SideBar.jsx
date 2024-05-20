@@ -59,7 +59,7 @@ const links = [
     links: [
       {
         name: "Products",
-        link: "products",
+        link: "admin/products",
         icon: <CiShoppingCart />,
       },
       {
@@ -69,12 +69,12 @@ const links = [
       },
       {
         name: "Life Style",
-        link: "lifestyles",
+        link: "admin/lifestyles",
         icon: <SiStylelint />,
       },
       {
         name: "Events",
-        link: "events",
+        link: "admin/events",
         icon: <AiOutlineShoppingCart />,
       },
       {

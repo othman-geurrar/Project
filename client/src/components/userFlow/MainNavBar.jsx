@@ -9,7 +9,7 @@ import logo from '../../assets/logo.png';
 const MainNav = () => {
   const [search, setSearch] = useState(false);
   const [toggle, setToggle] = useState(false);
-  const [scrolling, setScrolling] = useState(false);
+  const [scrolling, setScrolling] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
