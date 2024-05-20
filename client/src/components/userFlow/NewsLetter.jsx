@@ -20,13 +20,15 @@ export default function NewsLetter() {
               />
             </div>
             <div className="space-y-4">
-              <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm font-medium dark:bg-gray-800">
+              <div className="inline-block rounded-lg text-teal-600 bg-gray-100 px-3 py-1 text-sm font-semibold dark:bg-gray-800">
                 LATEST NEWSLETTER
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Get a 20% discount on your first order!</h2>
               <form className="flex space-x-2">
-                <Input className="max-w-lg flex-1" placeholder="Enter your email" type="email" />
-                <Button type="submit">Subscribe</Button>
+                <div className='flex mt-8 w-full'>
+                  <Input className="max-w-lg  flex-1" placeholder="Enter your email" type="email" />
+                  <Button type="submit" sx={{ color: 'teal' }}>Subscribe</Button>
+                </div>
               </form>
             </div>
           </div>

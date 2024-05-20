@@ -223,7 +223,7 @@ const ProductsPage = () => {
           <Pagination total={total} limit={limit} currentPage={page} search={search}  />
         </div>
     </div>
-    <IntsaFollow />
+    
     <div>
       <Footer />
     </div>
