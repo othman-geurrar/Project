@@ -1,17 +1,17 @@
-import { Footer, NavBaar } from "../../components";
-
 // import { FaSpotify } from "react-icons/fa";
 const isLoading = false;
-// import video from "./stylesvideo.mp4";
-const LifeStyleDetail = () => {
+import video from "../../assets/lifestyle/v.mp4";
+import Musiccards from "../../components/userFlow/musiccards";
+import ProductCard from "../../components/userFlow/ProductCard";
+import instagram from "../../assets/instagram.png";
+import MovingBar from "../../components/userFlow/movingBar";
+const styles = () => {
   return (
-    <main>
-        {/* navbar */}
-        <NavBaar />
+    <main className="bg-gray-100">
       {isLoading ? (
         <>
           {/* navbar */}
-         
+          <div className="h-[60px] bg-black text-white text-center">nav</div>
           {/* skeleton */}
           <section className="flex gap-[30px] p-[20px] h-[90vh]">
             {/* image */}
@@ -41,13 +41,13 @@ const LifeStyleDetail = () => {
                 <div style={{ boxShadow: "inset -1px 1px 20px 8px #0000000d" }}>
                   <div className="px-[50px] flex flex-col gap-[25px] h-[350px] animate-customPulse  overflow-y-auto py-4 text-[#484848]">
                     <div className="bg-gray-300  rounded-md  h-2"></div>
-                    <div className="bg-gray-300 rounded-md  h-2"></div>{" "}
+                    <div className="bg-gray-300 rounded-md  h-2"></div>
                     <div className="bg-gray-300  rounded-md h-2"></div>
                     <div className="bg-gray-300  rounded-md h-2"></div>
-                    <div className="bg-gray-300  rounded-md h-2"></div>{" "}
+                    <div className="bg-gray-300  rounded-md h-2"></div>
                     <div className="bg-gray-300  rounded-md h-2"></div>
                     <div className="bg-gray-300 rounded-md  h-2"></div>
-                    <div className="bg-gray-300  rounded-md h-2"></div>{" "}
+                    <div className="bg-gray-300  rounded-md h-2"></div>
                     <div className="bg-gray-300  rounded-md h-2"></div>
                     <div className="bg-gray-300  rounded-md h-2"></div>
                   </div>
@@ -78,10 +78,10 @@ const LifeStyleDetail = () => {
         </>
       ) : (
         <>
-       
-          
+          {/* navbar */}
+          <div className="h-[60px] bg-black text-white text-center">nav</div>
           {/* hero_section */}
-          <section className="flex gap-[30px] p-[20px] h-[90vh]">
+          <section className="flex gap-[30px] p-[20px] pb-0 glass m-4 mb-0 h-[90vh] ">
             {/* image */}
             <div
               className="w-[40%] rounded-md bg-[url('https://www.standout.co.uk/blog/wp-content/uploads/2022/06/AdobeStock_295075964-scaled.jpeg')]"
@@ -89,7 +89,7 @@ const LifeStyleDetail = () => {
             >
               <div className="backdrop-brightness-90 h-full w-full flex justify-center items-center">
                 {/* headline */}
-                <div className=" font-lifestylename">
+                <div className="font-lifestylename">
                   <span className="text-[120px] text-white">Vintage</span>
                 </div>
               </div>
@@ -137,7 +137,19 @@ const LifeStyleDetail = () => {
                   elit. Labore praesentium quod exercitationem dolorum ducimus
                   omnis? Maxime nostrum at qui, saepe excepturi voluptatem
                   cupiditate distinctio consequuntur tempore perspiciatis,
-                  quidem, omnis ducimus?
+                  quidem, omnis ducimus? Lorem Lorem ipsum dolor sit amet
+                  consectetur adipisicing elit. Labore praesentium quod
+                  exercitationem dolorum ducimus omnis? Maxime nostrum at qui,
+                  saepe excepturi voluptatem cupiditate distinctio consequuntur
+                  tempore perspiciatis, quidem, omnis ducimus? Lorem ipsum dolor
+                  sit amet consectetur adipisicing elit. Labore praesentium quod
+                  exercitationem dolorum ducimus omnis? Maxime nostrum at qui,
+                  saepe excepturi voluptatem cupiditate distinctio consequuntur
+                  tempore perspiciatis, quidem, omnis ducim ipsum dolor sit amet
+                  consectetur adipisicing elit. Labore praesentium quod
+                  exercitationem dolorum ducimus omnis? Maxime nostrum at qui,
+                  saepe excepturi voluptatem cupiditate distinctio consequuntur
+                  tempore perspiciatis, quidem, omnis ducimus?
                 </div>
                 {/* buttons */}
                 <div className="text-center mb-2 ">
@@ -145,7 +157,9 @@ const LifeStyleDetail = () => {
                     type="button"
                     className="group py-2.5 px-5 me-6 w-[155px]  text-sm font-medium text-white focus:outline-none bg-[#1db954] rounded-full border border-gray-200 hover:bg-green-400 hover:text-black focus:z-10  dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                   >
-                    <span className="mr-2">MusicStyle</span>
+                    <a href="#music">
+                      <span className="mr-2">MusicStyle</span>
+                    </a>
                     <i className="fa-brands fa-spotify group-hover:mr-2"></i>
                     <i className="fa-solid fa-arrow-down hidden group-hover:inline"></i>
                   </button>
@@ -162,9 +176,11 @@ const LifeStyleDetail = () => {
               <div></div>
             </div>
           </section>
-          
-          {/* <section>
-            <div className="relative h-[200px] w-[100%] overflow-hidden">
+          {/* moving brands */}
+          <MovingBar />
+          {/* video_section */}
+          <section>
+            <div className="relative h-[290px] w-[100%] overflow-hidden">
               <video
                 className="absolute top-0 left-0 h-full w-full object-cover"
                 autoPlay
@@ -173,8 +189,8 @@ const LifeStyleDetail = () => {
                 src={video}
                 type="video/mp4"
               />
-              
-              <div className="relative z-10 h-full w-full backdrop-brightness-[0.3] text-white flex flex-col items-center justify-center">
+              {/* Optional: Add other content within the div */}
+              <div className="relative z-10 h-full w-full  text-white flex flex-col items-center justify-center">
                 <div>
                   <span className="text-[30px]">lifestyle title</span>
                 </div>
@@ -186,12 +202,85 @@ const LifeStyleDetail = () => {
                 </div>
               </div>
             </div>
-          </section> */}
+          </section>
+          {/* moving brands */}
+          <MovingBar />
+          {/* music-section */}
+          {/* music_section */}
+          <section className="flex h-[300px]" id="music">
+            <div
+              className="cursor-pointer h-full w-[50%] bg-[url('https://previews.123rf.com/images/balabolka/balabolka1806/balabolka180600141/103846607-dessin-anim%C3%A9-mignon-doodles-mot-de-musique.jpg')]"
+              style={{ backgroundPosition: "center", backgroundSize: "cover " }}
+            ></div>
+            <div
+              className="h-full w-[50%]  text-white bg-[url('https://cdn.wallpapersafari.com/77/57/0CheEm.png')]"
+              style={{ backgroundPosition: "center", backgroundSize: "cover " }}
+            >
+              <div className="w-full p-[40px] h-full backdrop-blur-[2px] flex flex-col justify-center ">
+                <div className="mb-2 text-[30px]">for the occasion</div>
+                <div className=" ">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Tempore earum numquam expedita iusto rerum odio quasi quae
+                </div>
+              </div>
+            </div>
+          </section>
+          {/* music-cards */}
+          <div>
+            <Musiccards />
+          </div>
+          {/* Products_section */}
+          <section className="flex h-[300px]">
+            <div
+              className=" h-full w-[50%]  text-white bg-[url('https://cdn2.mageplaza.com/media/general/OnWj0is.png')]"
+              style={{ backgroundPosition: "center", backgroundSize: "cover " }}
+            >
+              <div className="w-full p-[40px] h-full backdrop-brightness-[0.3] backdrop-blur-[2px] flex flex-col justify-center ">
+                <div className="mb-2 text-[30px]">for the occasion</div>
+                <div className=" ">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Tempore earum numquam expedita iusto rerum odio quasi quae
+                </div>
+              </div>
+            </div>
+            <div
+              className="cursor-pointer h-full w-[50%] bg-[url('https://www.finplus.co.in/wp-content/uploads/2017/05/Sell-products-online-why-should-I-start-selling-online-1.jpg')]"
+              style={{ backgroundPosition: "center", backgroundSize: "cover " }}
+            ></div>
+          </section>
+          {/* Products-cards */}
+          <div className=" py-4 px-8 flex justify-center gap-[20px]">
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </div>
+          {/* Follow US On Insta */}
+          <div
+            className="md:pb-[50px] pb-0"
+            style={{ boxShadow: "rgb(0 0 0 / 6%) 0px 0px 20px 0px inset" }}
+          >
+            <div className=" text-center md:text-[46px] mb-3 py-[10px] text-[30px] font-followus text-[#484848]">
+              <span className="hidden md:inline mr-5">Follow Us</span>
+              <i className="fa-brands fa-instagram mr-5"></i>
+              <i className="fa-brands fa-facebook mr-5"></i>
+              <i className="fa-brands fa-twitter"></i>
+            </div>
+            <div className="text-center md:text-[16px] text-[12px] md:mb-16 mb-5 text-[#8A8A8A] md:px-[500px]">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
+                porro error blanditiis suscipit repudiandae laudantium id
+                laboriosam,
+              </p>
+            </div>
+            <div className=" ">
+              <img src={instagram} />
+            </div>
+          </div>
         </>
       )}
-      <Footer />
     </main>
   );
 };
 
-export default LifeStyleDetail;
+export default styles;

@@ -34,9 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/event/detail" element={<EventDetails />} />
         <Route path="/admin/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route element={<Protected />}>
           <Route path="*" element={<App />} />
-        </Route>
       </Routes>
     </Provider>
   </BrowserRouter>

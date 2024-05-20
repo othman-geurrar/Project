@@ -60,7 +60,6 @@ const LifestyleSection = () => {
 
   const handleView = (item) => {
     navigate(`/lifestyle/${item.LifeStyleID}`);
-
   };
 
   console.log(data.LifeStyle);
@@ -90,7 +89,7 @@ const LifestyleSection = () => {
      
     {data && <div className="md:col-span-2 p-2 ml-4">
     
-      {data.LifeStyle.map((item, index) => (
+      {data.LifeStyle && data.LifeStyle.map((item, index) => (
         <div key={index} className=" p-4 ">
           <div className="flex justify-center">
             <div className="block rounded-lg justify-center h-fit bg-slate-200 shadow-secondary-2 dark:bg-surface-dark dark:text-white text-surface md:max-w-5xl">

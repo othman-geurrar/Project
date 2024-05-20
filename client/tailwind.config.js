@@ -16,9 +16,31 @@ module.exports = {
       followus: ["Volkhov", "serif"],
       descriptionLS: ["Poppins", "sans-serif"],
     },
+    variants: {
+      animation: ["responsive", "motion-safe", "motion-reduce"],
+    },
     extend: {
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        marquee2: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+        customPulse: {
+          "0%, 100%": { opacity: 1, transform: "scale(1)" },
+          "50%": { opacity: 0.5, transform: "scale(0.95)" },
+        },
+      },
+      animation: {
+        customPulse: "customPulse 2s ease-in-out infinite",
+        marquee: "marquee 25s linear infinite",
+        marquee2: "marquee2 25s linear infinite",
+      },
       scale: {
-        '120': '1.15',
+        120: "1.15",
       },
       colors: {
         customGreen: "#9AD0C2",
@@ -197,5 +219,4 @@ module.exports = {
     require("preline/plugin"),
     flowbite.plugin(),
   ],
-  
 };
