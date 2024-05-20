@@ -10,22 +10,18 @@ import { useNavigate } from "react-router-dom";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
 
-
-
 const EventSection = () => {
   const { data, isLoading, isError, refetch } = useGetAlleventsQuery();
   const [deleteEvent, { data: deleteData, isLoading: loading, isError: err }] =
     useDeleteEventMutation();
   const [editingEvent, setEditingEvent] = useState(null);
-  // const [showEditForm, setShowEditForm] = useState(false); // State to toggle edit form
   const showEditForm = useSelector((state) => state.form.showEditForm);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // This effect will refetch data whenever deleteData changes, indicating a successful deletion
     if (deleteData) {
-      refetch(); // Refetch data
+      refetch();
     }
   }, [deleteData, refetch]);
 
@@ -34,16 +30,20 @@ const EventSection = () => {
   }
 
   if (isLoading) {
-    return <div><div className="flex flex-col gap-6 w-72">
-    <div className="flex gap-6 items-center">
-      <div className="skeleton w-24 h-26 rounded-full shrink-0"></div>
-      <div className="flex flex-col gap-6">
-        <div className="skeleton h-6 w-32"></div>
-        <div className="skeleton h-6 w-40"></div>
+    return (
+      <div>
+        <div className="flex flex-col gap-6 w-72">
+          <div className="flex gap-6 items-center">
+            <div className="skeleton w-24 h-26 rounded-full shrink-0"></div>
+            <div className="flex flex-col gap-6">
+              <div className="skeleton h-6 w-32"></div>
+              <div className="skeleton h-6 w-40"></div>
+            </div>
+          </div>
+          <div className="skeleton h-40 w-full"></div>
+        </div>
       </div>
-    </div>
-    <div className="skeleton h-40 w-full"></div>
-  </div></div>;
+    );
   }
 
   const swalWithBootstrapButtons = Swal.mixin({
@@ -54,7 +54,6 @@ const EventSection = () => {
     buttonsStyling: false,
   });
 
-
   const handleDelete = async (id) => {
     try {
       await deleteEvent(id);
@@ -64,22 +63,17 @@ const EventSection = () => {
   };
 
   const handleEdit = (item) => {
-    console.log(item);
     setEditingEvent(item);
     dispatch(setShowEditForm());
   };
+
   const handleView = (item) => {
     navigate(`/events/${item.EventID}`);
   };
 
-  console.log(data.events);
   const refetchEvents = () => {
-    refetch(); // Refetch data after adding a new lifestyle
+    refetch();
   };
-
-//   const date = new Date(data.events.EventDate);
-// //   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-// //   console.log(formattedDate);
 
   return (
     <>
@@ -87,14 +81,13 @@ const EventSection = () => {
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
           <div className="bg-slate-200 p-8 rounded shadow-lg">
             <div className="flex justify-between item-center mb-4">
-            <h2 className="text-xl font-bold text-teal-600">Edit Event</h2>
-            <button
-              onClick={() => dispatch(setShowEditForm())}
-              className="text-gray-600 hover:text-gray-800 text-teal-600 rounded-full text-xl"
-            >
-              <IoCloseCircleOutline/>
-            </button>
-          
+              <h2 className="text-xl font-bold text-teal-600">Edit Event</h2>
+              <button
+                onClick={() => dispatch(setShowEditForm())}
+                className="text-gray-600 hover:text-gray-800 text-teal-600 rounded-full text-xl"
+              >
+                <IoCloseCircleOutline />
+              </button>
             </div>
 
             <AddFormEvent
@@ -108,90 +101,96 @@ const EventSection = () => {
 
       {data && (
         <div className="md:col-span-2 p-2 ml-4">
-          {data.events.map((item, index) => (
-            <div key={index} className=" p-4 ">
-              <div className="flex justify-center">
-                <div className="block rounded-lg justify-center h-fit bg-slate-200 shadow-secondary-2 dark:bg-surface-dark dark:text-white text-surface md:max-w-5xl">
-                  <div className=" overflow-hidden bg-cover p-2">
-                    <img className="rounded-t-lg" src={item.ImageURL} alt="" />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="mb-2  font-bold leading-tight">
-                      {item.EventName}
-                    </h3>
-                    <div>
-                      <span className="font-semibold mb-3">
-                      Location : 
-                        <span className="text-xm ml-2 font-medium">{item.Location}</span>
-                      </span>
-                      
+          {data.events.map((item, index) => {
+            const eventDate = new Date(item.EventDate);
+            const formattedDate = eventDate.toLocaleDateString("en-GB");
+            const formattedTime = eventDate.toLocaleTimeString("en-GB", {
+              hour: '2-digit',
+              minute: '2-digit',
+            });
+
+            return (
+              <div key={index} className="p-4">
+                <div className="flex justify-center">
+                  <div className="block rounded-lg justify-center h-fit bg-slate-200 shadow-secondary-2 dark:bg-surface-dark dark:text-white text-surface md:max-w-5xl">
+                    <div className="overflow-hidden bg-cover p-2">
+                      <img className="rounded-t-lg" src={item.ImageURL} alt="" />
                     </div>
-                    <div>
-                      <span className="font-semibold  mb-3">
-                        Event Date : 
-                        <span className="text-xm ml-2 font-medium">
-                        {new Date(item.EventDate).toLocaleDateString("en-GB")}
+                    <div className="p-6">
+                      <h3 className="mb-2 font-bold leading-tight">
+                        {item.EventName}
+                      </h3>
+                      <div>
+                        <span className="font-semibold mb-3">
+                          Location:
+                          <span className="text-xm ml-2 font-medium">{item.Location}</span>
                         </span>
-                      </span>
+                      </div>
+                      <div>
+                        <span className="font-semibold mb-3">
+                          Event Date:
+                          <span className="text-xm ml-2 font-medium">{formattedDate}</span>
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-semibold mb-3">
+                          Event Time:
+                          <span className="text-xm ml-2 font-medium">{formattedTime}</span>
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-2 ">
-                    <button
-                      className=" bg-blue-700 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-blue-500 hover:text-slate-100"
-                      onClick={() => handleView(item)}
-                    >
-                      View
-                    </button>
-                    <button
-                      className="bg-slate-500 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-slate-400 hover:text-slate-100"
-                      onClick={() => handleEdit(item)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 "
-                      // onClick={() => {
-                      //   handleDelete(item.EventID);
-                      // }}
-                      onClick={() => {
-                        swalWithBootstrapButtons
-                          .fire({
-                            title: "Are u Sure ?",
-                            text: "You won't be able to revert this!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonText: "Yes, delete it !",
-                            cancelButtonText: "No, cancel !",
-                            reverseButtons: true,
-                          })
-                          .then((result) => {
-                            if (result.isConfirmed) {
-                              swalWithBootstrapButtons.fire({
-                                title: "Deleted!",
-                                text: "Your file has been deleted.",
-                                icon: "success",
-                              });
-                              handleDelete(item.EventID)
-                            } else if (
-                              /* Read more about handling dismissals below */
-                              result.dismiss === Swal.DismissReason.cancel
-                            ) {
-                              swalWithBootstrapButtons.fire({
-                                title: "Cancelled",
-                                text: "Your imaginary file is safe :)",
-                                icon: "error",
-                              });
-                            }
-                          });
-                      }}
-                    >
-                      <span className=" text-white">Delete</span>{" "}
-                    </button>
+                    <div className="p-2">
+                      <button
+                        className="bg-blue-700 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-blue-500 hover:text-slate-100"
+                        onClick={() => handleView(item)}
+                      >
+                        View
+                      </button>
+                      <button
+                        className="bg-slate-500 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-slate-400 hover:text-slate-100"
+                        onClick={() => handleEdit(item)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100"
+                        onClick={() => {
+                          swalWithBootstrapButtons
+                            .fire({
+                              title: "Are you sure?",
+                              text: "You won't be able to revert this!",
+                              icon: "warning",
+                              showCancelButton: true,
+                              confirmButtonText: "Yes, delete it!",
+                              cancelButtonText: "No, cancel!",
+                              reverseButtons: true,
+                            })
+                            .then((result) => {
+                              if (result.isConfirmed) {
+                                swalWithBootstrapButtons.fire({
+                                  title: "Deleted!",
+                                  text: "Your file has been deleted.",
+                                  icon: "success",
+                                });
+                                handleDelete(item.EventID);
+                              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                swalWithBootstrapButtons.fire({
+                                  title: "Cancelled",
+                                  text: "Your imaginary file is safe :)",
+                                  icon: "error",
+                                });
+                              }
+                            });
+                        }}
+                      >
+                        <span className="text-white">Delete</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </>
