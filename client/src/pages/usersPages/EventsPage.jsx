@@ -3,6 +3,7 @@ import event from "../../assets/img/event.jpg";
 import { Typography, Button } from "@material-tailwind/react";
 import { Link } from "@mui/material";
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
+import { Footer, MainNav } from "../../components";
 
 function EventPage() {
   const [showMore, setShowMore] = useState(false);
@@ -65,6 +66,7 @@ function EventPage() {
 
   return (
     <>
+    <MainNav />
       <div>
         <figure className="relative h-full w-full">
           <div
@@ -173,6 +175,7 @@ function EventPage() {
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 }

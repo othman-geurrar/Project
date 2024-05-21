@@ -26,3 +26,6 @@ export { default as ProductsCategory } from './userFlow/ProductsCategory'
 export { default as Accessorie } from './userFlow/Accessorie'
 export { default as IntsaFollow } from './userFlow/IntsaFollow'
 export { default as NewsLetter } from './userFlow/NewsLetter'
+export { default as ShopCart } from './userFlow/ShopCart'
+export { default as ImagesSliderDemo } from './userFlow/ImagesSlider'
+

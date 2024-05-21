@@ -10,7 +10,7 @@ import instagram from "../../assets/instagram.png";
 import heroS from "../../assets/heroS.jpeg";
 import { useGetAllLifeStyleQuery } from "../../redux/services/LifeStyleData";
 import { useEffect, useState } from "react";
-import { Footer, NavBaar } from "../../components";
+import { Footer, MainNav, NavBaar } from "../../components";
 
 const LifeStyleFront = () => {
   //  getLifeStyles Query
@@ -44,6 +44,7 @@ const LifeStyleFront = () => {
          <div className="">
            {/* Nav_Bar */}
          <NavBaar />
+         {/* <MainNav /> */}
            {/* Swiper_Hero_Section */}
            <div
              className="mySwiper md:h-[72vh] h-[30vh] w-full  "

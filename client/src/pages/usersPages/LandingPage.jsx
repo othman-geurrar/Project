@@ -1,6 +1,6 @@
 import React from 'react'
 import { Carousel, DarkThemeToggle, } from "flowbite-react";
-import { Accessorie, Footer, IntsaFollow, MainNav, NavBaar, NewsLetter } from '../../components'
+import { Accessorie, Footer, ImagesSliderDemo, IntsaFollow, MainNav, NavBaar, NewsLetter } from '../../components'
 import {ProductCard} from '../../components'
 import {ProductComponent} from '../../components'
 
@@ -8,11 +8,11 @@ import {ProductComponent} from '../../components'
 const LandingPage = () => {
   return (
     <div className="h-screen landing">
-      {/* <MainNav /> */}
-      <NavBaar />
-      <Carousel slideInterval={5000}>
+      <MainNav />
+      {/* <NavBaar /> */}
+      {/* <Carousel slideInterval={5000}>
         <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
-          {/* Slide 1 */}
+         
           <div
             className="flex justify-center items-center hero p-6 h-full w-full   bg-cover bg-center bg-opacity-10"
             style={{
@@ -41,7 +41,7 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
-          {/* Slide 2 */}
+          
           <div
             className="flex justify-center items-center hero p-6 h-full w-full bg-cover bg-center bg-opacity-10"
             style={{
@@ -70,7 +70,7 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="flex h-full items-center justify-center bg-gray-400 dark:bg-gray-700 dark:text-white">
-          {/* Slide 3 */}
+        
           <div
             className="flex justify-center items-center hero p-6 h-full w-full bg-cover bg-center bg-opacity-10"
             style={{
@@ -98,7 +98,8 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </Carousel>
+      </Carousel> */}
+      <ImagesSliderDemo />
       <div className="mt-14    text-center h-fit"
       style={{ boxShadow: "inset -1px 1px 20px 8px #0000000d" }}>
         <Accessorie />
