@@ -16,6 +16,8 @@
 
 @media screen and (max-width: 800px) {
   .sidebar {
+
+
     z-index: 10000000;
   }
 }
@@ -43,7 +45,7 @@
 
 #preview {
   background: transparent
-    url('https://ej2.syncfusion.com/react/demos/src/color-picker/images/pen.png')
+    url("https://ej2.syncfusion.com/react/demos/src/color-picker/images/pen.png")
     no-repeat;
   display: inline-block;
   height: 80px;
@@ -53,7 +55,54 @@
   background-color: #008000;
 }
 
-.e-input-group:not(.e-float-icon-left), .e-input-group.e-success:not(.e-float-icon-left), .e-input-group.e-warning:not(.e-float-icon-left), .e-input-group.e-error:not(.e-float-icon-left), .e-input-group.e-control-wrapper:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-success:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-warning:not(.e-float-icon-left), .e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left){
+/* .e-grid .e-row {
+  background-color: #008000;
+} */
+
+/* .e-grid .e-row  {
+  ba
+} */
+
+.e-grid .e-headercell {
+  background-color: teal;
+  & .e-headertext {
+    color: white;
+  }
+}
+
+.e-pager .e-currentitem,
+.e-pager .e-currentitem:hover {
+  background: teal;
+  color: #fff;
+  opacity: 1;
+}
+
+.e-pager .e-currentitem.e-numericitem.e-focused {
+  background-color: teal;
+}
+
+.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before,.e-input-group:not(.e-float-icon-left):not(.e-float-input)::after {
+  background-color: teal;
+}
+
+/* .e-grid .e-table {
+  background-color: red;
+}
+.e-pager .e-currentitem, .e-pager .e-currentitem:hover{
+  background-color: #008000;
+}
+.e-pager .e-currentitem, .e-pager .e-currentitem:hover{
+
+} */
+
+.e-input-group:not(.e-float-icon-left),
+.e-input-group.e-success:not(.e-float-icon-left),
+.e-input-group.e-warning:not(.e-float-icon-left),
+.e-input-group.e-error:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper.e-success:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper.e-warning:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {
   border: none;
 }
 

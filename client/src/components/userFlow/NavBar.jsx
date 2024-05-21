@@ -31,32 +31,32 @@ export default function NavBaar() {
       </div>
       <nav className="hidden md:flex items-center gap-6 text-lg font-medium">
         <Link
-          className="relative before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-          href="#"
+          className="relative text-teal-600 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-500 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-400 dark:hover:text-gray-50"
+          to={"/"}
         >
           Home
         </Link>
         <Link
-          className="relative before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-          href="#"
+          className="relative text-teal-600 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-500 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-400 dark:hover:text-gray-50"
+          to={"/products"}
         >
           Products
         </Link>
         <Link
-          className="relative before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-          href="#"
+          className="relative text-teal-600 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-500 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-400 dark:hover:text-gray-50"
+          to={"/lifestyles"}
         >
-          About
+          LifeStyles
         </Link>
         <Link
-          className="relative before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
+          className="relative text-teal-600 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-500 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-400 dark:hover:text-gray-50"
           href="#"
         >
           Contact
         </Link>
       </nav>
-      <div className="flex items-center gap-4">
-        <Button className="hidden md:inline-flex" variant="outline">
+      <div className="flex items-center gap-4 text-teal-600">
+        <Button className="hidden md:inline-flex " variant="outline">
           Sign In
         </Button>
         <Button className="rounded-full" size="icon" variant="ghost">
@@ -81,30 +81,30 @@ export default function NavBaar() {
             </Box>
 
         <div className="grid gap-2 py-6">
-              <Link
-                className="relative flex px-4 w-full items-center py-2 text-lg font-semibold before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-                href="#"
-              >
-                Home
-              </Link>
-              <Link
-                className="relative flex px-4 w-full items-center py-2 text-lg font-semibold before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-                href="#"
-              >
-                Products
-              </Link>
-              <Link
-                className="relative flex px-4 w-full items-center py-2 text-lg font-semibold before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-                href="#"
-              >
-                About
-              </Link>
-              <Link
-                className="relative flex px-4 w-full items-center py-2 text-lg font-semibold before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-                href="#"
-              >
-                Contact
-              </Link>
+        <Link
+          className="relative text-teal-600 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-500 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-400 dark:hover:text-gray-50"
+          to={"/"}
+        >
+          Home
+        </Link>
+        <Link
+          className="relative text-teal-600 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-500 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-400 dark:hover:text-gray-50"
+          to={"/products"}
+        >
+          Products
+        </Link>
+        <Link
+          className="relative text-teal-600 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-500 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-400 dark:hover:text-gray-50"
+          to={"/lifestyles"}
+        >
+          LifeStyles
+        </Link>
+        <Link
+          className="relative text-teal-600 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-500 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-400 dark:hover:text-gray-50"
+          href="/"
+        >
+          Contact
+        </Link>
             </div>
         </Drawer>
       </div>

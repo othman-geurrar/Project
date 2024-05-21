@@ -11,6 +11,7 @@ const EventRouter = require("./Routes/eventRoutes");
 const userRouter = require("./Routes/userRoutes");
 const paymentRouter = require("./Routes/payementRoutes");
 const passport = require("passport");
+const cartRouter = require("./Routes/cartRoutes");
 const PORT = process.env.PORT || 4000;
 
 require("./strategies/userLocal");
@@ -21,7 +22,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5174",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
@@ -51,6 +52,7 @@ app.use("/events", EventRouter);
 app.use("/users", userRouter);
 app.use("/payments", paymentRouter);
 app.use("/auth", userRouter);
+app.use("/cart" , cartRouter);
 
 app.listen(PORT, () => {
   console.log("app listening on port 3000!");

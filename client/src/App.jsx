@@ -37,8 +37,8 @@ function App() {
 
   return (
     <div>
-       <ToastContainer />
-      <div className="flex relative h-full bg-white">
+      <ToastContainer />
+      <div className="flex relative h-full ">
         {/* <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
             <TooltipComponent
               content="Settings"
@@ -86,15 +86,17 @@ function App() {
               <Route path="/admins" element={<Admins />} />
               <Route path="/users" element={<Users />} />
               <Route path="/admin/lifestyles" element={<LifeStyle />} />
-              <Route path="/admin/lifestyle/:id" element={<LifestyelDetails />} />
+              <Route
+                path="/admin/lifestyle/:id"
+                element={<LifestyelDetails />}
+              />
               <Route path="/lifestyle/add" element={<AddLifeStyle />} />
               <Route path="/admin/profile" element={<AdminProfile />} />
               <Route path="/admin/products" element={<Products />} />
               <Route path="/productdetail" element={<ProductsDetails />} />
-              <Route path='/admin/events' element={<Event />} />
-              <Route path='/events/:id' element={<EventDetails />} />
+              <Route path="/admin/events" element={<Event />} />
+              <Route path="/events/:id" element={<EventDetails />} />
             </Routes>
-            
           </div>
         </div>
       </div>
