@@ -6,16 +6,23 @@ import {
 } from "../../redux/services/cartApi";
 import { IoAddOutline } from "react-icons/io5";
 import { IoIosRemove } from "react-icons/io";
+import { setcart } from "../../redux/SideBar/sideBarSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function ShopCart() {
-  const { data: cart, refetch } = useGetcartQuery(6954);
+  const { data: carts, refetch } = useGetcartQuery(6954);
   const [updateQuantity] = useUpdateQuantityMutation();
   const [removecart] = useRemovecartMutation();
+  const { cart } = useSelector(
+    (state) => state.sideBar
+  );
+  const dispatch = useDispatch();
+  
 
-  const products = cart?.items;
+  const products = carts?.items;
   console.log(products);
 
-  const [isCartOpen, setIsCartOpen] = useState(true);
+  
 
   const handleRemoveItem = async ({ userId, productId }) => {
     // const userId = userId ;
@@ -46,7 +53,7 @@ function ShopCart() {
   };
 
   const handleCloseCart = () => {
-    setIsCartOpen(false);
+    dispatch(setcart())
   };
 
   const calculateSubtotal = () => {
@@ -56,19 +63,19 @@ function ShopCart() {
   };
 
   return (
-    <div>
-      {isCartOpen && (
+    <div className=" mt-12">
+      {cart && (
         <div
-          className="relative z-10"
+          className="relative z-20 mt-12"
           aria-labelledby="slide-over-title"
           role="dialog"
           aria-modal="true"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+          <div className="fixed  bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
           <div className="fixed inset-0 overflow-hidden">
             <div className="absolute inset-0 overflow-hidden">
-              <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+              <div className="pointer-events-none fixed inset-y-0 right-2 flex max-w-full pl-10">
                 <div className="pointer-events-auto w-screen max-w-md">
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
@@ -82,8 +89,9 @@ function ShopCart() {
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
-                            className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
-                            onClick={handleCloseCart}
+                            className=" absolute -m-2 p-2 mt-8 text-gray-400 hover:text-gray-500"
+                            onClick={() => dispatch(setcart())}
+                            
                           >
                             <span className="absolute -inset-0.5"></span>
                             <span className="sr-only">Close panel</span>

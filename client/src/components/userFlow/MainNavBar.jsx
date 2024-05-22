@@ -7,11 +7,20 @@ import css from "./Navbar.module.scss";
 import logo from '../../assets/logo.png';
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setcart } from "../../redux/SideBar/sideBarSlice";
+import ShopCart from "./ShopCart";
+import Cart from "./Cart";
 
 const MainNav = () => {
   const [search, setSearch] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+
+  const { cart } = useSelector(
+    (state) => state.sideBar
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,45 +60,44 @@ const MainNav = () => {
             <img src={logo} alt="Logo" />
             
           </div>
-          <span className=" my-auto"> Our Style Are Yours </span>
+          {/* <span className=" my-auto"> Our Style Are Yours </span> */}
         </div>
         <div
           className={`${css.main_menu} ${toggle ? css["main_menu--open"] : {}}`}
         >
            <nav className="hidden md:flex items-center gap-6 text-lg font-medium">
         <Link
-          className="relative text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
           to={"/"}
         >
           Home
         </Link>
         <Link
-          className="relative text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
           to={"/products"}
         >
           Products
         </Link>
         <Link
-         className="relative text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+         className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
           to={"/lifestyles"}
         >
           LifeStyles
         </Link>
         <Link
-          className="relative text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/events"}
+        >
+          Events
+        </Link>
+        <Link
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
           href="#"
         >
           Contact
         </Link>
       </nav>
-          {/* <div className="flex gap-4">
-            <button className="text-md ml-64">
-              <FaSignInAlt /> Sign In
-            </button>
-            <button className="text-md">
-              <FaUser /> Log In
-            </button>
-          </div> */}
+          
         </div>
 
         <div>
@@ -97,7 +105,7 @@ const MainNav = () => {
           <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline">
           Sign In
         </Button>
-        <Button className="rounded-full hover:text-teal-300" size="icon" variant="ghost">
+        <Button className="rounded-full hover:text-teal-300" size="icon" variant="ghost" onClick={() => dispatch(setcart())}>
           <ShoppingCartIcon className="h-6 w-6" />
           <span className="sr-only">Cart</span>
         </Button>
@@ -127,6 +135,7 @@ const MainNav = () => {
           ></input>
         </div>
       </div>
+      { cart && <Cart />}
     </>
   );
 };

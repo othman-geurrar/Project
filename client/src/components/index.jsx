@@ -28,4 +28,5 @@ export { default as IntsaFollow } from './userFlow/IntsaFollow'
 export { default as NewsLetter } from './userFlow/NewsLetter'
 export { default as ShopCart } from './userFlow/ShopCart'
 export { default as ImagesSliderDemo } from './userFlow/ImagesSlider'
+export { default as Cart } from './userFlow/Cart'
 

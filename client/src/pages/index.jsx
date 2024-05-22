@@ -20,3 +20,4 @@ export { default as EventPage } from './usersPages/EventsPage';
 export { default as LifeStyleFront } from './usersPages/LifeStylePage';
 export { default as LifeStyleDetail } from './usersPages/LifeStylesDetail';
 export { default as ProductDetail } from './usersPages/ProductDetail'
+export { default as UserLoginForm } from './usersPages/LoginForm'

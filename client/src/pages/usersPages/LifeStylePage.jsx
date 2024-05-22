@@ -47,7 +47,7 @@ const LifeStyleFront = () => {
          {/* <MainNav /> */}
            {/* Swiper_Hero_Section */}
            <div
-             className="mySwiper md:h-[72vh] h-[30vh] w-full  "
+             className="mySwiper mt-12 md:h-[72vh] h-[30vh] w-full  "
              style={{
                backgroundImage: `url(https://assets.vogue.com/photos/5f626211febc708fb8fccb96/16:9/w_1920,h_1080,c_limit/FashionPlitics_v3-1x1.jpg)`,
                backgroundSize: "cover",

@@ -2,10 +2,12 @@ import { Button } from "@material-tailwind/react";
 import React from "react";
 import event from "../../assets/img/event.jpg";
 import logo from "../../assets/img/logo.png";
+import { NavBaar } from "../../components";
 
 function EventDetails() {
   return (
     <div>
+      <NavBaar />
       <section
         className="w-full py-12 md:py-24 lg:py-32 dark:bg-gray-800 "
         style={{
