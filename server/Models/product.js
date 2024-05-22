@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const mongoosePaginate = require('mongoose-paginate-v2');
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const productSchema = new mongoose.Schema({
   //
@@ -45,10 +45,11 @@ const productSchema = new mongoose.Schema({
   LifeStyle: {
     type: String,
   },
-  stars:{
+  stars: {
     type: Number,
     default: 0,
   },
+  LifeStyleName: { type: String },
   Review: [
     {
       comment: {

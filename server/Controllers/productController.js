@@ -3,14 +3,22 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-
+const ProductsLifeStyle = async (req, res) => {
+  try {
+    const { LifeStyleName } = req.params;
+    const products = await Product.find({ LifeStyleName: LifeStyleName });
+    res.status(201).json(products);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
 const viewAllProduct = (req, res) => {
   const page = parseInt(req.query.p || 1);
-  const search = req.query.search || '';
+  const search = req.query.search || "";
   const limite = parseInt(req.query.min || 1000);
   // const maxPrice = req.query.maxprice ;
-  const minPrice = parseInt(req.query.minprice || 50); 
-  const maxPrice = parseInt(req.query.maxprice || 999999); 
+  const minPrice = parseInt(req.query.minprice || 50);
+  const maxPrice = parseInt(req.query.maxprice || 999999);
 
   const options = {
     page: page,
@@ -21,9 +29,9 @@ const viewAllProduct = (req, res) => {
 
   if (search) {
     searchQuery.$or = [
-      { name: { $regex: new RegExp(search, 'i') } },
-      { category: { $regex: new RegExp(search, 'i') } },
-      { color: { $regex: new RegExp(search, 'i') } },
+      { name: { $regex: new RegExp(search, "i") } },
+      { category: { $regex: new RegExp(search, "i") } },
+      { color: { $regex: new RegExp(search, "i") } },
     ];
   }
 
@@ -31,15 +39,14 @@ const viewAllProduct = (req, res) => {
 
   Product.paginate(searchQuery, options)
     .then((data) => {
-      console.log('Paginated Data:', data);
+      console.log("Paginated Data:", data);
       res.status(201).send(data);
     })
     .catch((err) => {
-      console.error('Error:', err);
+      console.error("Error:", err);
       res.status(401).send(err);
     });
 };
-
 
 const viewOneProduct = (req, res) => {
   Product.findOne({ id: req.params.id })
@@ -98,4 +105,5 @@ module.exports = {
   addProduct,
   updateProduct,
   deleteProduct,
+  ProductsLifeStyle,
 };

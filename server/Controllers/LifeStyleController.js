@@ -17,22 +17,32 @@ exports.viewLifeStyle = (req, res) => {
     })
     .catch((err) => res.status(500).json(err));
 };
-exports.addLifeStyle = async(req, res) => {
+exports.viewLifeStyleName = (req, res) => {
+  const { LifeStyleName } = req.params;
+  LifeStyle_Model.findOne({ LifeStyleName: LifeStyleName })
+    .then((LifeStyle) => {
+      if (LifeStyle) res.status(200).json(LifeStyle);
+      else res.status(404).json({ message: "LifeStyle not found" });
+    })
+    .catch((err) => res.status(500).json(err));
+};
+
+exports.addLifeStyle = async (req, res) => {
   // Find the count of existing admins
-  const LifeStyleCount = Math.floor(Math.random() * 9000) + 1000
-    try{
-      const LifeStyleID = `lifeStyle${1000 + LifeStyleCount}`;
-      // Add the generated ID to the newAdmin object
-      req.body.LifeStyleID = LifeStyleID;
-      const LifeStyle = await LifeStyle_Model.create(req.body);
-    
-      res.status(201).json({
-        message: "The LifeStyle has created successfully",
-        LifeStyle,
-      })}
-    catch(err){
-      res.status(500).json(err)
-    };
+  const LifeStyleCount = Math.floor(Math.random() * 9000) + 1000;
+  try {
+    const LifeStyleID = `lifeStyle${1000 + LifeStyleCount}`;
+    // Add the generated ID to the newAdmin object
+    req.body.LifeStyleID = LifeStyleID;
+    const LifeStyle = await LifeStyle_Model.create(req.body);
+
+    res.status(201).json({
+      message: "The LifeStyle has created successfully",
+      LifeStyle,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 exports.updateLifeStyle = (req, res) => {
   LifeStyle_Model.findOneAndUpdate(

@@ -1,60 +1,79 @@
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getOneProduct } from "../../redux/Products/productsSlice";
+import { useEffect } from "react";
 const ProductsDetails = () => {
+  const dispatch = useDispatch();
+  const { productId } = useParams();
+  const {
+    name,
+    LifeStyleName,
+    category,
+    price,
+    productQuantity,
+    inStock,
+    size,
+    color,
+    imageURL = [],
+  } = useSelector((state) => state.Products.currentproduct);
+  useEffect(() => {
+    dispatch(getOneProduct(productId));
+  }, [dispatch, productId]);
+
   return (
     <div
-      className=" py-[18px]  text-black  flex justify-center "
+      className=" pb-[18px] pt-[40px] text-black  flex justify-center "
       style={{ fontFamily: "cursive" }}
     >
-      <div
-        className="  rounded-xl  "
-        // style={{ backgroundColor: "rgb(191 214 225)" }}
-      >
-        <div className="  p-[10px] flex rounded-xl justify-center  gap-[20px]   ">
+      <div className="  rounded-xl  ">
+        <div className="  p-[10px] flex rounded-xl justify-center h-[75vh]  gap-[40px]   ">
           {/* bcp-image */}
-          <div
-            className="flex flex-col  gap-[20px] h-[75vh] overflow-auto "
+          {/* <div
+            className="flex flex-col  gap-[20px]  overflow-auto "
             style={{ scrollbarWidth: "none" }}
           >
-            <div className="w-[240px]">
+            <div className="w-[200px]">
               <img
                 className="rounded-xl "
                 src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?cs=srgb&dl=pexels-mnzoutfits-1598505.jpg&fm=jpg"
                 alt=""
               />
             </div>
-            <div className="w-[240px]">
+            <div className="w-[200px]">
               <img
                 className="rounded-xl"
                 src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?cs=srgb&dl=pexels-mnzoutfits-1598505.jpg&fm=jpg"
                 alt=""
               />
             </div>
-            <div className="w-[240px]">
+            <div className="w-[200px]">
               <img
                 className="rounded-xl"
                 src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?cs=srgb&dl=pexels-mnzoutfits-1598505.jpg&fm=jpg"
                 alt=""
               />
             </div>
-            <div className="w-[240px]">
+            <div className="w-[200px]">
               <img
                 className="rounded-xl"
                 src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?cs=srgb&dl=pexels-mnzoutfits-1598505.jpg&fm=jpg"
                 alt=""
               />
             </div>
-            <div className="w-[240px]">
+            <div className="w-[200px]">
               <img
                 className="rounded-xl"
                 src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?cs=srgb&dl=pexels-mnzoutfits-1598505.jpg&fm=jpg"
                 alt=""
               />
             </div>
-          </div>
+          </div> */}
           {/* center-image */}
-          <div className="w-[360px] ">
+          <div className="w-[480px]">
             <img
-              className="object-cover w-full h-full rounded-xl"
-              src="https://i.pinimg.com/originals/b8/01/d8/b801d86dcd8f8cfb3086a906fe72fef8.jpg"
+              className="object-cover object-center w-full h-full rounded-xl"
+              src={imageURL[0]}
               alt=""
             />
           </div>
@@ -63,52 +82,62 @@ const ProductsDetails = () => {
             <div className=" h-full  flex flex-col gap-[10px]">
               {/* Product_Title */}
               <div className="font-productTitle   flex justify-center bg-teal-500 text-white  text-[25px]">
-                sport fashion
+                {name}
               </div>
-              <div>Prodcut Amine Style</div>
+              <div>{LifeStyleName}</div>
               {/* Product_Price */}
-              <div
-                className="rounded-xl  "
-                style={{ fontSize: "25px" }}
-              >
-                225.00 <i className="fa-solid fa-dollar-sign"></i>
+              <div className="rounded-xl  " style={{ fontSize: "25px" }}>
+                {price} <i className="fa-solid fa-dollar-sign"></i>
               </div>
               {/* Product_Quantity */}
               <div className="" style={{ fontSize: "25px" }}>
-                21 <i className="fa-solid fa-boxes-stacked"></i>
+                {productQuantity} <i className="fa-solid fa-boxes-stacked"></i>
               </div>
               {/* Product_description */}
-              <div className="w-[360px] my-[10px]">
+              <div className="w-[360px] my-[10px] text-gray-500">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Doloremque pariatur, aspernatur quia praesentium qui adipisci
               </div>
               {/* Product_Size */}
               <div className="flex gap-[5px]">
-                <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                  Small
-                </span>
-                <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                  Meduim
-                </span>
-                <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                  Large
-                </span>
-                <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                  XLarge
-                </span>
+                {size &&
+                  size.map((item) => {
+                    return (
+                      <>
+                        <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                          {item.value}
+                        </span>
+                      </>
+                    );
+                  })}
               </div>
               {/* Product_Category */}
-              <div>CATEGORY</div>
+              <div>{category}</div>
               {/* Product_Stock */}
-              <div className="bg-green-100 text-green-800  text-xs font-medium  px-6 py-1 text-center">
-                in Stock
-              </div>
+
+              {inStock && (
+                <div className="bg-green-500 text-white  text-xs font-medium  px-6 py-1 text-center">
+                  in Stock
+                </div>
+              )}
+              {!inStock && (
+                <div className="bg-red-500 text-white  text-xs font-medium  px-6 py-1 text-center">
+                  out of Stock
+                </div>
+              )}
               {/* Product_Color */}
               <div className="flex gap-[10px]">
-                <i className="fa-solid fa-circle text-black text-[22px] transition-all duration-800  hover:text-[28px]"></i>
-                <i className="fa-solid fa-circle text-red-500 text-[22px] transition-all duration-800  hover:text-[28px]"></i>
-                <i className="fa-solid fa-circle text-green-500 text-[22px] transition-all duration-800  hover:text-[28px]"></i>
-                <i className="fa-solid fa-circle text-yellow-500 text-[22px]  transition-all duration-800 hover:text-[28px] transition-all duration-1000 "></i>
+                {color &&
+                  color.map((item) => {
+                    return (
+                      <>
+                        <i
+                          className="fa-solid fa-circle  text-[22px] transition-all duration-800  hover:text-[28px]"
+                          style={{ color: item }}
+                        ></i>
+                      </>
+                    );
+                  })}
               </div>
             </div>
           </div>

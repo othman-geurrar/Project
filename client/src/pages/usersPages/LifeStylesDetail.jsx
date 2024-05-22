@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // import { FaSpotify } from "react-icons/fa";
 const isLoading = false;
 import video from "../../assets/lifestyle/v.mp4";
@@ -5,7 +6,31 @@ import Musiccards from "../../components/userFlow/musiccards";
 import ProductCard from "../../components/userFlow/ProductCard";
 import instagram from "../../assets/instagram.png";
 import MovingBar from "../../components/userFlow/movingBar";
-const styles = () => {
+import { useGetProductsLifeStyleQuery } from "../../redux/services/ProductData";
+import { useParams } from "react-router-dom";
+import { useGetLifeStyleByNameQuery } from "../../redux/services/LifeStyleData";
+import Footer from "../../components/userFlow/Footer";
+import IntsaFollow from "../../components/userFlow/IntsaFollow";
+import  NavBar  from "../../components/userFlow/NavBar";
+const Styles = () => {
+  const { LifeStyleName } = useParams();
+  const {
+    data: ProductsLifeStyles,
+    isLoading: ProductsLoading,
+    isSuccess: ProductsSuccess,
+    isError: ProductsError,
+  } = useGetProductsLifeStyleQuery(LifeStyleName);
+  const {
+    data: LifeStyles,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useGetLifeStyleByNameQuery(LifeStyleName);
+  if (isSuccess && ProductsSuccess) {
+    console.log(ProductsLifeStyles);
+    console.log(LifeStyles);
+  }
+
   return (
     <main className="bg-gray-100">
       {isLoading ? (
@@ -79,18 +104,24 @@ const styles = () => {
       ) : (
         <>
           {/* navbar */}
-          <div className="h-[60px] bg-black text-white text-center">nav</div>
+          <NavBar />
           {/* hero_section */}
           <section className="flex gap-[30px] p-[20px] pb-0 glass m-4 mb-0 h-[90vh] ">
             {/* image */}
             <div
-              className="w-[40%] rounded-md bg-[url('https://www.standout.co.uk/blog/wp-content/uploads/2022/06/AdobeStock_295075964-scaled.jpeg')]"
-              style={{ backgroundSize: "cover", backgroundPosition: "center" }}
+              className="w-[40%] rounded-md"
+              style={{
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundImage: `url(${LifeStyles.ImageURL})`,
+              }}
             >
               <div className="backdrop-brightness-90 h-full w-full flex justify-center items-center">
                 {/* headline */}
                 <div className="font-lifestylename">
-                  <span className="text-[120px] text-white">Vintage</span>
+                  <span className="text-[120px] text-white">
+                    {LifeStyles.LifeStyleName}
+                  </span>
                 </div>
               </div>
             </div>
@@ -116,40 +147,7 @@ const styles = () => {
                   className="px-[50px]  h-[350px]  overflow-y-auto py-4 text-[#484848]"
                   style={{ boxShadow: "inset -1px 1px 20px 8px #0000000d" }}
                 >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Labore praesentium quod exercitationem dolorum ducimus omnis?
-                  Maxime nostrum at qui, saepe excepturi voluptatem cupiditate
-                  distinctio consequuntur tempore perspiciatis, quidem, omnis
-                  ducimus? Lorem Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Labore praesentium quod exercitationem
-                  dolorum ducimus omnis? Maxime nostrum at qui, saepe excepturi
-                  voluptatem cupiditate distinctio consequuntur tempore
-                  perspiciatis, quidem, omnis ducimus? LoremLorem ipsum dolor
-                  sit amet consectetur adipisicing elit. Labore praesentium quod
-                  exercitationem dolorum ducimus omnis? Maxime nostrum at qui,
-                  saepe excepturi voluptatem cupiditate distinctio consequuntur
-                  tempore perspiciatis, quidem, omnis ducimus? LoremLorem ipsum
-                  dolor sit amet consectetur adipisicing elit. Labore
-                  praesentium quod exercitationem dolorum ducimus omnis? Maxime
-                  nostrum at qui, saepe excepturi voluptatem cupiditate
-                  distinctio consequuntur tempore perspiciatis, quidem, omnis
-                  ducimus? Lorem ipsum dolor sit amet consectetur adipisicing
-                  elit. Labore praesentium quod exercitationem dolorum ducimus
-                  omnis? Maxime nostrum at qui, saepe excepturi voluptatem
-                  cupiditate distinctio consequuntur tempore perspiciatis,
-                  quidem, omnis ducimus? Lorem Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Labore praesentium quod
-                  exercitationem dolorum ducimus omnis? Maxime nostrum at qui,
-                  saepe excepturi voluptatem cupiditate distinctio consequuntur
-                  tempore perspiciatis, quidem, omnis ducimus? Lorem ipsum dolor
-                  sit amet consectetur adipisicing elit. Labore praesentium quod
-                  exercitationem dolorum ducimus omnis? Maxime nostrum at qui,
-                  saepe excepturi voluptatem cupiditate distinctio consequuntur
-                  tempore perspiciatis, quidem, omnis ducim ipsum dolor sit amet
-                  consectetur adipisicing elit. Labore praesentium quod
-                  exercitationem dolorum ducimus omnis? Maxime nostrum at qui,
-                  saepe excepturi voluptatem cupiditate distinctio consequuntur
-                  tempore perspiciatis, quidem, omnis ducimus?
+                  {LifeStyles.Content.story}
                 </div>
                 {/* buttons */}
                 <div className="text-center mb-2 ">
@@ -250,37 +248,22 @@ const styles = () => {
           </section>
           {/* Products-cards */}
           <div className=" py-4 px-8 flex justify-center gap-[20px]">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {ProductsLifeStyles.map((product) => {
+              return (
+                <>
+                  <ProductCard {...product} />
+                </>
+              );
+            })}
           </div>
           {/* Follow US On Insta */}
-          <div
-            className="md:pb-[50px] pb-0"
-            style={{ boxShadow: "rgb(0 0 0 / 6%) 0px 0px 20px 0px inset" }}
-          >
-            <div className=" text-center md:text-[46px] mb-3 py-[10px] text-[30px] font-followus text-[#484848]">
-              <span className="hidden md:inline mr-5">Follow Us</span>
-              <i className="fa-brands fa-instagram mr-5"></i>
-              <i className="fa-brands fa-facebook mr-5"></i>
-              <i className="fa-brands fa-twitter"></i>
-            </div>
-            <div className="text-center md:text-[16px] text-[12px] md:mb-16 mb-5 text-[#8A8A8A] md:px-[500px]">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                porro error blanditiis suscipit repudiandae laudantium id
-                laboriosam,
-              </p>
-            </div>
-            <div className=" ">
-              <img src={instagram} />
-            </div>
-          </div>
+          <IntsaFollow />
+          {/* Footer */}
+          <Footer />
         </>
       )}
     </main>
   );
 };
 
-export default styles;
+export default Styles;
