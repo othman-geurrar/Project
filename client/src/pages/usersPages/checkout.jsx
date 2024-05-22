@@ -4,6 +4,11 @@ import { useParams } from "react-router-dom";
 import { useGetordersByIdQuery } from '../../redux/services/ordersdata';
 import Visa from './visacart';
 import Paypal from './payplapayement';
+import {
+    useGetcartQuery,
+    useRemovecartMutation,
+    useUpdateQuantityMutation,
+  } from "../../redux/services/cartApi";
 function CheckoutPage() {
     const { id } = useParams();
     const { data, isLoading, isError } = useGetordersByIdQuery(id);
@@ -22,6 +27,50 @@ console.log(data)
         setSelectedPaymentOption(''); // Reset selected payment option
         setShowPaymentOptions(true); // Show payment options
     };
+    const { data: carts, refetch } = useGetcartQuery(6954);
+
+    const [updateQuantity] = useUpdateQuantityMutation();
+  const [removecart] = useRemovecartMutation();
+
+  const products = carts?.items;
+  console.log(products);
+
+  const handleRemoveItem = async ({ userId, productId }) => {
+    // const userId = userId ;
+    try {
+      await removecart({ userId, productId }).unwrap();
+      // Invalidate or refetch the cart query to update the UI
+      refetch();
+      console.log("Item removed successfully");
+    } catch (error) {
+      console.error("Failed to remove item:", error);
+    }
+  };
+
+  const handleUpdateQuantity = async ({ userId, productId, quantity }) => {
+    // setLoading(true);
+    // setError(null);
+    try {
+      await updateQuantity({ userId, productId, quantity }).unwrap();
+      refetch();
+      console.log("Item quantity updated successfully");
+    } catch (error) {
+      // setError('Failed to update item quantity');
+      console.error("Failed to update item quantity:", error);
+    } finally {
+      // setLoading(false);
+      console.log("done");
+    }
+  };
+
+ 
+
+  const calculateSubtotal = () => {
+    return products
+      ?.reduce((total, item) => total + item.newPrice * item.quantity, 0)
+      .toFixed(2);
+  };
+
 
     return (
         <>
@@ -30,43 +79,71 @@ console.log(data)
                 <div className="px-4 pt-8">
                     <p className="text-xl font-medium">Order Summary</p>
                     <p className="text-gray-400">Check your items. And select a suitable shipping method.</p>
-                    <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-                       {data?.products.map((product, index) => (
-    <div key={index} className="flex flex-col rounded-lg bg-white sm:flex-row">
-        <img
-            className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-            src={product?.imageUrl}
-            alt={product?.name}
-        />
-        <div className="flex w-full flex-col px-4 py-4">
-            <input
-                type="text"
-                value={product?.name}
-                readOnly // Assuming the product name is not editable
-                className="font-semibold mb-2"
-            />
-            <input
-                type="text"
-                value={`Size: ${data.size[index]}`}
-                readOnly // Assuming the size is not editable
-                className="float-right text-gray-400 mb-2"
-            />
-            <input
-                type="text"
-                value={`Color: ${data.color[index]}`}
-                readOnly // Assuming the color is not editable
-                className="float-right text-gray-400 mb-2"
-            />
-            <input
-                type="number"
-                value={data.totalPrice} // Assuming totalPrice is the same for all products in the order
-                readOnly // Assuming the total price is not editable
-                className="mt-auto text-lg font-bold"
-            />
-        </div>
-    </div>
-))}
+                    <div className="grid gap-6">
+            {products?.map((product) => (
+              <div className="grid grid-cols-[80px_1fr_auto] items-center gap-4">
+              <img
+                alt="Product Image"
+                className="aspect-square rounded-md object-cover"
+                height={80}
+                src={product.imageURL}
+                width={80}
+              />
+              <div className="grid gap-1">
+                <div className="font-medium">{product.newPrice.toFixed(2)} MAD</div>
+                <h3>{product.name}</h3>
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Size : {"  "} {product.size}
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800" 
+                 onClick={() =>
+                    handleUpdateQuantity({
+                      userId: 6954,
+                      productId: product.productId,
+                      quantity: product.quantity - 1,
+                    })
+                  }>
+                  <MinusIcon className="h-5 w-5" />
+                  <span className="sr-only">Decrease quantity</span>
+                </button>
+                <div className="text-sm font-medium">{product.quantity}</div>
+                <button className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800" 
+                onClick={() =>
+                    handleUpdateQuantity({
+                      userId: 6954,
+                      productId: product.productId,
+                      quantity: product.quantity + 1,
+                    })
+                }
+                    >
+                  <PlusIcon className="h-5 w-5" />
+                  <span className="sr-only">Increase quantity</span>
+                </button>
+                <button
+                  className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                  onClick={() =>
+                    handleRemoveItem({
+                      userId: 6954,
+                      productId: product.productId,
+                    })
+                  }
+                >
+                  <TrashIcon className="h-5 w-5" />
+                  <span className="sr-only">Remove product</span>
+                </button>
+
+              </div>
+              <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+
+
+            </div>
+
+            ))}
+
                     </div>
+
 
                     <p className="mt-8 text-lg font-medium">Shipping Methods</p>
                     <form className="mt-5 grid gap-6">
@@ -138,7 +215,7 @@ console.log(data)
                     )}
                     <div className="mt-6 flex items-center justify-between">
                         <p className="text-sm font-medium text-gray-900">Total</p>
-                        <p className="text-2xl font-semibold text-gray-900">${data?.totalPrice}</p>
+                        <span className="text-lg font-semibold">{calculateSubtotal()} MAD</span>
                     </div>
                     <button className="mt-4 mb-2 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" onClick={handlePaymentSubmit}>Proceed</button>
                 </div>
@@ -149,3 +226,82 @@ console.log(data)
 }
 
 export default CheckoutPage;
+
+function MinusIcon(props) {
+    return (
+      <svg
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M5 12h14" />
+      </svg>
+    );
+  }
+function PlusIcon(props) {
+    return (
+      <svg
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </svg>
+    );
+  }
+  
+  function TrashIcon(props) {
+    return (
+      <svg
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M3 6h18" />
+        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+      </svg>
+    );
+  }
+  
+  function XIcon(props) {
+    return (
+      <svg
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+      </svg>
+    );
+  }

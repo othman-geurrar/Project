@@ -23,3 +23,5 @@ export { default as AllProductCard } from './userFlow/allProductCard'
 export { default as Pagination } from './userFlow/Pagination'
 export { default as Footer } from './userFlow/Footer'
 export { default as ProductsCategory } from './userFlow/ProductsCategory'
+export { default as ShopCart } from './userFlow/ShopCart'
+
