@@ -92,7 +92,7 @@ export const getproducts = createAsyncThunk(
     let { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.get(`http://localhost:3000/product/getAll`);
-      return res.data;
+      return res.data.docs;
     } catch (error) {
       return rejectWithValue(error.message);
     }

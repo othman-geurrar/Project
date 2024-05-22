@@ -11,7 +11,9 @@ import UserSlice from "./Users/usersSlice";
 import AdminSlice from "./Admin/adminsSlice";
 import ProductSlice from "./Products/productsSlice";
 import {AdminApi} from "./services/adminApi";
-import { ProductApi } from "./services/productdata";
+import { ProductApi } from "./services/ProductData";
+import { PaymentsApi } from "./services/paymentdata";
+import { OrdersApi } from "./services/ordersdata";
 const store = configureStore({
   reducer: {
     sideBar: sideBarSlice,
@@ -26,6 +28,9 @@ const store = configureStore({
     [eventsApi.reducerPath]: eventsApi.reducer,
     [AdminApi.reducerPath]: AdminApi.reducer,
     [ProductApi.reducerPath]: ProductApi.reducer,
+    [PaymentsApi.reducerPath]: PaymentsApi.reducer,
+    [OrdersApi.reducerPath]: OrdersApi.reducer,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -34,7 +39,10 @@ const store = configureStore({
       eventsApi.middleware,
       AdminApi.middleware,
       ProductApi.middleware,
-      
+      PaymentsApi.middleware,
+      OrdersApi.middleware,
+
+
     ),
 });
 

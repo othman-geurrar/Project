@@ -12,8 +12,14 @@ module.exports = {
       display: ["Open Sans", "sans-serif"],
       body: ["Open Sans", "sans-serif"],
       productTitle: ["Poetsen One", "sans-serif"],
+      lifestylename: ["Caveat", "cursive"],
+      followus: ["Volkhov", "serif"],
+      descriptionLS: ["Poppins", "sans-serif"],
     },
     extend: {
+      scale: {
+        '120': '1.15',
+      },
       colors: {
         customGreen: "#9AD0C2",
         //   current: 'currentColor',
@@ -191,4 +197,5 @@ module.exports = {
     require("preline/plugin"),
     flowbite.plugin(),
   ],
+  
 };

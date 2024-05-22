@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const productSchema = new mongoose.Schema({
   //
@@ -17,7 +18,10 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   //
-  price: {
+  newPrice: {
+    type: Number,
+  },
+  oldPrice: {
     type: Number,
   },
   stars:{
@@ -51,6 +55,10 @@ const productSchema = new mongoose.Schema({
   LifeStyle: {
     type: String,
   },
+  stars:{
+    type: Number,
+    default: 0,
+  },
   Review: [
     {
       comment: {
@@ -81,6 +89,8 @@ const productSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+productSchema.plugin(mongoosePaginate);
 
 Product = mongoose.model("Products", productSchema);
 

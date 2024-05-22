@@ -2,29 +2,27 @@ import './App.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
-import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-import { Footer , Header , NavBar , SideBar, ThemeSetting , UserProfile   } from './components';
+import { Header , NavBar , SideBar, ThemeSetting , UserProfile   } from './components';
 import {
   Ecommerce,
-  LoginForm,
   Orders,
   Products,
   ProductsDetails,
-  RegisterForm,
   Users,
   Admins,
   LifeStyle,
   AdminProfile,
-  Event ,
-  ProductPage,
+  Event, 
+  ProductsPage,
 } from "./pages";
 import { useSelector } from 'react-redux';
 import { registerLicense } from '@syncfusion/ej2-base';
-import LifeStyleById from './components/LifeStyle/LifeStyleById';
-import AddLifeStyle from './components/LifeStyle/AddLifeStyle';
-import EventDetails from './components/Events/EventDetails';
+import AddLifeStyle from './components/AdminBackLock/LifeStyle/AddLifeStyle';
+import EventDetails from './components/AdminBackLock/Events/EventDetails';
+import LifestyelDetails from './components/AdminBackLock/LifeStyle/LifestyelDetails'
 import { ToastContainer } from 'react-toastify'; // Import ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS for ToastContainer
+
 
 
 
@@ -87,16 +85,16 @@ function App() {
               <Route path="/orders" element={<Orders />} />
               <Route path="/admins" element={<Admins />} />
               <Route path="/users" element={<Users />} />
-              <Route path="/lifestyles" element={<LifeStyle />} />
-              <Route path="/lifestyle/id" element={<LifeStyleById />} />
+              <Route path="/admin/lifestyles" element={<LifeStyle />} />
+              <Route path="/admin/lifestyle/:id" element={<LifestyelDetails />} />
               <Route path="/lifestyle/add" element={<AddLifeStyle />} />
               <Route path="/admin/profile" element={<AdminProfile />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/product/:id" element={<ProductPage/>} />
+              <Route path="/admin/products" element={<Products />} />
               <Route path="/productdetail" element={<ProductsDetails />} />
-              <Route path='/events' element={<Event />} />
+              <Route path='/admin/events' element={<Event />} />
               <Route path='/events/:id' element={<EventDetails />} />
             </Routes>
+            
           </div>
         </div>
       </div>
