@@ -7,11 +7,11 @@ import ProductCard from "../../components/userFlow/ProductCard";
 import instagram from "../../assets/instagram.png";
 import MovingBar from "../../components/userFlow/movingBar";
 import { useGetProductsLifeStyleQuery } from "../../redux/services/ProductData";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetLifeStyleByNameQuery } from "../../redux/services/LifeStyleData";
 import Footer from "../../components/userFlow/Footer";
 import IntsaFollow from "../../components/userFlow/IntsaFollow";
-import  NavBar  from "../../components/userFlow/NavBar";
+import NavBar from "../../components/userFlow/NavBar";
 const Styles = () => {
   const { LifeStyleName } = useParams();
   const {
@@ -26,17 +26,30 @@ const Styles = () => {
     isError,
     isSuccess,
   } = useGetLifeStyleByNameQuery(LifeStyleName);
+  //scroll to music
   if (isSuccess && ProductsSuccess) {
     console.log(ProductsLifeStyles);
     console.log(LifeStyles);
   }
+  const handleMusicButtonClick = () => {
+    const musicSection = document.getElementById("musics");
+    if (musicSection) {
+      musicSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  const handleProductButtonClick = () => {
+    const productSection = document.getElementById("products");
+    if (productSection) {
+      productSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <main className="bg-gray-100">
       {isLoading ? (
         <>
           {/* navbar */}
-          <div className="h-[60px] bg-black text-white text-center">nav</div>
+          <NavBar />
           {/* skeleton */}
           <section className="flex gap-[30px] p-[20px] h-[90vh]">
             {/* image */}
@@ -132,14 +145,9 @@ const Styles = () => {
                 <div className="text-center text-[30px] mt-2">
                   <div
                     className="tooltip  tooltip-right"
-                    data-tip="Vintage Story"
+                    data-tip={LifeStyles.LifeStyleName + " Story"}
                   >
-                    <button
-                      type="button"
-                      className=" shadow-lg inline-block rounded-full bg-neutral-100 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-600 shadow-light-3 transition duration-150 ease-in-out hover:bg-neutral-200 hover:shadow-light-2 focus:bg-neutral-200 focus:shadow-light-2 focus:outline-none focus:ring-0 active:bg-neutral-200 active:shadow-light-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                    >
-                      Story
-                    </button>
+                    Story
                   </div>
                 </div>
                 {/* info */}
@@ -154,16 +162,16 @@ const Styles = () => {
                   <button
                     type="button"
                     className="group py-2.5 px-5 me-6 w-[155px]  text-sm font-medium text-white focus:outline-none bg-[#1db954] rounded-full border border-gray-200 hover:bg-green-400 hover:text-black focus:z-10  dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    onClick={handleMusicButtonClick}
                   >
-                    <a href="#music">
-                      <span className="mr-2">MusicStyle</span>
-                    </a>
+                    <span className="mr-2">MusicStyle</span>
                     <i className="fa-brands fa-spotify group-hover:mr-2"></i>
                     <i className="fa-solid fa-arrow-down hidden group-hover:inline"></i>
                   </button>
                   <button
                     type="button"
                     className="group mb-2 py-2.5 px-5 w-[155px] text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    onClick={handleProductButtonClick}
                   >
                     <span className="mr-2">Products</span>
                     <i className="fa-solid fa-bag-shopping group-hover:mr-2"></i>
@@ -203,9 +211,8 @@ const Styles = () => {
           </section>
           {/* moving brands */}
           <MovingBar />
-          {/* music-section */}
           {/* music_section */}
-          <section className="flex h-[300px]" id="music">
+          <section className="flex h-[300px]" id="musics">
             <div
               className="cursor-pointer h-full w-[50%] bg-[url('https://previews.123rf.com/images/balabolka/balabolka1806/balabolka180600141/103846607-dessin-anim%C3%A9-mignon-doodles-mot-de-musique.jpg')]"
               style={{ backgroundPosition: "center", backgroundSize: "cover " }}
@@ -228,7 +235,7 @@ const Styles = () => {
             <Musiccards />
           </div>
           {/* Products_section */}
-          <section className="flex h-[300px]">
+          <section className="flex h-[300px]" id="products">
             <div
               className=" h-full w-[50%]  text-white bg-[url('https://cdn2.mageplaza.com/media/general/OnWj0is.png')]"
               style={{ backgroundPosition: "center", backgroundSize: "cover " }}
@@ -248,7 +255,7 @@ const Styles = () => {
           </section>
           {/* Products-cards */}
           <div className=" py-4 px-8 flex justify-center gap-[20px]">
-            {ProductsLifeStyles.map((product) => {
+            {ProductsLifeStyles?.map((product) => {
               return (
                 <>
                   <ProductCard {...product} />

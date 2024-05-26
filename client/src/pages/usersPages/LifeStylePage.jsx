@@ -11,6 +11,7 @@ import heroS from "../../assets/heroS.jpeg";
 import { useGetAllLifeStyleQuery } from "../../redux/services/LifeStyleData";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { NavBaar } from "../../components";
 
 const LifeStyleFront = () => {
   //  getLifeStyles Query
@@ -27,7 +28,6 @@ const LifeStyleFront = () => {
   const pageNumber = [];
   const indexOfLastorder = currentPage * LifeStylesPerPage;
   const indexOfFirstorder = indexOfLastorder - LifeStylesPerPage;
-
   const currentLifeStyles = LifeStyles?.LifeStyle.slice(
     indexOfFirstorder,
     indexOfLastorder
@@ -43,7 +43,7 @@ const LifeStyleFront = () => {
     <>
       <div className="">
         {/* Nav_Bar */}
-        <div className="h-[60px] bg-black text-white text-center">nav</div>
+        <NavBaar />
         {/* Swiper_Hero_Section */}
         <div
           className="mySwiper md:h-[72vh] h-[30vh] w-full  "
@@ -78,6 +78,7 @@ const LifeStyleFront = () => {
           <div className="text-center text-[30px] py-[10px] md:text-[46px] md:pt-[20px]  font-followus text-[#484848]">
             Trending Lifestyles
           </div>
+          <div></div>
           <Swiper
             centeredSlides={true}
             autoplay={{
@@ -93,72 +94,41 @@ const LifeStyleFront = () => {
             modules={[Pagination, Navigation, Autoplay]}
             className=" md:p-[20px] md:pb-[50px] p-[10px] "
           >
-            <SwiperSlide className="flex md:flex-row flex-col gap-[20px] md:justify-center md:h-[360px]  ">
-              {/* description */}
-              <div className="  p-[20px] md:w-[50%] glass">
-                <div className="md:text-[60px] text-[40px] font-lifestylename">
-                  Vintage Style
-                </div>
-                <div className="mb-3 md:text-[16px] text-[12px] text-[#8A8A8A]">
-                  <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Corporis rem magnam doloribus perferendis laboriosam
-                    consectetur libero, maxime eligendi eos autem ab ex
-                    molestiae asperiores beatae, aliquam provident in facere
-                    esse.
-                  </p>
-                </div>
-                <div className="text-center md:text-start">
-                  <button
-                    type="button"
-                    className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10  dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  >
-                    View More
-                  </button>
-                </div>
-              </div>
-              {/* image */}
-              <div className=" md:w-[50%]">
-                <img
-                  className=" h-full w-full object-cover object-center"
-                  src={heroS}
-                  alt=""
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="flex md:flex-row flex-col gap-[20px] md:justify-center md:h-[360px]  ">
-              {/* description */}
-              <div className="  p-[20px] md:w-[50%] glass">
-                <div className="md:text-[60px] text-[40px] font-lifestylename">
-                  Mangaka Style
-                </div>
-                <div className="mb-3 md:text-[16px]  text-[12px] text-[#8A8A8A]">
-                  <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Corporis rem magnam doloribus perferendis laboriosam
-                    consectetur libero, maxime eligendi eos autem ab ex
-                    molestiae asperiores beatae, aliquam provident in facere
-                    esse.
-                  </p>
-                </div>
-                <div className="text-center md:text-start">
-                  <button
-                    type="button"
-                    className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10  dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  >
-                    View More
-                  </button>{" "}
-                </div>
-              </div>
-              {/* image */}
-              <div className=" md:w-[50%]">
-                <img
-                  className=" h-full w-full object-cover object-center"
-                  src={heroS}
-                  alt=""
-                />
-              </div>
-            </SwiperSlide>
+            {LifeStyles?.LifeStyle.filter((item) => item.trending).map(
+              (item) => {
+                return (
+                  <>
+                    <SwiperSlide className="flex md:flex-row flex-col gap-[20px] md:justify-center md:h-[360px]  ">
+                      <div className="  p-[20px] md:w-[50%] glass">
+                        <div className="md:text-[60px] text-[40px] font-lifestylename">
+                          {item.LifeStyleName} Style
+                        </div>
+                        <div className="mb-3 md:text-[16px] text-[12px] text-[#8A8A8A]">
+                          <p>{item.Content.description}</p>
+                        </div>
+                        <div className="text-center md:text-start">
+                          <Link to={`/lifestyles/detail/${item.LifeStyleName}`}>
+                            <button
+                              type="button"
+                              className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10  dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                            >
+                              View More
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
+                      <div className=" md:w-[50%]">
+                        <img
+                          className=" h-full w-full object-cover object-center"
+                          src={item.ImageURL}
+                          alt=""
+                        />
+                      </div>
+                    </SwiperSlide>
+                  </>
+                );
+              }
+            )}
           </Swiper>
         </div>
         {/* lifeStyles Cards */}

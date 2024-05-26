@@ -1,5 +1,7 @@
 const flowbite = require("flowbite-react/tailwind");
-module.exports = {
+const withMT = require("@material-tailwind/react/utils/withMT");
+
+module.exports = withMT({
   content: [
     "./src/App.jsx",
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -15,6 +17,7 @@ module.exports = {
       lifestylename: ["Caveat", "cursive"],
       followus: ["Volkhov", "serif"],
       descriptionLS: ["Poppins", "sans-serif"],
+      profilName: ["BentonSans Regular, sans-serif"],
     },
     variants: {
       animation: ["responsive", "motion-safe", "motion-reduce"],
@@ -219,4 +222,4 @@ module.exports = {
     require("preline/plugin"),
     flowbite.plugin(),
   ],
-};
+});

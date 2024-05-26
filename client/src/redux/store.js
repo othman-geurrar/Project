@@ -1,17 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import sideBarSlice from "./SideBar/sideBarSlice";
 import OrderSlice from "./Orders/orderSlice";
-import formSlice from "./formState/form"
+import formSlice from "./formState/form";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { lifeStyleApi } from "./services/LifeStyleData";
 import { eventsApi } from "./services/EventData";
 import { adminAuthApi } from "./services/AuthApi";
-import addEventReducer from "./formState/addEventSlice"; 
+import addEventReducer from "./formState/addEventSlice";
 import UserSlice from "./Users/usersSlice";
 import AdminSlice from "./Admin/adminsSlice";
 import ProductSlice from "./Products/productsSlice";
-import {AdminApi} from "./services/adminApi";
+import { AdminApi } from "./services/adminApi";
 import { ProductApi } from "./services/ProductData";
+import { UserApi } from "./Users/userSliceFront";
 
 const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ const store = configureStore({
     [eventsApi.reducerPath]: eventsApi.reducer,
     [AdminApi.reducerPath]: AdminApi.reducer,
     [ProductApi.reducerPath]: ProductApi.reducer,
+    [UserApi.reducerPath]: UserApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -35,8 +37,7 @@ const store = configureStore({
       eventsApi.middleware,
       AdminApi.middleware,
       ProductApi.middleware,
-      
-
+      UserApi.middleware
     ),
 });
 

@@ -18,8 +18,10 @@ import {
   LifeStyleFront,
   ProductDetail,
   ProductsPage,
+  ProfilUser,
 } from "./pages/index.jsx";
 import LifestyelDetails from "./components/AdminBackLock/LifeStyle/LifestyelDetails.jsx";
+import { ThemeProvider } from "@material-tailwind/react";
 
 // Registering Syncfusion license key
 registerLicense(
@@ -44,6 +46,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           {/* <Route path="/admin/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} /> */}
           <Route path="/user/login" element={<LoginForm />} />
+
+          <Route
+            path="/user/profil"
+            element={
+              <ThemeProvider>
+                <ProfilUser />
+              </ThemeProvider>
+            }
+          />
+
           <Route path="*" element={<App />} />
         </Routes>
       </Provider>

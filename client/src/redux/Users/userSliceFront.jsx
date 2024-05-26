@@ -7,6 +7,13 @@ export const UserApi = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
+    // Get One User
+    GetOneUser: builder.query({
+      query: (id) => ({
+        url: `/GetOneUser/${id}`,
+        method: "GET",
+      }),
+    }),
     // Sign Up User
     SignUpUser: builder.mutation({
       query: (userdata) => ({
@@ -25,4 +32,4 @@ export const UserApi = createApi({
     }),
   }),
 });
-export const { useSignUpUserMutation,useSignInUserMutation } = UserApi;
+export const { useSignUpUserMutation, useSignInUserMutation,useGetOneUserQuery } = UserApi;

@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const schema = zod.object({
   email: zod.string().email(),
@@ -16,14 +16,18 @@ const schema = zod.object({
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(schema),
   });
 
-  const [loginAdmin, { data, isLoading, isError, error, isSuccess }] =
+  const [loginAdmin, { data, isError, error, isSuccess }] =
     useLoginAdminMutation();
 
-    // const isLoggedInStatus =()=>{
+  // const isLoggedInStatus =()=>{
   //   const isLoggedIn = localStorage.getItem("isLoggedIn")
   //   console.log(isLoggedIn);
 
@@ -37,7 +41,7 @@ const LoginForm = () => {
       sessionStorage.setItem("isLoggedIn", "true");
       navigate("/ecommerce");
     } catch (error) {
-     console.log(error);
+      console.log(error);
     }
   };
 
@@ -54,17 +58,15 @@ const LoginForm = () => {
         theme: "light",
       });
     }
-  
+
     if (isSuccess) {
-      
       navigate("/ecommerce");
     }
   }, [isSuccess, isError, error, data, navigate]);
-  
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <section className="h-screen bg-neutral-200 dark:bg-neutral-700">
         <div className="container h-full p-10">
           <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
@@ -96,7 +98,7 @@ const LoginForm = () => {
                                   placeholder="Email Address"
                                   cssClass="e-outline"
                                   floatLabelType="Auto"
-                                  {...register("email")} 
+                                  {...register("email")}
                                 />
                                 {errors.email && (
                                   <span>{errors.email.message}</span>
@@ -108,7 +110,7 @@ const LoginForm = () => {
                                   cssClass="e-outline"
                                   floatLabelType="Auto"
                                   type="password"
-                                  {...register("password")} 
+                                  {...register("password")}
                                 />
                                 {errors.password && (
                                   <span>{errors.password.message}</span>
@@ -132,14 +134,13 @@ const LoginForm = () => {
                             >
                               Sign in
                             </button>
-                            
                           </div>
                         </form>
                       </div>
                     </div>
                   </div>
-                   {/* <!-- Right column container with background and description--> */}
-                   <div
+                  {/* <!-- Right column container with background and description--> */}
+                  <div
                     className="hidden lg:block lg:flex lg:items-center lg:rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
                     style={{
                       background:
@@ -168,7 +169,6 @@ const LoginForm = () => {
           </div>
         </div>
       </section>
-     
     </>
   );
 };
