@@ -17,10 +17,11 @@ export const cartApi = createApi({
         // add item to cart
         addcart: builder.mutation({
             query: (formData) => ({
-                url: '/addcart',
+                url: '/add',
                 method: 'POST',
                 body: formData,
             }),
+            invalidatesTags: ['Cart'],
         }),
         // remove item from cart
         removecart: builder.mutation({
@@ -29,6 +30,7 @@ export const cartApi = createApi({
                 method: 'DELETE',
                 body: { userId, productId },
             }),
+            invalidatesTags: ['Cart'],
         }),
         updateQuantity: builder.mutation({
             query: ({ userId, productId, quantity }) => ({
@@ -36,6 +38,7 @@ export const cartApi = createApi({
                 method: 'PUT',
                 body: { userId, productId, quantity },
             }),
+            invalidatesTags: ['Cart'],
         })
     }),
 });

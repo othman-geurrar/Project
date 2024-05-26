@@ -24,14 +24,17 @@ const productSchema = new mongoose.Schema({
   oldPrice: {
     type: Number,
   },
-  description: {
-    type: String,
-  },
+  description: [{
+    type: String
+  }],
   //
   imageURL: {
     type: [String],
   },
   //
+  LifeStyle: {
+    type: String,
+  },
   productQuantity: {
     type: Number,
     required: true,

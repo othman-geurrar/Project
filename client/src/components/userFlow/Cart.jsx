@@ -2,61 +2,24 @@ import { Button } from "@mui/material";
 import { setcart } from "../../redux/SideBar/sideBarSlice";
 import { useDispatch } from "react-redux";
 import {
+  useAddcartMutation,
   useGetcartQuery,
   useRemovecartMutation,
   useUpdateQuantityMutation,
 } from "../../redux/services/cartApi";
-
-
-
-// const ProductCard = ({ product }) => {
-//   return (
-//     <div className="grid grid-cols-[80px_1fr_auto] items-center gap-4">
-//       <img
-//         alt="Product Image"
-//         className="aspect-square rounded-md object-cover"
-//         height={80}
-//         src={product.imageURL}
-//         width={80}
-//       />
-//       <div className="grid gap-1">
-//         <div className="font-medium">${product.newPrice.toFixed(2)}</div>
-//         <h3>Acme T-Shirt</h3>
-//         <div className="text-sm text-gray-500 dark:text-gray-400">
-//           Size : {"  "} {product.size}
-//         </div>
-//       </div>
-//       <div className="flex items-center gap-2">
-//         <button className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
-//           <MinusIcon className="h-5 w-5" />
-//           <span className="sr-only">Decrease quantity</span>
-//         </button>
-//         <div className="text-sm font-medium">{product.quantity}</div>
-//         <button className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
-//           <PlusIcon className="h-5 w-5" />
-//           <span className="sr-only">Increase quantity</span>
-//         </button>
-//         <button
-//           className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-//           onClick={() =>
-//             handleRemoveItem({
-//               userId: 6954,
-//               productId: item.productId,
-//             })
-//           }
-//         >
-//           <TrashIcon className="h-5 w-5" />
-//           <span className="sr-only">Remove product</span>
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
+import { useEffect } from "react";
 
 export default function Cart() {
-  const { data: carts, refetch } = useGetcartQuery(6954);
+  const userId = localStorage.getItem('UserId')
+  const { data: carts, refetch } = useGetcartQuery(userId);
   const [updateQuantity] = useUpdateQuantityMutation();
   const [removecart] = useRemovecartMutation();
+  useEffect(() => {
+    // Refetch cart data every time the component is rendered
+    refetch();
+  }, [refetch]);
+  
+ 
 
   const dispatch = useDispatch();
   const products = carts?.items;
@@ -89,7 +52,7 @@ export default function Cart() {
       console.log("done");
     }
   };
-
+ 
   const handleCloseCart = () => {
     dispatch(setcart());
   };
@@ -138,7 +101,7 @@ export default function Cart() {
                 <button className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800" 
                  onClick={() =>
                     handleUpdateQuantity({
-                      userId: 6954,
+                      userId,
                       productId: product.productId,
                       quantity: product.quantity - 1,
                     })
@@ -150,7 +113,7 @@ export default function Cart() {
                 <button className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800" 
                 onClick={() =>
                     handleUpdateQuantity({
-                      userId: 6954,
+                      userId,
                       productId: product.productId,
                       quantity: product.quantity + 1,
                     })
@@ -163,7 +126,7 @@ export default function Cart() {
                   className="rounded-full p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() =>
                     handleRemoveItem({
-                      userId: 6954,
+                      userId,
                       productId: product.productId,
                     })
                   }

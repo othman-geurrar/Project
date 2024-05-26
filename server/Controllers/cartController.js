@@ -24,9 +24,11 @@ async function getCartByUserId(req, res) {
 
 async function addItemToCart(req, res) {
   const { userId, productId, quantity , name , imageURL , newPrice, color , size } = req.body;
-
+  
   try {
-    
+    if(!color || !size || !quantity){
+      return res.status(400).send({ message: 'Missing required fields' });
+    }
 
     let cart = await Cart.findOne({ userId });
 

@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const cartItemSchema = new Schema({
   productId: {
-    type: Number,
+    type: String,
     ref: 'Product',
     required: true
   },
@@ -39,7 +39,7 @@ const cartItemSchema = new Schema({
 
 const cartSchema = new Schema({
   userId: {
-    type: Number,
+    type: String,
     ref: 'User',
     required: true,
     unique: true

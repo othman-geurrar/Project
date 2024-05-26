@@ -6,6 +6,7 @@ const initialState =  {
     cart: false,
     notification: false,
     profile: false,
+    userLogins: false,
 };
 
 const sideBarSlice = createSlice({
@@ -26,11 +27,14 @@ const sideBarSlice = createSlice({
         },
         setprofile: (state) => {
             state.profile = !state.profile;
-        }
+        },
+        setuserLogins: (state) => {
+            state.userLogins =!state.userLogins;
+        },
     
     },
 });
 
-export const { setisActiveMenu , setchat , setcart , setnotification , setprofile} = sideBarSlice.actions;
+export const { setisActiveMenu , setchat , setcart , setnotification , setprofile , setuserLogins} = sideBarSlice.actions;
 
 export default sideBarSlice.reducer;

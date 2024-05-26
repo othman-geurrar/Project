@@ -15,7 +15,7 @@ const userAuth = (req, res, next) => {
         return next(err);
       } else {
         return res.status(200).json({
-          message: `welcom ${user.UserName}`,
+          message: `${user.id}`,
         });
       }
     });
