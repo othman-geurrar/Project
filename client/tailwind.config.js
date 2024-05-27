@@ -18,6 +18,7 @@ module.exports = withMT({
       followus: ["Volkhov", "serif"],
       descriptionLS: ["Poppins", "sans-serif"],
       profilName: ["BentonSans Regular, sans-serif"],
+      profile: ["Roboto , sans-serif"],
     },
     variants: {
       animation: ["responsive", "motion-safe", "motion-reduce"],

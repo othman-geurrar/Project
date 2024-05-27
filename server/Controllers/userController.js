@@ -88,17 +88,30 @@ const updateUserByid = async (req, res) => {
   }
 
   const { id } = req.params;
-  const { UserName, email, newPassword } = req.body;
+  const {
+    UserName,
+    email,
+    newPassword,
+    FullName,
+    PhoneNumber,
+    city,
+    zipcode,
+    Street,
+  } = req.body;
 
   try {
     let updateFields = {};
     if (UserName) updateFields.UserName = UserName;
     if (email) updateFields.email = email;
+    if (FullName) updateFields.FullName = FullName;
+    if (city) updateFields.city = city;
+    if (zipcode) updateFields.zipcode = zipcode;
+    if (PhoneNumber) updateFields.PhoneNumber = PhoneNumber;
+    if (Street) updateFields.Street = Street;
     if (newPassword) {
       const hashedPassword = bcrypt.hashSync(newPassword, 10);
       updateFields.password = hashedPassword;
     }
-
     const updatedUser = await Users.findOneAndUpdate(
       { id },
       { $set: updateFields },
