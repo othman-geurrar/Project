@@ -59,9 +59,9 @@ const handleThumbnailClick = (src) => {
   return (
     <>
     <NavBaar />
-    <div className=" grid my-16 md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6">
+    <div className=" grid my-16 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6" style={{ gridTemplateColumns: '2fr 1fr' }}>
       <div>
-      <div className=" mt-2 grid  gap-4 "style={{ gridTemplateColumns: '1fr 4fr' }}>
+      <div className=" mt-2 grid  gap-4 "style={{ gridTemplateColumns: '1fr 5fr' }}>
        
         <div className="grid gap-4 overflow-x-auto h-full w-full">
           {thumbnails.map((thumbnail, index) => (
@@ -164,6 +164,7 @@ const handleThumbnailClick = (src) => {
           [`& .${radioClasses.action}.${radioClasses.focusVisible}`]: {
             outlineWidth: '2px',
           },
+          
         }}
       />
     </Sheet>

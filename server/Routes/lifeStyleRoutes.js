@@ -11,8 +11,8 @@ const {
   deleteLifeStyle,
 } = require("../Controllers/lifeStyleController");
 
-LifeStyleRouter.get("/getAll" ,isAdminAuthenticated , viewAllLifeStyles)
-  .get("/getLifeStyle/:id", isAuthenticated,viewLifeStyle)
+LifeStyleRouter.get("/getAll"  , viewAllLifeStyles)
+  .get("/getLifeStyle/:id",viewLifeStyle)
   .post("/addLifeStyle", addLifeStyle)
   .put("/update/:id", isAdminAuthenticated,updateLifeStyle)
   .delete("/delete/:id", isAdminAuthenticated,deleteLifeStyle);

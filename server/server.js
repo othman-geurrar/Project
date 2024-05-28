@@ -11,6 +11,7 @@ const EventRouter = require("./Routes/eventRoutes");
 const userRouter = require("./Routes/userRoutes");
 const paymentRouter = require("./Routes/payementRoutes");
 const cartRouter = require("./Routes/cartRoutes");
+const StripeRouter=require("./Routes/stripestripe")
 
 const passport = require("passport");
 const PORT = process.env.PORT || 4000;
@@ -44,7 +45,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 connectDB();
-
+app.use("/stripe",StripeRouter)
 app.use("/admin", adminRouter);
 app.use("/orders", orderRouter);
 app.use("/product", productRouter);
@@ -58,3 +59,4 @@ app.use("/cart" , cartRouter);
 app.listen(PORT, () => {
   console.log("app listening on port 3000!");
 });
+

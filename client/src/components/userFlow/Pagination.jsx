@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Pagination = ({ total, limit, currentPage , search }) => {
   const totalPages = Math.ceil(total / limit);
-  const min = 9
+  const min = 12
   const nextPage = useMemo(() => {
     return `?p=${currentPage + 1}&search=${search}&min=${min}`;
   }, [currentPage, limit]);

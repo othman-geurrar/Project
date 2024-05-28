@@ -14,10 +14,16 @@ const paymentSchema = new mongoose.Schema({
     required: true,
     default: "MAD",
   },
-  createdAt: {
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: "users",
+  },  createdAt: {
     type: Date,
     default: Date.now,
   },
+  
+  
+
 });
 
 const PaymentModel = mongoose.model("payment", paymentSchema);

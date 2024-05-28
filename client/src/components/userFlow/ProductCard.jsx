@@ -60,7 +60,7 @@ export default function ProductCard({name , imageURL , stars , oldPrice , newPri
         alt="Product Image"
         className="w-full h-fit object-cover group-hover:scale-120 transition-transform duration-300"
         height={300}
-        src={imageURL[0]}
+        src={imageURL}
         style={{
           aspectRatio: "400/300",
           objectFit: "cover",

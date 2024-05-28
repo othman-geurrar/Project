@@ -5,11 +5,22 @@ import { MdDensityMedium } from "react-icons/md";
 // import { FaSignInAlt, FaUser } from "react-icons/fa";
 import css from "./Navbar.module.scss";
 import logo from '../../assets/logo.png';
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setcart } from "../../redux/SideBar/sideBarSlice";
+import ShopCart from "./ShopCart";
+import Cart from "./Cart";
 
 const MainNav = () => {
   const [search, setSearch] = useState(false);
   const [toggle, setToggle] = useState(false);
-  const [scrolling, setScrolling] = useState(true);
+  const [scrolling, setScrolling] = useState(false);
+
+  const { cart } = useSelector(
+    (state) => state.sideBar
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,48 +53,63 @@ const MainNav = () => {
   return (
     <>
       <div
-  className={`fixed top-0 left-0 w-full h-20 flex justify-between items-center px-4 py-4 font-sans z-50 ${scrolling ? "bg-neutral-200 text-black" : "bg-transparent text-white"} ${scrolling && css.scroll}`}        style={{ boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.1)" }}
+  className={`fixed top-0 left-0 w-full h-20 flex justify-between items-center px-4 py-4 font-sans z-50 ${scrolling ? "bg-neutral-200 text-teal-600 " : "bg-transparent text-teal-400 "} ${scrolling && css.scroll}`}        style={{ boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.1)" }}
       >
-        <div className="avatar">
+        <div className="flex avatar ">
           <div className="w-20 rounded-full">
             <img src={logo} alt="Logo" />
+            
           </div>
+          {/* <span className=" my-auto"> Our Style Are Yours </span> */}
         </div>
         <div
           className={`${css.main_menu} ${toggle ? css["main_menu--open"] : {}}`}
         >
-          <div>
-            <ul className="flex gap-8">
-              <li>
-                <a href="/">HOME</a>
-              </li>
-              <li>
-                <a href="/attorney">LIFE STYLE</a>
-              </li>
-              <li>
-                <a href="/about">PRODUCTS</a>
-              </li>
-              <li>
-                <a href="/services">EVENTS</a>
-              </li>
-              <li>
-                <a href="/contact">CONTACT</a>
-              </li>
-            </ul>
-          </div>
-          {/* <div className="flex gap-4">
-            <button className="text-md ml-64">
-              <FaSignInAlt /> Sign In
-            </button>
-            <button className="text-md">
-              <FaUser /> Log In
-            </button>
-          </div> */}
+           <nav className="hidden md:flex items-center gap-6 text-lg font-medium">
+        <Link
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/"}
+        >
+          Home
+        </Link>
+        <Link
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/products"}
+        >
+          Products
+        </Link>
+        <Link
+         className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/lifestyles"}
+        >
+          LifeStyles
+        </Link>
+        <Link
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/events"}
+        >
+          Events
+        </Link>
+        <Link
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          href="#"
+        >
+          Contact
+        </Link>
+      </nav>
+          
         </div>
 
         <div>
           <div className="relative left-0 flex">
-            <span className="relative flex items-center text-lg z-10 cursor-pointer">
+          <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline">
+          Sign In
+        </Button>
+        <Button className="rounded-full hover:text-teal-300" size="icon" variant="ghost" onClick={() => dispatch(setcart())}>
+          <ShoppingCartIcon className="h-6 w-6" />
+          <span className="sr-only">Cart</span>
+        </Button>
+            <span className="relative flex items-center text-lg z-10 cursor-pointer hover:text-teal-300">
               <IoSearchSharp onClick={openSearchBar}></IoSearchSharp>
 
               <RxCross2
@@ -109,8 +135,30 @@ const MainNav = () => {
           ></input>
         </div>
       </div>
+      { cart && <Cart />}
     </>
   );
 };
+
+function ShoppingCartIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="8" cy="21" r="1" />
+      <circle cx="19" cy="21" r="1" />
+      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+    </svg>
+  )
+}
 
 export default MainNav;

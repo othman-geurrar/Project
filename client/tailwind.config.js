@@ -177,6 +177,7 @@ module.exports = {
       },
       backgroundImage: {
         "hero-pattern": "url('https://i.ibb.co/MkvLDfb/Rectangle-4389.png')",
+        "newsletter": "url('https://hongotheme.myshopify.com/cdn/shop/files/demo-jewellery-newslettet-bg.jpg?v=1661405139')",
       },
       zIndex: {
         999999: "999999",

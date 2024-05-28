@@ -13,6 +13,7 @@ import ProductSlice from "./Products/productsSlice";
 import {AdminApi} from "./services/adminApi";
 import { ProductApi } from "./services/ProductData";
 import { cartApi } from "./services/cartApi";
+import { UserApi } from "./Users/userSliceFront";
 import { PaymentsApi } from "./services/paymentdata";
 import { OrdersApi } from "./services/ordersdata";
 
@@ -31,6 +32,7 @@ const store = configureStore({
     [AdminApi.reducerPath]: AdminApi.reducer,
     [ProductApi.reducerPath]: ProductApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
+    [UserApi.reducerPath]: UserApi.reducer,
     [PaymentsApi.reducerPath]: PaymentsApi.reducer,
     [OrdersApi.reducerPath]: OrdersApi.reducer,
   },
@@ -42,6 +44,7 @@ const store = configureStore({
       AdminApi.middleware,
       ProductApi.middleware,
       cartApi.middleware,
+      UserApi.middleware,
       PaymentsApi.middleware,
       OrdersApi.middleware,
       

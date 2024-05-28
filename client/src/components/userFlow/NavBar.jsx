@@ -1,156 +1,145 @@
-import React from 'react'
-import { Button, Drawer, IconButton, useMediaQuery, useTheme, Box } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import { IoSearchSharp } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
+import { MdDensityMedium } from "react-icons/md";
+// import { FaSignInAlt, FaUser } from "react-icons/fa";
+import css from "./Navbar.module.scss";
 import logo from '../../assets/logo.png';
-// import MenuIcon from '@mui/icons-material/Menu'
-// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setcart } from "../../redux/SideBar/sideBarSlice";
+import Cart from "./Cart";
 
-export default function NavBaar() {
-  const [drawerOpen, setDrawerOpen] = React.useState(false)
-  const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
 
-  const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return
-    }
-    setDrawerOpen(open)
-  }
+const NavBaar = () => {
+  const [search, setSearch] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
+
+  
+  const { cart } = useSelector(
+    (state) => state.sideBar
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const openSearchBar = () => {
+    setSearch(true);
+  };
+
+  const closeSearchBar = () => {
+    setSearch(false);
+  };
+
+  const toggled = () => {
+    setToggle((prev) => !prev);
+  };
 
   return (
-    <header className="flex h-18 w-full items-center justify-between px-4 md:px-6 border-b">
-      <div className="flex items-center gap-4">
-        <Link className="flex items-center gap-2" href="#">
-          {/* <MountainIcon className="h-6 w-6" /> */}
+    <>
+      <div
+  className={`fixed top-0 left-0 w-full h-20 flex justify-between items-center px-4 py-4 font-sans z-50 ${scrolling ? "bg-neutral-200 text-teal-600 " : "bg-neutral-200 text-teal-400 "} ${scrolling && css.scroll}`}        style={{ boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.1)" }}
+      >
+        <div className="flex avatar ">
           <div className="w-20 rounded-full">
             <img src={logo} alt="Logo" />
+            
           </div>
-          <span className="text-lg font-semibold text-teal-500">Our Styles Are Yours</span>
-        </Link>
-      </div>
-      <nav className="hidden md:flex items-center gap-6 text-lg font-medium">
+          {/* <span className=" my-auto"> Our Style Are Yours </span> */}
+        </div>
+        <div
+          className={`${css.main_menu} ${toggle ? css["main_menu--open"] : {}}`}
+        >
+           <nav className="hidden md:flex items-center gap-6 text-lg font-medium">
         <Link
-          className="relative before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-          href="#"
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/"}
         >
           Home
         </Link>
         <Link
-          className="relative before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-          href="#"
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/products"}
         >
           Products
         </Link>
         <Link
-          className="relative before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-          href="#"
+         className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/lifestyles"}
         >
-          About
+          LifeStyles
         </Link>
         <Link
-          className="relative before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/events"}
+        >
+          Events
+        </Link>
+        <Link
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
           href="#"
         >
           Contact
         </Link>
       </nav>
-      <div className="flex items-center gap-4">
-        <Button className="hidden md:inline-flex" variant="outline">
+          
+        </div>
+
+        <div>
+          <div className="relative left-0 flex">
+          <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline">
           Sign In
         </Button>
-        <Button className="rounded-full" size="icon" variant="ghost">
+        <Button className="rounded-full hover:text-teal-300" size="icon" variant="ghost" onClick={() => dispatch(setcart())}>
           <ShoppingCartIcon className="h-6 w-6" />
           <span className="sr-only">Cart</span>
         </Button>
-        {!isLargeScreen && (
-          <IconButton className="rounded-full md:hidden" size="large" onClick={toggleDrawer(true)}>
-            <MenuIcon className="h-6 w-6" />
-            <span className="sr-only">Menu</span>
-          </IconButton>
-        )}
-        <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} PaperProps={{
-            style: {
-              width: '100%',
-            },
-          }}>
-            <Box display="flex" justifyContent="flex-end" p={2}>
-              <IconButton onClick={toggleDrawer(false)}>
-                 <CloseIcon />
-              </IconButton>
-            </Box>
+            <span className="relative flex items-center text-lg z-10 cursor-pointer hover:text-teal-300">
+              <IoSearchSharp onClick={openSearchBar}></IoSearchSharp>
 
-        <div className="grid gap-2 py-6">
-              <Link
-                className="relative flex px-4 w-full items-center py-2 text-lg font-semibold before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-                href="#"
-              >
-                Home
-              </Link>
-              <Link
-                className="relative flex px-4 w-full items-center py-2 text-lg font-semibold before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-                href="#"
-              >
-                Products
-              </Link>
-              <Link
-                className="relative flex px-4 w-full items-center py-2 text-lg font-semibold before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-                href="#"
-              >
-                About
-              </Link>
-              <Link
-                className="relative flex px-4 w-full items-center py-2 text-lg font-semibold before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-gray-900 before:transition-all before:duration-300 hover:before:w-full hover:text-gray-900 dark:hover:text-gray-50"
-                href="#"
-              >
-                Contact
-              </Link>
-            </div>
-        </Drawer>
+              <RxCross2
+                className={`${search ? "ml-4 visible" : "invisible"}`}
+                onClick={closeSearchBar}
+              ></RxCross2>
+            </span>
+            <MdDensityMedium
+              className="lg:hidden md:hidden relative text-2xl cursor-pointer block"
+              onClick={toggled}
+            ></MdDensityMedium>
+          </div>
+        </div>
+
+        <div
+          className={`absolute ${
+            search ? "left-0" : "right-full"
+          } flex items-center bg-white px-8 w-full h-full text-base`}
+        >
+          <input
+            className="w-full outline-none px-4 py-2 border-b border-gray-300"
+            placeholder="Search here..."
+          ></input>
+        </div>
       </div>
-    </header>
-  )
-}
-
-function MenuIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
-  )
-}
-
-function MountainIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-    </svg>
-  )
-}
+      { cart && <Cart />}
+    </>
+  );
+};
 
 function ShoppingCartIcon(props) {
   return (
@@ -172,3 +161,5 @@ function ShoppingCartIcon(props) {
     </svg>
   )
 }
+
+export default NavBaar;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import ProductCard from './ProductCard';
+import ProductCard1 from './ProductCard1';
 
 const ProductComponent = () => {
-  const [activeButton, setActiveButton] = useState('button1');
+  const [activeButton, setActiveButton] = useState('button2');
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -71,7 +72,7 @@ const ProductComponent = () => {
         {
           name: 'Metal T-Shirt',
           imageURL: ['http://res.cloudinary.com/duvf9j212/image/upload/v1716129532/Cloudinary-React/ygkbku0i1mztmvfawfwg.png'],
-          newPrice: 25,
+          newPrice: 250,
           oldPrice: 15,
           stars: 4,
         },
@@ -91,7 +92,7 @@ const ProductComponent = () => {
         },
         {
           name: 'Pink Watch',
-          imageURL: ['https://i.etsystatic.com/9761356/r/il/a4366a/5985107209/il_794xN.5985107209_2axe.jpg'],
+          imageURL: ['https://i.etsystatic.com/51971923/r/il/d760ee/5957142522/il_794xN.5957142522_3cjk.jpg'],
           newPrice: 25,
           oldPrice: 15,
           stars: 4,
@@ -176,7 +177,7 @@ const ProductComponent = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-8 gap-span-2 justify-center align-middle">
         {activeButton && products[activeButton].map((product, index) => (
           <div className='grid gap-2 h-80 md:h-fit w-fit py-2 justify-center items-center' key={index}>
-            <ProductCard name={product.name} imageURL={product.imageURL} newPrice={product.newPrice} oldPrice={product.oldPrice} stars={product.stars}/>
+            <ProductCard1 name={product.name} imageURL={product.imageURL} newPrice={product.newPrice} oldPrice={product.oldPrice} stars={product.stars}/>
           </div>
         ))}
       </div>
