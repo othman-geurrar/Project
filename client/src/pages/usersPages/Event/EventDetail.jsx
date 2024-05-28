@@ -1,8 +1,8 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetEventByIdQuery } from "../../redux/services/EventData";
-import logo from "../../assets/img/logo.png";
+import { useGetEventByIdQuery } from "../../../redux/services/EventData";
+import logo from "../../../assets/logo.png";
 
 function EventDetails() {
   const { id } = useParams();

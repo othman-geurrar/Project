@@ -1,4 +1,4 @@
-const { addItemToCart, removeItemFromCart, getCartByUserId } = require("../Controllers/cartController");
+const { addItemToCart, removeItemFromCart, getCartByUserId , updateItemQuantityInCart } = require("../Controllers/cartController");
 
 const cartRouter = require("express").Router();
 
@@ -7,8 +7,9 @@ const cartRouter = require("express").Router();
 
 cartRouter
   .post("/add" , addItemToCart)
-  .post("/remove" , removeItemFromCart)
-  .get("/:useId" , getCartByUserId)
+  .delete("/remove" , removeItemFromCart)
+  .get("/:userId" , getCartByUserId)
+  .put("/update" , updateItemQuantityInCart)
 
 
 

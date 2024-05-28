@@ -11,6 +11,7 @@ import { registerLicense } from '@syncfusion/ej2-base';
 import Protected from './Routes/Protected.jsx'
 import { EventDetails, EventPage, LandingPage, LifeStyleDetail, LifeStyleFront, ProductDetail, ProductsPage } from "./pages/index.jsx";
 import LifestyelDetails from "./components/AdminBackLock/LifeStyle/LifestyelDetails.jsx";
+import { ShopCart } from "./components/index.jsx";
 
 
 
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/" element={<LandingPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<ShopCart />} />
         <Route path="/lifestyles" element={<LifeStyleFront />} />
         <Route path="/lifestyles/detail" element={<LifeStyleDetail />} />
         <Route path="/events" element={<EventPage />} />

@@ -5,16 +5,17 @@ import Musiccards from "../../components/userFlow/musiccards";
 import ProductCard from "../../components/userFlow/ProductCard";
 import instagram from "../../assets/instagram.png";
 import MovingBar from "../../components/userFlow/movingBar";
-import { Footer, IntsaFollow, NavBaar } from "../../components";
+import { Footer, IntsaFollow, MainNav, NavBaar } from "../../components";
 const styles = () => {
   return (
     <main className="bg-gray-100">
-      <NavBaar />
+      {/* <NavBaar /> */}
+      <MainNav />
       {isLoading ? (
         <>
       
           {/* skeleton */}
-          <section className="flex gap-[30px] p-[20px] h-[90vh]">
+          <section className="flex mt-20 gap-[30px] p-[20px] h-[90vh]">
             {/* image */}
             <div className="w-[40%] animate-customPulse rounded-md bg-gray-300">
               <div className="backdrop-brightness-90 h-full w-full flex justify-center items-center">
@@ -82,7 +83,7 @@ const styles = () => {
           {/* navbar */}
           
           {/* hero_section */}
-          <section className="flex gap-[30px] p-[20px] pb-0 glass m-4 mb-0 h-[90vh] ">
+          <section className="flex gap-[30px] mt-20 p-[20px] pb-0 glass m-4 mb-0 h-[90vh] ">
             {/* image */}
             <div
               className="w-[40%] rounded-md bg-[url('https://www.standout.co.uk/blog/wp-content/uploads/2022/06/AdobeStock_295075964-scaled.jpeg')]"

@@ -7,7 +7,7 @@ async function getCartByUserId(req, res) {
     const { userId } = req.params;
   
     try {
-      const cart = await Cart.findOne({ userId: mongoose.Types.ObjectId(userId) });
+      const cart = await Cart.findOne({userId});
   
       if (cart) {
         res.status(200).send(cart);
@@ -23,7 +23,7 @@ async function getCartByUserId(req, res) {
 
 
 async function addItemToCart(req, res) {
-  const { userId, productId, quantity } = req.body;
+  const { userId, productId, quantity , name , imageURL , newPrice, color } = req.body;
 
   try {
     
@@ -38,14 +38,14 @@ async function addItemToCart(req, res) {
         console.log('Updated quantity')
       } else {
         // Item does not exist in the cart, add as new item
-        cart.items.push({ productId, quantity });
+        cart.items.push({ productId, quantity , name , imageURL , newPrice, color });
         console.log('Added new item')
       }
     } else {
       // No cart for this user, create a new one
       cart = new Cart({
         userId: userId,
-        items: [{ productId, quantity }]
+        items: [{ productId, quantity , name , imageURL , newPrice, color  }]
       });
       console.log('Created new cart')
     }
@@ -90,4 +90,38 @@ async function removeItemFromCart(req, res) {
     }
 }
 
-module.exports = {addItemToCart , removeItemFromCart , getCartByUserId};
+
+async function updateItemQuantityInCart(req, res) {
+  const { userId, productId, quantity } = req.body;
+
+  try {
+
+
+    const cart = await Cart.findOne({ userId});
+
+    if (!cart) {
+      return res.status(404).send({ error: 'Cart not found for this user' });
+    }
+
+    // Find the index of the item to update
+    const itemIndex = cart.items.findIndex(item => item.productId === productId);
+    if (itemIndex === -1) {
+      return res.status(404).send({ error: 'Item not found in the cart' });
+    }
+
+    // Update the quantity of the item
+    cart.items[itemIndex].quantity = quantity;
+
+    // Save the updated cart
+    await cart.save();
+
+    res.status(200).send({ message: 'Item quantity updated successfully', cart });
+  } catch (error) {
+    console.error('Error updating item quantity in cart:', error);
+    res.status(500).send({ error: 'Failed to update item quantity in cart' });
+  }
+}
+
+
+
+module.exports = {addItemToCart , removeItemFromCart , getCartByUserId , updateItemQuantityInCart};

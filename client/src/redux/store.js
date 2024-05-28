@@ -12,6 +12,7 @@ import AdminSlice from "./Admin/adminsSlice";
 import ProductSlice from "./Products/productsSlice";
 import {AdminApi} from "./services/adminApi";
 import { ProductApi } from "./services/ProductData";
+import { cartApi } from "./services/cartApi";
 
 const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ const store = configureStore({
     [eventsApi.reducerPath]: eventsApi.reducer,
     [AdminApi.reducerPath]: AdminApi.reducer,
     [ProductApi.reducerPath]: ProductApi.reducer,
+    [cartApi.reducerPath]: cartApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -35,6 +37,7 @@ const store = configureStore({
       eventsApi.middleware,
       AdminApi.middleware,
       ProductApi.middleware,
+      cartApi.middleware,
       
 
     ),
