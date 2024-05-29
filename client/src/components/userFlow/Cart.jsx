@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { setcart } from "../../redux/SideBar/sideBarSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useAddcartMutation,
   useGetcartQuery,
@@ -8,8 +8,12 @@ import {
   useUpdateQuantityMutation,
 } from "../../redux/services/cartApi";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
+  const { userLogins } = useSelector(
+    (state) => state.sideBar
+  )
   const userId = localStorage.getItem('UserId')
   const { data: carts, refetch } = useGetcartQuery(userId);
   const [updateQuantity] = useUpdateQuantityMutation();
@@ -22,6 +26,7 @@ export default function Cart() {
  
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const products = carts?.items;
   console.log(products);
 
@@ -56,6 +61,19 @@ export default function Cart() {
   const handleCloseCart = () => {
     dispatch(setcart());
   };
+  const HandleCheckOutClick = () => { 
+    if(userLogins){
+      dispatch(setcart());
+      navigate('/checkout')
+      console.log('checkout')
+    }else{
+      dispatch(setcart())
+      navigate('/products')
+
+      console.log('login')
+    }
+    
+  }
 
   const calculateSubtotal = () => {
     return products
@@ -151,6 +169,7 @@ export default function Cart() {
               variant="contained"
               color="primary"
               sx={{ flex: 1 }}
+              onClick={() => HandleCheckOutClick()}
             >
               Checkout
             </Button>
@@ -158,6 +177,7 @@ export default function Cart() {
               size="lg"
               variant="outlined"
               sx={{ color: "primary.main", borderColor: "primary.main" }}
+              
             >
               Continue shopping
             </Button>
