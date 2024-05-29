@@ -1,89 +1,30 @@
 import React from 'react';
-import { HoverEffect } from '../ui/HoverEffect'
+import { Card, CardContent, CardMedia, Button, Typography } from '@mui/material';
 
-export default function EventCard() {
+export default function Component({i , event}) {
+    console.log(event)
   return (
-    <div className="mx-auto h-screen px-8">
-      <HoverEffect items={projects} />
-    </div>
+    <Card sx={{ minWidth: 400, height: 450, display: 'flex', flexDirection: 'column' }}>
+      <CardMedia
+        component="img"
+        alt="Event Image"
+        image={event.ImageURL}
+        title="Event Image"
+        sx={{ height: 300, objectFit: 'cover' }}
+      />
+      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div>
+          <Typography gutterBottom variant="h5" component="div">
+            Annual Tech Conference
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            June 15, 2024 - June 17, 2024
+          </Typography>
+        </div>
+        <Button variant="outlined" size="small" sx={{ mt: 2 }}>
+          View Details
+        </Button>
+      </CardContent>
+    </Card>
   );
 }
-
-// export const projects = [
-//   {
-//     title: "Stripe",
-//     description:
-//       "A technology company that builds economic infrastructure for the internet.",
-//     link: "https://stripe.com",
-//   },
-//   {
-//     title: "Netflix",
-//     description:
-//       "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-//     link: "https://netflix.com",
-//   },
-//   {
-//     title: "Google",
-//     description:
-//       "A multinational technology company that specializes in Internet-related services and products.",
-//     link: "https://google.com",
-//   },
-//   {
-//     title: "Meta",
-//     description:
-//       "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-//     link: "https://meta.com",
-//   },
-//   {
-//     title: "Amazon",
-//     description:
-//       "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-//     link: "https://amazon.com",
-//   },
-//   {
-//     title: "Microsoft",
-//     description:
-//       "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-//     link: "https://microsoft.com",
-//   },
-// ];
-
-export const projects = [
-    {
-      title: "Stripe",
-      description: "A technology company that builds economic infrastructure for the internet.",
-      link: "https://stripe.com",
-      image: "https://example.com/images/stripe.jpg",
-    },
-    {
-      title: "Netflix",
-      description: "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-      link: "https://netflix.com",
-      image: "https://example.com/images/netflix.jpg",
-    },
-    {
-      title: "Google",
-      description: "A multinational technology company that specializes in Internet-related services and products.",
-      link: "https://google.com",
-      image: "https://example.com/images/google.jpg",
-    },
-    {
-      title: "Meta",
-      description: "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-      link: "https://meta.com",
-      image: "https://example.com/images/meta.jpg",
-    },
-    {
-      title: "Amazon",
-      description: "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-      link: "https://amazon.com",
-      image: "https://example.com/images/amazon.jpg",
-    },
-    {
-      title: "Microsoft",
-      description: "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-      link: "https://microsoft.com",
-      image: "https://example.com/images/microsoft.jpg",
-    },
-  ];
-  

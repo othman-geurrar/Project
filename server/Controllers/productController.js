@@ -3,6 +3,15 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+const ProductsLifeStyle = async (req, res) => {
+  try {
+    const { LifeStyleName } = req.params;
+    const products = await Product.find({ LifeStyleName: LifeStyleName });
+    res.status(201).json(products);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
 
 const viewAllProduct = (req, res) => {
   const page = parseInt(req.query.p || 1);
@@ -98,4 +107,5 @@ module.exports = {
   addProduct,
   updateProduct,
   deleteProduct,
+  ProductsLifeStyle
 };

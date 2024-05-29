@@ -6,6 +6,7 @@ export const cartApi = createApi({
         baseUrl: 'http://localhost:3000/cart',
         credentials: 'include',
     }),
+    tagTypes: ["Cart"],
     endpoints: (builder) => ({
         // get cart items
         getcart: builder.query({
@@ -13,6 +14,7 @@ export const cartApi = createApi({
                 url: `/${id}`,
                 method: 'GET',
             }),
+            providesTags: ["Cart"]
         }),
         // add item to cart
         addcart: builder.mutation({

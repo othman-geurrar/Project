@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema({
     type: [String],
   },
   //
-  LifeStyle: {
+  LifeStyleName: {
     type: String,
   },
   productQuantity: {
@@ -45,9 +45,6 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   size: [{ label: { type: String }, value: { type: String } }],
-  LifeStyle: {
-    type: String,
-  },
   stars:{
     type: Number,
     default: 0,

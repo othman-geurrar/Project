@@ -8,14 +8,14 @@ const {
   addProduct,
   updateProduct,
   deleteProduct,
+  ProductsLifeStyle,
 } = require("../Controllers/productController");
 
 productRouter
   .get("/getAll", viewAllProduct)
-  .get("/getOne/:id",viewOneProduct)
+  .get("/getOne/:id", viewOneProduct)
   .post("/newer", addProduct)
   .patch("/update/:id", updateProduct)
-  .delete("/delete/:id", deleteProduct);
-
-
+  .delete("/delete/:id", deleteProduct)
+  .get("/getProductsStyle/:LifeStyleName", ProductsLifeStyle);
 module.exports = productRouter;

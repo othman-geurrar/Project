@@ -113,7 +113,7 @@ const ProductsPage = () => {
               <div>
               <button
                 className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                onClick={()=> setSearch('')}
+                onClick={()=> handleSearchChange('')}
               >
                 
                 All
@@ -121,14 +121,14 @@ const ProductsPage = () => {
               <div className="grid gap-2 mt-4">
               <button
                 className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                onClick={()=> setSearch('T-shirt')}
+                onClick={()=> handleSearchChange('T-shirt')}
               >
                 <IoShirtSharp className="w-5 h-5" />
                 Shirts
               </button>
               <button
                 className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                onClick={()=> setSearch('Pants')}
+                onClick={()=> handleSearchChange('Pants')}
                 
               >
                 <GiArmoredPants className="w-5 h-5" />
@@ -136,14 +136,14 @@ const ProductsPage = () => {
               </button>
               <button
                 className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                onClick={()=> setSearch('Shoes')}
+                onClick={()=> handleSearchChange('Shoes')}
               >
                 <GiRunningShoe className="w-5 h-5" />
                 Shoes
               </button>
               <button
                 className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                onClick={()=> setSearch('Accessories')}
+                onClick={()=> handleSearchChange('Accessories')}
               >
                 {/* <img src="https://cdn-icons-png.freepik.com/512/7695/7695934.png" className="w-5 h-5" /> */}
                 <FontAwesomeIcon icon={faGem} />

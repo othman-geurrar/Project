@@ -21,6 +21,13 @@ export const lifeStyleApi = createApi({
         method: "GET",
       }),
     }),
+    // get lifeStyle by name
+    getLifeStyleByName: builder.query({
+      query: (LifeStyleName) => ({
+        url: `/getLifeStyleName/${LifeStyleName}`,
+        method: "GET",
+      }),
+    }),
     // add lifeStyle
     addLifeStyle: builder.mutation({
       query: (lifeStyle) => ({
@@ -56,4 +63,5 @@ export const {
   useAddLifeStyleMutation,
   useDeleteLifeStyleMutation,
   useUpdateLifeStyleMutation,
+  useGetLifeStyleByNameQuery
 } = lifeStyleApi;

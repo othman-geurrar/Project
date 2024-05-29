@@ -8,7 +8,7 @@ import logo from '../../assets/logo.png';
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setcart, setuserLogins } from "../../redux/SideBar/sideBarSlice";
+import { setcart, setloginForm } from "../../redux/SideBar/sideBarSlice";
 import Cart from "./Cart";
 import UserLoginForm from "../../pages/usersPages/LoginForm";
 import ProfileDropDown from "./ProdileDropDown";
@@ -24,7 +24,7 @@ const MainNav = () => {
   const { cart } = useSelector(
     (state) => state.sideBar
   );
-  const { userLogins } = useSelector(
+  const { loginForm } = useSelector(
     (state) => state.sideBar
   )
   const dispatch = useDispatch();
@@ -115,7 +115,7 @@ const MainNav = () => {
         <div>
         <div className="relative left-0 flex">
           {!isLogin ? (
-            <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline" onClick={() => dispatch(setuserLogins())}>
+            <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline" onClick={() => dispatch(setloginForm())}>
               Sign In
             </Button>
           ) : (
@@ -154,7 +154,7 @@ const MainNav = () => {
         </div>
       </div>
       { cart && <Cart />}
-      { userLogins && <UserLoginForm />}
+      { loginForm && <UserLoginForm />}
     </>
   );
 };

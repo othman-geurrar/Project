@@ -10,8 +10,12 @@ import RegisterForm from "./pages/adminPages/RegisterForm.jsx";
 import store from "./redux/store.js";
 import { registerLicense } from '@syncfusion/ej2-base';
 import Protected from './Routes/Protected.jsx'
-import { EventDetails, EventPage, LandingPage, LifeStyleDetail, LifeStyleFront, ProductDetail, ProductExample, ProductsPage, UserLoginForm } from "./pages/index.jsx";
+import { CheckoutPage, EventDetails, EventPage, LandingPage, LifeStyleDetail, LifeStyleFront, ProductDetail, ProductExample, ProductsPage, ProfilUser, UserLoginForm } from "./pages/index.jsx";
 import { ShopCart } from "./components/index.jsx";
+import { ThemeProvider } from "@material-tailwind/react";
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -21,18 +25,25 @@ registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF1cXmhPYVFzWmFZfVpgdVdMYFlbRnRPIiBoS35
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
   <BrowserRouter>
-    <Provider store={store}>
-      <Routes>
+    <Provider store={store}>   
+      <Routes>    
         <Route path="/" element={<LandingPage />} />
         <Route path="/user/login" element={<UserLoginForm />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/user/profil"element={
+              <ThemeProvider>
+                <ProfilUser />
+              </ThemeProvider>
+            }
+          />
         {/* <Route path="/products/:id" element={<ProductDetail />} /> */}
         <Route path="/products/:id" element={<ProductExample />} />
         <Route path="/cart" element={<ShopCart />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/lifestyles" element={<LifeStyleFront />} />
-        <Route path="/lifestyles/detail" element={<LifeStyleDetail />} />
+        <Route path="/lifestyles/detail/:LifeStyleName" element={<LifeStyleDetail />} />
         <Route path="/events" element={<EventPage />} />
-        {/* <Route path="/event/detail" element={<EventDetails />} /> */}
+        <Route path="/events/detail" element={<EventDetails />} />
         <Route path="/admin/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route element={<Protected />}>

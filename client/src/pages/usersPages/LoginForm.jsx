@@ -8,7 +8,7 @@ import {
   useSignInUserMutation,
   useSignUpUserMutation,
 } from "../../redux/Users/userSliceFront";
-import { setuserLogins } from "../../redux/SideBar/sideBarSlice";
+import { setloginForm, setuserLogin } from "../../redux/SideBar/sideBarSlice";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,7 +24,7 @@ export default function UserLoginForm() {
   console.log(data)
 
 
-  const { userLogins } = useSelector(
+  const { loginForm } = useSelector(
     (state) => state.sideBar
   )
   const dispatch = useDispatch();
@@ -98,16 +98,15 @@ export default function UserLoginForm() {
       sessionStorage.setItem("UserLogin", "true");
       localStorage.setItem("UserId",`${data.message}`);
       console.log(data.message)
-      
-      dispatch(setuserLogins())
-      navigate("/");
+      dispatch(setuserLogin())
+      dispatch(setloginForm())
+      // navigate("/");
     }
   }, [isSuccess, isError, error, data, navigate]);
 
 
   return (
     <>
-     <ToastContainer />
   
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
      
@@ -142,7 +141,7 @@ export default function UserLoginForm() {
                   </span>
                 )}
                 <button className="btn">Sign Up</button>
-                <button className=" mt-4" onClick={()=> dispatch(setuserLogins())}> Close</button>
+                <button className=" mt-4" onClick={()=> dispatch(setloginForm())}> Close</button>
               </form>
             </div>
             <div className="form-container sign-in-container">
@@ -168,7 +167,7 @@ export default function UserLoginForm() {
                 )}
                 <a href="#">Forgot your password?</a>
                 <button className="btn">Sign In</button>
-                <button className="mt-4" onClick={()=> dispatch(setuserLogins())}> Close</button>
+                <button className="mt-4" onClick={()=> dispatch(setloginForm())}> Close</button>
               </form>
             </div>
             <div className="overlay-container">
@@ -189,6 +188,8 @@ export default function UserLoginForm() {
           </div>
         </div>
       </div>
+      <ToastContainer />
+
       </>
   
   );

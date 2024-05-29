@@ -3,10 +3,13 @@ import { Button, Menu, MenuItem, Avatar, ListItemIcon, Typography, Divider } fro
 import { AccountCircle, Settings, Logout } from '@mui/icons-material';
 import img from '../../assets/users/images/avatars/avatar_5.jpg'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setuserLogin } from '../../redux/SideBar/sideBarSlice';
 
 export default function ProfileDropDown() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -18,6 +21,8 @@ export default function ProfileDropDown() {
   const handleSingOut = () => {
     navigate("/");
     sessionStorage.removeItem('UserLogin');
+    localStorage.removeItem('UserId');
+    dispatch(setuserLogin())
     handleClose();
     
   }
