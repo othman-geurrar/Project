@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { z } from "zod";
 import { Link } from "react-router-dom";
+import { useGetAllLifeStyleQuery } from "../../redux/services/LifeStyleData";
 function Products() {
   // ZOD
   const schema = z.object({
@@ -35,8 +36,17 @@ function Products() {
     stars: z.string().transform((value) => Number(value)), //
     inStock: z.string().transform((value) => (value === "true" ? true : false)),
     color: z.array(z.string()),
-    // imageURL: z.string(),
+    LifeStyleName: z.string(),
   });
+  const {
+    data: lifestyles,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useGetAllLifeStyleQuery();
+  if (isSuccess) {
+    console.log(lifestyles);
+  }
   const {
     register,
     handleSubmit,
@@ -65,16 +75,6 @@ function Products() {
   };
   //product_inputs
   const [productdata, setProductdata] = useState(null);
-  // handlechange of colors :
-  // const handleColorChange = (index, value) => {
-  //   const updatedColors = [...productdata.color];
-  //   updatedColors[index] = value;
-  //   setProductdata({
-  //     ...productdata,
-  //     color: updatedColors,
-  //   });
-  // };
-  // addform & editform
   const [addform, setaddform] = useState(false);
   const [editform, seteditform] = useState(false);
   //pagination
@@ -107,7 +107,7 @@ function Products() {
         );
         urls.push(response.data.url);
       }
-      console.log(urls)
+      console.log(urls);
 
       return urls;
     } catch (err) {
@@ -121,7 +121,7 @@ function Products() {
     const filesArray = Array.from(e.target.files);
     // Set images state
     setImage(filesArray);
-    console.log(filesArray)
+    console.log(filesArray);
   };
 
   const dispatch = useDispatch();
@@ -139,27 +139,6 @@ function Products() {
     reset();
     setProductdata(null);
   };
-  //upload image
-  // const uploadImage = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("file", productdata.imageURL);
-  //     formData.append("upload_preset", "exxiztkt");
-
-  //     const response = await axios.post(
-  //       "https://api.cloudinary.com/v1_1/dkt1t22qc/image/upload",
-  //       formData
-  //     );
-  //     console.log(productdata.imageURL);
-
-  //     setProductdata({ ...productdata, imageURL: response.data.secure_url });
-  //     console.log(productdata.imageURL);
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //     // Handle error if needed
-  //   }
-  // };
-  // console.log(productdata.imageURL);
 
   useEffect(() => {
     dispatch(getproducts());
@@ -431,7 +410,7 @@ function Products() {
                                             <img
                                               className="cursor-pointer hover:scale-75 transition duration-700	"
                                               src={item.imageURL[0]}
-                                            />{" "}
+                                            />
                                           </div>
                                         </div>
                                       </td>
@@ -583,7 +562,7 @@ function Products() {
                                         </span>
                                       )}
                                     </div>
-                                    {/*category */}
+                                    {/*LifeStyles */}
                                     <div className="relative  w-full mb-5 z-1000 group ">
                                       <select
                                         name="category"
@@ -609,10 +588,44 @@ function Products() {
                                         <option value="Accessories">
                                           Accessories
                                         </option>
-                                        <option value="Shoes">
-                                          Shoes
+                                        <option value="Shoes">Shoes</option>
+                                        <option value="T-Shirt ">
+                                          T-Shirt{" "}
                                         </option>
-                                        <option value="T-Shirt ">T-Shirt </option>
+                                      </select>
+                                    </div>
+                                    <div className="relative  w-full mb-5 z-1000 group ">
+                                      <select
+                                        name="LifeStyleName"
+                                        id=""
+                                        className="w-full h-[36px]  glass"
+                                        defaultValue={
+                                          editform
+                                            ? productdata.LifeStyleName
+                                            : ""
+                                        }
+                                        required
+                                        {...register("LifeStyleName")}
+                                      >
+                                        <option
+                                          value=""
+                                          disabled
+                                          selected
+                                          hidden
+                                        >
+                                          Select LifeStyle
+                                        </option>
+                                        {lifestyles?.LifeStyle.map((item) => {
+                                          return (
+                                            <>
+                                              <option
+                                                value={item.LifeStyleName}
+                                              >
+                                                {item.LifeStyleName}
+                                              </option>
+                                            </>
+                                          );
+                                        })}
                                       </select>
                                     </div>
                                     {/* productQuantity */}
@@ -671,7 +684,7 @@ function Products() {
                                         </span>
                                       )}
                                     </div>
-                                    
+
                                     {/* oldPrice */}
                                     <div className="relative z-0 w-full mb-5 group">
                                       <input
@@ -699,7 +712,7 @@ function Products() {
                                         </span>
                                       )}
                                     </div>
-                                    
+
                                     {/* Stars */}
                                     <div className="relative z-0 w-full mb-5 group">
                                       <input
@@ -866,7 +879,6 @@ function Products() {
                                       <input
                                         name="imageURL"
                                         type="file"
-                                        defaultValue=""
                                         multiple
                                         onChange={handlephoto}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"

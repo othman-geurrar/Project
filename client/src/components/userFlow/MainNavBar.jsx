@@ -5,13 +5,30 @@ import { MdDensityMedium } from "react-icons/md";
 // import { FaSignInAlt, FaUser } from "react-icons/fa";
 import css from "./Navbar.module.scss";
 import logo from '../../assets/logo.png';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setcart, setuserLogins } from "../../redux/SideBar/sideBarSlice";
+import Cart from "./Cart";
+import UserLoginForm from "../../pages/usersPages/LoginForm";
+import ProfileDropDown from "./ProdileDropDown";
 
 const MainNav = () => {
   const [search, setSearch] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+
+  const isLogin = sessionStorage.getItem('UserLogin');
+  console.log(isLogin)
+
+  const { cart } = useSelector(
+    (state) => state.sideBar
+  );
+  const { userLogins } = useSelector(
+    (state) => state.sideBar
+  )
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +57,10 @@ const MainNav = () => {
   const toggled = () => {
     setToggle((prev) => !prev);
   };
+  // const Signou = () => {
+  //   sessionStorage.removeItem('UserLogin');
+  //   navigate('/')
+  // };
 
   return (
     <>
@@ -51,70 +72,75 @@ const MainNav = () => {
             <img src={logo} alt="Logo" />
             
           </div>
-          <span className=" my-auto"> Our Style Are Yours </span>
+          {/* <span className=" my-auto"> Our Style Are Yours </span> */}
         </div>
         <div
           className={`${css.main_menu} ${toggle ? css["main_menu--open"] : {}}`}
         >
            <nav className="hidden md:flex items-center gap-6 text-lg font-medium">
         <Link
-          className="relative text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
           to={"/"}
         >
           Home
         </Link>
         <Link
-          className="relative text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
           to={"/products"}
         >
           Products
         </Link>
         <Link
-         className="relative text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+         className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
           to={"/lifestyles"}
         >
           LifeStyles
         </Link>
         <Link
-          className="relative text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
+          to={"/events"}
+        >
+          Events
+        </Link>
+        <Link
+          className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
           href="#"
         >
           Contact
         </Link>
       </nav>
-          {/* <div className="flex gap-4">
-            <button className="text-md ml-64">
-              <FaSignInAlt /> Sign In
-            </button>
-            <button className="text-md">
-              <FaUser /> Log In
-            </button>
-          </div> */}
+          
         </div>
 
         <div>
-          <div className="relative left-0 flex">
-          <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline">
-          Sign In
-        </Button>
-        <Button className="rounded-full hover:text-teal-300" size="icon" variant="ghost">
-          <ShoppingCartIcon className="h-6 w-6" />
-          <span className="sr-only">Cart</span>
-        </Button>
-            <span className="relative flex items-center text-lg z-10 cursor-pointer hover:text-teal-300">
-              <IoSearchSharp onClick={openSearchBar}></IoSearchSharp>
-
-              <RxCross2
-                className={`${search ? "ml-4 visible" : "invisible"}`}
-                onClick={closeSearchBar}
-              ></RxCross2>
-            </span>
-            <MdDensityMedium
-              className="lg:hidden md:hidden relative text-2xl cursor-pointer block"
-              onClick={toggled}
-            ></MdDensityMedium>
-          </div>
+        <div className="relative left-0 flex">
+          {!isLogin ? (
+            <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline" onClick={() => dispatch(setuserLogins())}>
+              Sign In
+            </Button>
+          ) : (
+            <>
+            <ProfileDropDown />
+          </>
+          )}
+          {console.log('cart')}
+          <Button className="rounded-full hover:text-teal-300" size="icon" variant="ghost" onClick={() => dispatch(setcart())}>
+            <ShoppingCartIcon className="h-6 w-6" />
+            <span className="sr-only">Cart</span>
+          </Button>
+          <span className="relative flex items-center text-lg z-10 cursor-pointer hover:text-teal-300">
+            <IoSearchSharp onClick={openSearchBar}></IoSearchSharp>
+            <RxCross2
+              className={`${search ? "ml-4 visible" : "invisible"}`}
+              onClick={closeSearchBar}
+            ></RxCross2>
+          </span>
+          <MdDensityMedium
+            className="lg:hidden md:hidden relative text-2xl cursor-pointer block"
+            onClick={toggled}
+          ></MdDensityMedium>
         </div>
+      </div>
 
         <div
           className={`absolute ${
@@ -127,6 +153,8 @@ const MainNav = () => {
           ></input>
         </div>
       </div>
+      { cart && <Cart />}
+      { userLogins && <UserLoginForm />}
     </>
   );
 };

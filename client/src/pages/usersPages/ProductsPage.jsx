@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AllProductCard, Footer, IntsaFollow, MainNav, NavBaar, Pagination, ProductCard, ProductsCategory } from "../../components";
+import { AllProductCard, Footer, IntsaFollow, MainNav, NavBaar, NavBar, Pagination, ProductCard, ProductsCategory } from "../../components";
 import Slider from "@mui/material/Slider";
 import { useGetAllProductsQuery } from "../../redux/services/ProductData";
 import { useNavigate  , useLocation } from 'react-router-dom'; // Corrected import
@@ -10,6 +10,7 @@ import { IoShirtSharp } from "react-icons/io5";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGem } from '@fortawesome/free-solid-svg-icons';
+import ProductCard1 from "../../components/userFlow/ProductCard1";
 
 
 
@@ -25,6 +26,7 @@ const ProductsPage = () => {
   const [value, setValue] = useState("");
   console.log(value)
   const { data, refetch } = useGetAllProductsQuery({page , search ,min , value});
+  console.log(data);
  
 
   useEffect(() => {
@@ -62,11 +64,11 @@ const ProductsPage = () => {
   return (
     <>
     <NavBaar />
-    <div className="pl-34 hidden md:block"> 
+    {/* <div className="pl-34 mt-14 hidden md:block"> 
     <ProductsCategory />
 
-    </div>
-    <div className="grid gap-8 px-4 py-8 md:grid-cols-[280px_1fr] md:px-6 md:py-4">
+    </div> */}
+    <div className="grid gap-8 mt-26 px-4 py-8 md:grid-cols-[280px_1fr] md:px-6 md:py-4">
       <div className="rounded-lg bg-gray-100/40 p-4 dark:bg-gray-800/40">
         <div className="grid gap-6">
           <label
@@ -213,7 +215,7 @@ const ProductsPage = () => {
         
         {data?.docs?.map((product, index) => (
           // <AllProductCard key={index} {...product} />
-          <ProductCard key={index} {...product} />
+          <ProductCard1 key={index} {...product} />
         ))}
        
 

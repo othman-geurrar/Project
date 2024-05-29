@@ -28,6 +28,5 @@ export { default as IntsaFollow } from './userFlow/IntsaFollow'
 export { default as NewsLetter } from './userFlow/NewsLetter'
 export { default as ShopCart } from './userFlow/ShopCart'
 export { default as ImagesSliderDemo } from './userFlow/ImagesSlider'
-export {default as Vortex } from './ui/Vortex'
-export {default as EventCard} from './userFlow/EventCard'
-export {default as HoverEffect} from './ui/HoverEffect'
+export { default as Cart } from './userFlow/Cart'
+
