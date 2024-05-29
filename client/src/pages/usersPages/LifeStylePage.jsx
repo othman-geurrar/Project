@@ -11,7 +11,7 @@ import heroS from "../../assets/heroS.jpeg";
 import { useGetAllLifeStyleQuery } from "../../redux/services/LifeStyleData";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { NavBaar } from "../../components";
+import { Footer, NavBaar } from "../../components";
 
 const LifeStyleFront = () => {
   //  getLifeStyles Query
@@ -370,6 +370,7 @@ const LifeStyleFront = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

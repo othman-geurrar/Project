@@ -113,7 +113,7 @@ const NavBaar = () => {
         <div>
         <div className="relative left-0 flex">
           {!isLogin ? (
-            <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline" onClick={() => dispatch(setuserLogins())}>
+            <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline" onClick={() => dispatch(setloginForm())}>
               Sign In
             </Button>
           ) : (
