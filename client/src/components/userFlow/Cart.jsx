@@ -14,10 +14,10 @@ export default function Cart() {
   const { data: carts, refetch } = useGetcartQuery(userId);
   const [updateQuantity] = useUpdateQuantityMutation();
   const [removecart] = useRemovecartMutation();
-  useEffect(() => {
-    // Refetch cart data every time the component is rendered
-    refetch();
-  }, [refetch]);
+  // useEffect(() => {
+  //   // Refetch cart data every time the component is rendered
+  //   refetch();
+  // }, [refetch]);
   
  
 

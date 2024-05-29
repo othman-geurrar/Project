@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
   GoogleId: { type: String },
   firstName: { type: String },
   lastName: { type: String },
+  Address: { type: String },
+  PhoneNumber: { type: String },
+  ZipCode:{type:Number},
+  City: { type: String },
   profilePictureURL: {
     type: String,
     default:

@@ -20,8 +20,14 @@ export const ProductApi = createApi({
               method: "GET",
             }),
           }),
+          getProductsLifeStyle: builder.query({
+            query: (LifeStyleName) => ({
+              url: `/getProductsStyle/${LifeStyleName}`,
+              method: "GET",
+            }),
+          }),
     })
    
 })
 
-export const { useGetAllProductsQuery , useGetProductByIdQuery } = ProductApi
+export const { useGetAllProductsQuery , useGetProductByIdQuery , useGetProductsLifeStyleQuery } = ProductApi

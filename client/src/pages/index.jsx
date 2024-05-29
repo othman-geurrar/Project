@@ -19,6 +19,8 @@ export { default as EventDetails } from './usersPages/EventDetail';
 export { default as EventPage } from './usersPages/EventsPage';
 export { default as LifeStyleFront } from './usersPages/LifeStylePage';
 export { default as LifeStyleDetail } from './usersPages/LifeStylesDetail';
-export { default as ProductDetail } from './usersPages/ProductDetail'
-export { default as UserLoginForm } from './usersPages/LoginForm'
-export { default as ProductExample } from './usersPages/ProductExample'
+export { default as ProductDetail } from './usersPages/ProductDetail';
+export { default as UserLoginForm } from './usersPages/LoginForm';
+export { default as ProductExample } from './usersPages/ProductExample';
+export { default as CheckoutPage } from './usersPages/CheckOut';
+export { default as ProfilUser } from './usersPages/ProfilUser';

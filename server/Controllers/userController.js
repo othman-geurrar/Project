@@ -25,13 +25,22 @@ const updateAdminValidationRules = [
     .withMessage("Password must be at least 8 characters long"),
 ];
 
+const GetOneUser = (req, res) => {
+  const userid = req.params.id;
+  Users.findOne({ id: userid })
+    .then((user) => {
+      res.status(201).send(user);
+    })
+    .catch((err) => {
+      res.status(404).send("not found");
+    });
+};
 const registerUser = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const errorMessages = errors.array().map((error) => error.msg);
     return res.status(400).json({ errors: errorMessages });
   }
-
   const newUser = req.body;
   console.log(newUser);
   const userPassword = bcrypt.hashSync(newUser.password, 10);
@@ -39,7 +48,6 @@ const registerUser = async (req, res) => {
   console.log(userPassword);
 
   try {
-
     const userCount = Math.floor(Math.random() * 9000) + 1000;
     // Generate a unique ID for the new admin
     const userId = `User${1000 + userCount}`;
@@ -63,9 +71,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-
-
-
 // Function to get all Users
 const getUsers = async (req, res) => {
   try {
@@ -83,17 +88,30 @@ const updateUserByid = async (req, res) => {
   }
 
   const { id } = req.params;
-  const { UserName, email, newPassword } = req.body;
+  const {
+    UserName,
+    email,
+    newPassword,
+    FullName,
+    PhoneNumber,
+    city,
+    zipcode,
+    Street,
+  } = req.body;
 
   try {
     let updateFields = {};
     if (UserName) updateFields.UserName = UserName;
     if (email) updateFields.email = email;
+    if (FullName) updateFields.FullName = FullName;
+    if (city) updateFields.city = city;
+    if (zipcode) updateFields.zipcode = zipcode;
+    if (PhoneNumber) updateFields.PhoneNumber = PhoneNumber;
+    if (Street) updateFields.Street = Street;
     if (newPassword) {
       const hashedPassword = bcrypt.hashSync(newPassword, 10);
       updateFields.password = hashedPassword;
     }
-
     const updatedUser = await Users.findOneAndUpdate(
       { id },
       { $set: updateFields },
@@ -132,6 +150,7 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   registerUser,
+  GetOneUser,
   getUsers,
   updateUserByid,
   deleteUser,

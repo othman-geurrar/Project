@@ -1,20 +1,19 @@
 const express = require("express");
-const isAdminAuthenticated = require("../Middleware/adminLogin");
-const isAuthenticated = require("../Middleware/checkLogin");
-
 const LifeStyleRouter = express.Router();
 const {
   viewAllLifeStyles,
   viewLifeStyle,
+  viewLifeStyleName,
   addLifeStyle,
   updateLifeStyle,
   deleteLifeStyle,
-} = require("../Controllers/lifeStyleController");
+} = require("../Controllers/LifeStyleController");
 
-LifeStyleRouter.get("/getAll"  , viewAllLifeStyles)
-  .get("/getLifeStyle/:id",viewLifeStyle)
+LifeStyleRouter.get("/getAll", viewAllLifeStyles)
+  .get("/getLifeStyle/:id", viewLifeStyle)
   .post("/addLifeStyle", addLifeStyle)
-  .put("/update/:id", isAdminAuthenticated,updateLifeStyle)
-  .delete("/delete/:id", isAdminAuthenticated,deleteLifeStyle);
+  .put("/update/:id", updateLifeStyle)
+  .get("/getLifeStyleName/:LifeStyleName", viewLifeStyleName)
+  .delete("/delete/:id", deleteLifeStyle);
 
 module.exports = LifeStyleRouter;

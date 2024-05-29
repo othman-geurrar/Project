@@ -12,11 +12,29 @@ import {
   useAddcartMutation,
   useGetcartQuery,
 } from "../../redux/services/cartApi";
-import { useDispatch } from "react-redux";
-import { setcart } from "../../redux/SideBar/sideBarSlice";
-import { Avatar, Grid, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setcart, setloginForm } from "../../redux/SideBar/sideBarSlice";
+import { Avatar, Button, Grid, Typography } from "@mui/material";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Zod validation schema
+const schema = z.object({
+  color: z.string().nonempty("Color is required"),
+  size: z.string().nonempty("Size is required"),
+  quantity: z.number().min(1, "Quantity must be at least 1"),
+});
+
 
 const ProductExample = () => {
+  // const isLogin = sessionStorage.getItem('UserLogin');
+  const { userLogins } = useSelector(
+    (state) => state.sideBar
+  )
+    console.log(userLogins)
   const [mainImage, setMainImage] = useState("");
 
   const userId = localStorage.getItem("UserId");
@@ -24,25 +42,32 @@ const ProductExample = () => {
   const { id } = useParams();
 
   const { data, isLoading, isError } = useGetProductByIdQuery(id);
-  const { data: carts, refetch } = useGetcartQuery(userId);
+  // const { data: carts, refetch } = useGetcartQuery(userId);
   const [addcart, { data: addItem, error: err, isSuccess: succ }] =
     useAddcartMutation();
-  console.log(addItem);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  console.log(err);
-  console.log(succ);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(data);
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  // console.log(data);
   const stars = data?.stars;
 
-  console.log(selectedColor);
   const handleColorChange = (event) => {
     setSelectedColor(event.target.value);
   };
+
+ 
 
   useEffect(() => {
     if (data?.imageURL && data.imageURL.length > 0) {
@@ -67,23 +92,36 @@ const ProductExample = () => {
     return <div>Error loading product data.</div>;
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // Here you can handle the form submission, e.g., sending the data to a server or updating the state
-
-    const formData = {
+  const onSubmit  = async (formData) => {
+    
+    const submissionData = {
+      ...formData,
       userId: userId,
       productId: id,
       name: data?.name,
       imageURL: data?.imageURL[0],
       newPrice: data?.newPrice,
-      color: selectedColor,
-      size: selectedSize,
-      quantity: selectedQuantity,
     };
-    console.log(formData);
-
-    await addcart(formData);
+    if(userLogins){
+      await addcart(submissionData);
+    }else{
+      dispatch(setloginForm());
+      setTimeout(() => {
+        toast.warn('You need to login first', {
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }, 100);
+      
+     
+    }
+    
   };
 
   function isColorDark(color) {
@@ -104,6 +142,7 @@ const ProductExample = () => {
 
   return (
     <>
+    <ToastContainer />
       <NavBaar />
       <Box sx={{ maxWidth: "6xl", mx: "auto", py: 16, px: 6 }}>
         <Grid container spacing={6} sx={{ justifyContent: "center" }}>
@@ -184,183 +223,204 @@ const ProductExample = () => {
                 </Typography>
               </Grid>
 
-              <form
-                item
-                xs={12}
-                component="form"
-                className="ml-14 "
-                onSubmit={handleSubmit}
+              <form onSubmit={handleSubmit(onSubmit)} className="ml-14">
+      <Grid container spacing={4}>
+        <Grid item xs={12}>
+          <FormLabel
+            id="product-color-attribute"
+            sx={{
+              mb: 1.5,
+              fontWeight: "xl",
+              textTransform: "uppercase",
+              fontSize: "xs",
+              letterSpacing: "0.1em",
+            }}
+          >
+            Color
+          </FormLabel>
+          <Controller
+            name="color"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <RadioGroup
+                {...field}
+                aria-labelledby="product-color-attribute"
+                value={field.value}
+                onChange={(event) => {
+                  field.onChange(event);
+                  handleColorChange(event);
+                }}
+                sx={{ gap: 2, flexWrap: "wrap", flexDirection: "row" }}
               >
-                <Grid container spacing={4}>
-                  <Grid item xs={12}>
-                    <FormLabel
-                      id="product-color-attribute"
-                      sx={{
-                        mb: 1.5,
-                        fontWeight: "xl",
-                        textTransform: "uppercase",
-                        fontSize: "xs",
-                        letterSpacing: "0.1em",
-                      }}
-                    >
-                      Color
-                    </FormLabel>
-                    <RadioGroup
-                      aria-labelledby="product-color-attribute"
-                      value={selectedColor}
-                      onChange={handleColorChange}
-                      sx={{ gap: 2, flexWrap: "wrap", flexDirection: "row" }}
-                    >
-                      {data?.color.map((color) => (
-                        <Sheet
-                          key={color}
+                {data?.color.map((color) => (
+                  <Sheet
+                    key={color}
+                    sx={{
+                      position: "relative",
+                      width: 40,
+                      height: 40,
+                      flexShrink: 0,
+                      backgroundColor: color,
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Radio
+                      overlay
+                      variant="solid"
+                      color={color}
+                      checkedIcon={
+                        <Done
+                          fontSize="xl2"
                           sx={{
-                            position: "relative",
-                            width: 40,
-                            height: 40,
-                            flexShrink: 0,
-                            backgroundColor: color,
-                            borderRadius: "50%",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
+                            color: isColorDark(color) ? "white" : "black",
                           }}
-                        >
-                          <Radio
-                            overlay
-                            variant="solid"
-                            color={color}
-                            checkedIcon={
-                              <Done
-                                fontSize="xl2"
-                                sx={{
-                                  color: isColorDark(color) ? "white" : "black",
-                                }}
-                              />
-                            }
-                            value={color}
-                            slotProps={{
-                              input: { "aria-label": color },
-                              radio: {
-                                sx: {
-                                  display: "contents",
-                                  "--variant-borderWidth": "2px",
-                                },
-                              },
-                            }}
-                            sx={{
-                              "--joy-focus-outlineOffset": "4px",
-                              "--joy-palette-focusVisible": (theme) =>
-                                theme.vars.palette[color],
-                              [`& .${radioClasses.action}.${radioClasses.focusVisible}`]:
-                                {
-                                  outlineWidth: "2px",
-                                },
-                            }}
-                          />
-                        </Sheet>
-                      ))}
-                    </RadioGroup>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormLabel
-                      id="product-size-attribute"
-                      sx={{
-                        mb: 1.5,
-                        fontWeight: "xl",
-                        textTransform: "uppercase",
-                        fontSize: "xs",
-                        letterSpacing: "0.1em",
+                        />
+                      }
+                      value={color}
+                      slotProps={{
+                        input: { "aria-label": color },
+                        radio: {
+                          sx: {
+                            display: "contents",
+                            "--variant-borderWidth": "2px",
+                          },
+                        },
                       }}
-                    >
-                      Size
-                    </FormLabel>
-                    <RadioGroup
-                      aria-labelledby="product-size-attribute"
-                      defaultValue="M"
                       sx={{
-                        gap: 2,
-                        mb: 2,
-                        flexWrap: "wrap",
-                        flexDirection: "row",
+                        "--joy-focus-outlineOffset": "4px",
+                        "--joy-palette-focusVisible": (theme) =>
+                          theme.vars.palette[color],
+                        [`& .${radioClasses.action}.${radioClasses.focusVisible}`]:
+                          {
+                            outlineWidth: "2px",
+                          },
                       }}
-                      value={selectedSize}
-                      onChange={(event) => setSelectedSize(event.target.value)}
-                    >
-                      {sizes?.map((size) => (
-                        <Sheet
-                          key={size}
-                          sx={{
-                            position: "relative",
-                            width: 40,
-                            height: 40,
-                            flexShrink: 0,
-                            borderRadius: "50%",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            "--joy-focus-outlineOffset": "4px",
-                            "--joy-palette-focusVisible": (theme) =>
-                              theme.vars.palette.neutral.outlinedBorder,
-                            [`& .${radioClasses.checked}`]: {
-                              [`& .${radioClasses.label}`]: {
-                                fontWeight: "lg",
-                              },
-                              [`& .${radioClasses.action}`]: {
-                                "--variant-borderWidth": "2px",
-                                borderColor: "text.secondary",
-                              },
-                            },
-                            [`& .${radioClasses.action}.${radioClasses.focusVisible}`]:
-                              {
-                                outlineWidth: "2px",
-                              },
-                          }}
-                        >
-                          <Radio
-                            color="neutral"
-                            overlay
-                            disableIcon
-                            value={size}
-                            label={size}
-                          />
-                        </Sheet>
-                      ))}
-                    </RadioGroup>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <div className="grid gap-2">
-                      <label className="text-base" htmlFor="quantity">
-                        Quantity
-                      </label>
-                      <select
-                        className="w-24 border rounded-md p-2"
-                        defaultValue="1"
-                        id="quantity"
-                        value={selectedQuantity}
-                        onChange={(event) =>
-                          setSelectedQuantity(Number(event.target.value))
-                        }
-                      >
-                        {[...Array(data?.productQuantity).keys()].map((i) => (
-                          <option key={i + 1} value={i + 1}>
-                            {i + 1}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <button
-                      type="submit"
-                      className=" mr-16 py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-500"
-                      aria-live="assertive"
-                    >
-                      Add to cart
-                    </button>
-                  </Grid>
-                </Grid>
-              </form>
+                    />
+                  </Sheet>
+                ))}
+              </RadioGroup>
+            )}
+          />
+          {errors.color && <span>{errors.color.message}</span>}
+        </Grid>
+        <Grid item xs={12}>
+          <FormLabel
+            id="product-size-attribute"
+            sx={{
+              mb: 1.5,
+              fontWeight: "xl",
+              textTransform: "uppercase",
+              fontSize: "xs",
+              letterSpacing: "0.1em",
+            }}
+          >
+            Size
+          </FormLabel>
+          <Controller
+            name="size"
+            control={control}
+            defaultValue="M"
+            render={({ field }) => (
+              <RadioGroup
+                {...field}
+                aria-labelledby="product-size-attribute"
+                value={field.value}
+                onChange={(event) => field.onChange(event.target.value)}
+                sx={{
+                  gap: 2,
+                  mb: 2,
+                  flexWrap: "wrap",
+                  flexDirection: "row",
+                }}
+              >
+                {sizes?.map((size) => (
+                  <Sheet
+                    key={size}
+                    sx={{
+                      position: "relative",
+                      width: 40,
+                      height: 40,
+                      flexShrink: 0,
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      "--joy-focus-outlineOffset": "4px",
+                      "--joy-palette-focusVisible": (theme) =>
+                        theme.vars.palette.neutral.outlinedBorder,
+                      [`& .${radioClasses.checked}`]: {
+                        [`& .${radioClasses.label}`]: {
+                          fontWeight: "lg",
+                        },
+                        [`& .${radioClasses.action}`]: {
+                          "--variant-borderWidth": "2px",
+                          borderColor: "text.secondary",
+                        },
+                      },
+                      [`& .${radioClasses.action}.${radioClasses.focusVisible}`]:
+                        {
+                          outlineWidth: "2px",
+                        },
+                    }}
+                  >
+                    <Radio
+                      color="neutral"
+                      overlay
+                      disableIcon
+                      value={size}
+                      label={size}
+                    />
+                  </Sheet>
+                ))}
+              </RadioGroup>
+            )}
+          />
+          {errors.size && <span>{errors.size.message}</span>}
+        </Grid>
+        <Grid item xs={12}>
+          <div className="grid gap-2">
+            <label className="text-base" htmlFor="quantity">
+              Quantity
+            </label>
+            <Controller
+              name="quantity"
+              control={control}
+              defaultValue={1}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="w-24 border rounded-md p-2"
+                  id="quantity"
+                  value={field.value}
+                  onChange={(event) => field.onChange(Number(event.target.value))}
+                >
+                  {[...Array(data?.productQuantity).keys()].map((i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+              )}
+            />
+            {errors.quantity && <span>{errors.quantity.message}</span>}
+          </div>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="mr-16 py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-500"
+          >
+            Add to cart
+          </Button>
+        </Grid>
+      </Grid>
+    </form>
             </Grid>
           </Grid>
         </Grid>

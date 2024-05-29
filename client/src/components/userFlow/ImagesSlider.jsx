@@ -7,7 +7,7 @@ export default function ImagesSliderDemo() {
   const images = [
     "https://www.apetogentleman.com/wp-content/uploads/2024/05/ape-may-24.jpg",
     "https://osaythelabel.com/cdn/shop/files/000015200010_1800x.jpg?v=1697136305",
-    "https://379d36152a1e77a55968-de42d31b613abd6f9c08e9e6b98789df.ssl.cf1.rackcdn.com/corinne_folio.jpg",
+    "https://cdn.pixabay.com/photo/2020/07/02/18/41/dawn-5363905_1280.jpg",
   ];
 
   return (

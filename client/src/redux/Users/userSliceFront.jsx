@@ -6,7 +6,25 @@ export const UserApi = createApi({
     baseUrl: "http://localhost:3000/users",
     credentials: "include",
   }),
+  tagTypes: ["Users"],
   endpoints: (builder) => ({
+    // Get One User
+    GetOneUser: builder.query({
+      query: (id) => ({
+        url: `/GetOneUser/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Users"],
+    }),
+    // Edit Account
+    EditAccount: builder.mutation({
+      query: ({ formData, id }) => ({
+        url: `/update/${id}`,
+        body: formData,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Users"],
+    }),
     // Sign Up User
     SignUpUser: builder.mutation({
       query: (userdata) => ({
@@ -25,4 +43,9 @@ export const UserApi = createApi({
     }),
   }),
 });
-export const { useSignUpUserMutation,useSignInUserMutation } = UserApi;
+export const {
+  useSignUpUserMutation,
+  useSignInUserMutation,
+  useGetOneUserQuery,
+  useEditAccountMutation,
+} = UserApi;
