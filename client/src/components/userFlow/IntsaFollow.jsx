@@ -16,12 +16,12 @@ const IntsaFollow = () => {
         <i className="fa-brands fa-facebook mr-5"></i>
         <i className="fa-brands fa-twitter"></i>
       </div>
-      <div className="text-center md:text-[16px] text-[12px] md:mb-16 mb-5 text-[#8A8A8A] md:px-[500px]">
+      {/* <div className="text-center md:text-[16px] text-[12px] md:mb-16 mb-5 text-[#8A8A8A] md:px-[500px]">
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui porro
           error blanditiis suscipit repudiandae laudantium id laboriosam,
         </p>
-      </div>
+      </div> */}
       <div className=" ">
         <img src={instagram} />
       </div>

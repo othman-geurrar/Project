@@ -42,6 +42,7 @@ const ProductExample = () => {
   const { id } = useParams();
 
   const { data, isLoading, isError } = useGetProductByIdQuery(id);
+  console.log(data)
   // const { data: carts, refetch } = useGetcartQuery(userId);
   const [addcart, { data: addItem, error: err, isSuccess: succ }] =
     useAddcartMutation();

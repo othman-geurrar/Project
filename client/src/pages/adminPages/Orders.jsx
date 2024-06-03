@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
-import Swal from "sweetalert2";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getorders } from "../../redux/Orders/orderSlice";
@@ -20,6 +19,7 @@ function Orders() {
   const indexOfFirstorder = indexOfLastorder - ordersPerPage;
   const pageNumber = [];
   const currentorders = orders.slice(indexOfFirstorder, indexOfLastorder);
+  console.log(currentorders);
   for (let i = 1; i <= Math.ceil(orders.length / ordersPerPage); i++) {
     pageNumber.push(i);
   }
@@ -387,13 +387,13 @@ function Orders() {
                                   {/* avatar */}
                                   <div className="avatar">
                                     <div className="w-24 rounded-full ring ring-teal-600  ring-offset-2">
-                                      <img src={item.user.profilePictureURL} />{" "}
+                                      <img src={item?.user?.profilePictureURL} />{" "}
                                     </div>
                                   </div>
                                 </td>
                                 {/* OrderName */}
                                 <td className="whitespace-nowrap align-center text-center">
-                                  {item.user.UserName}
+                                  {item?.user?.UserName}
                                 </td>
                                 {/* OrderDate */}
                                 <td className="whitespace-nowrap align-center text-center">

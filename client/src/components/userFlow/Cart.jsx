@@ -15,7 +15,9 @@ export default function Cart() {
     (state) => state.sideBar
   )
   const userId = localStorage.getItem('UserId')
+  console.log(userId)
   const { data: carts, refetch } = useGetcartQuery(userId);
+  console.log(carts)
   const [updateQuantity] = useUpdateQuantityMutation();
   const [removecart] = useRemovecartMutation();
   // useEffect(() => {

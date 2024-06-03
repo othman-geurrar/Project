@@ -1,24 +1,31 @@
 
 import { Link } from "@mui/material";
+import img from '../../assets/img/logo.png'
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-400  py-12 sm:py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-24">
-        <div className="space-y-4">
+        <div className="space-y-1">
           <div className="flex items-center space-x-2">
-            <MountainIcon className="h-8 w-8 text-white" />
-            <span className="text-xl font-bold text-white">Acme Inc.</span>
+            {/* <MountainIcon className="h-8 w-8 text-white" /> */}
+            <img src={img} className="w-20 rounded-full text-white" />
+            <span className="text-xl font-bold text-teal-500">Our Style Are Your</span>
           </div>
           <p className="text-sm">
-            Acme Inc. is a leading provider of innovative solutions for businesses of all sizes. Our mission is to
-            empower our clients with cutting-edge technology and exceptional service.
+                        Welcome to OSAY, your lifestyle hub for personalized
+                        expression. Dive into our curated selections designed to
+                        complement your individual tastes and interests. From
+                        fashion to wellness to adventure, find everything you
+                        need to enhance your lifestyle. Explore expertly crafted
+                        content that inspires and informs. Embrace your unique
+                        journey with confidence, only at OSAY.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-8">
-          <div className="space-y-2">
+          <div className="space-y-3 mt-4">
             <h4 className="text-white font-semibold">Quick Links</h4>
-            <ul className="space-y-1">
+            <ul className="space-y-2">
               <li>
                 <Link underline="none" color="gray-400" className="hover:text-gray-300 " href="#">
                  Home
@@ -41,9 +48,9 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-3 mt-4">
             <h4 className="text-white font-semibold">Resources</h4>
-            <ul className="space-y-1">
+            <ul className="space-y-2">
               
               <li>
                 <Link underline="none" color="gray-400" className="hover:text-gray-300" href="#">
@@ -63,7 +70,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-4 mt-4">
           <h4 className="text-white font-semibold">Follow Us</h4>
           <div className="flex space-x-4">
             <Link

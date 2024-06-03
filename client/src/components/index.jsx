@@ -37,4 +37,5 @@ export { default as EditInfo } from './userFlow/userProfil/EditInfo'
 export { default as EditUserAccount } from './userFlow/userProfil/EditUserAccount'
 export { default as HoverEffect } from './ui/HoverEffect'
 export { default as Vortex } from './ui/Vortex'
+export { default as AllLifeStyle } from './userFlow/AllLifeStyle'
 

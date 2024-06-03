@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 
 export default function NewsLetter() {
     return (
-        <section className="flex lg:mx-34 mt-8 items-center justify-center py-20  ">
+        <section className="flex lg:mx-34 items-center justify-center py-14  ">
           <div className="container mx-auto grid grid-cols-2 gap-8 max-w-5xl">
             <div>
               <img
