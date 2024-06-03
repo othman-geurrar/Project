@@ -10,6 +10,9 @@ export default function ProfileDropDown() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const user = JSON.parse(localStorage.getItem('User'))
+  console.log(user)
+  
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -59,7 +62,7 @@ export default function ProfileDropDown() {
           }}
         >
           <Typography variant="h6" component="div" sx={{ px: 2, py: 1 }}>
-            John Doe
+           Welcome  {`${user?.UserName}`|| "geust"}
           </Typography>
           <Divider />
           <MenuItem onClick={handleClose}>

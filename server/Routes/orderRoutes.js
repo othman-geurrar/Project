@@ -12,10 +12,10 @@ const {
 } = require("../Controllers/orderController");
 
 orderRouter
-  .post("/addOrder",isAuthenticated, addOrder)
+  .post("/addOrder", addOrder)
   .get("/getOrders", getOrders)
-  .get("/getOrder/:id",isAuthenticated, getOrderById)
-  .patch("/updateOrder/:id",isAdminAuthenticated, updateOrder)
+  .get("/getOrder/:id", getOrderById)
+  .patch("/updateOrder/:id", updateOrder)
   .delete("/deleteOrder/:id", deleteOrder);
 
 module.exports = orderRouter;

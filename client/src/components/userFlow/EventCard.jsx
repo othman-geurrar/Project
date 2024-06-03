@@ -3,6 +3,18 @@ import { Card, CardContent, CardMedia, Button, Typography } from '@mui/material'
 
 export default function Component({i , event}) {
     console.log(event)
+    const formatDate = (isoString) => {
+      const date = new Date(isoString);
+      return date.toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+      });
+    };
+
+    const eventDate = event.EventDate;
+    console.log(eventDate);
+
   return (
     <Card sx={{ minWidth: 400, height: 450, display: 'flex', flexDirection: 'column' }}>
       <CardMedia
@@ -15,10 +27,10 @@ export default function Component({i , event}) {
       <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <div>
           <Typography gutterBottom variant="h5" component="div">
-            Annual Tech Conference
+            {event.EventName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            June 15, 2024 - June 17, 2024
+            {formatDate(eventDate)}
           </Typography>
         </div>
         <Button variant="outlined" size="small" sx={{ mt: 2 }}>

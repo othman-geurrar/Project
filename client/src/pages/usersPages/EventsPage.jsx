@@ -8,7 +8,7 @@ export default function EventPage() {
   return (
     <>
       <MainNav />
-      <div className="w-full mx-auto rounded-md h-[30rem] overflow-hidden">
+      <div className="w-full mb-10 mx-auto rounded-md h-[30rem] overflow-hidden">
         <Vortex
           backgroundColor="black"
           className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
@@ -23,10 +23,12 @@ export default function EventPage() {
             <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
               View Events
             </button>
-            <button className="px-4 py-2 text-white">Watch trailer</button>
           </div>
         </Vortex>
       </div>
+      <div className="text-center text-[30px] md:text-[46px] mb-6 font-followus text-[#484848]">
+            Up Comming Events
+          </div>
       <div className="flex flex-wrap my-14 gap-8 justify-center h-fit">
         {data?.events.map((event, i) => {
           return <EventCard key={i} event={event} />;

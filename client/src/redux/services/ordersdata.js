@@ -20,10 +20,10 @@ export const OrdersApi = createApi({
             }),
         }),
         addorders: builder.mutation({
-            query: (payments) => ({
+            query: (order) => ({
                 url: '/addOrder',
                 method: 'POST',
-                body: payments,
+                body: order,
                 
             }),
         }),

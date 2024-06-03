@@ -18,7 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function UserLoginForm() {
   // SignUpUser
-  const [SignUpUser , {data: registerdata }] = useSignUpUserMutation();
+  const [SignUpUser , {data: registerdata, isSuccess:succ , isError:iserr , error:err }] = useSignUpUserMutation();
   const [SignInUser, { data, isSuccess ,isError , error }] = useSignInUserMutation();
   console.log(error)
   console.log(data)
@@ -97,12 +97,28 @@ export default function UserLoginForm() {
     if (isSuccess) {
       sessionStorage.setItem("UserLogin", "true");
       localStorage.setItem("UserId",`${data.message}`);
-      console.log(data.message)
+      localStorage.setItem("User",`${JSON.stringify(data.user)}`);
       dispatch(setuserLogin())
       dispatch(setloginForm())
       // navigate("/");
     }
-  }, [isSuccess, isError, error, data, navigate]);
+    if(succ){
+      reset();
+      setIsSignUpActive(false);
+    }
+    if(iserr){
+      toast.error(err.data.message, {
+        position: "top-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  }, [isSuccess, isError, error, data, succ , iserr , err ,  navigate]);
 
 
   return (
