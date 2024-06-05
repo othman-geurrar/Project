@@ -10,19 +10,25 @@ import {
   useUpdateQuantityMutation,
 } from "../../redux/services/cartApi";
 import logo from "../../assets/img/logo.png";
+import { useEditAccountMutation } from "../../redux/Users/userSliceFront";
+import { useDispatch } from "react-redux";
 
 function CheckoutPage() {
   // const { id } = useParams();
 
   const CURRENCY = "MAD";
   const id = localStorage.getItem("UserId");
+  const user = JSON.parse(localStorage.getItem('User'))
   const { data: carts, refetch } = useGetcartQuery(id);
   const [updateQuantity] = useUpdateQuantityMutation();
   const [removecart] = useRemovecartMutation();
-  const products = carts?.items;
+  const [addorders ,{isSuccess , isError , error}] = useAddordersMutation()
+  const [EditAccount , {isSuccess:orderSucc}] = useEditAccountMutation()
 
+  const products = carts?.items;
+  const dispatch = useDispatch();
   const navigate = useNavigate(); // Use useNavigate instead of Navigate
-  const [addOrder] = useAddordersMutation();
+ 
 
   const handleRemoveItem = async ({ userId, productId }) => {
     try {
@@ -55,21 +61,57 @@ function CheckoutPage() {
     "pk_test_51PL1ViRwYahvyErkIviiO0Wbj8uf7cxfel1tzWqje5c0x23CbUtHdraT4TRUNTq31gHm07uUqFq0BD4PQViWgJ2S00pgcz36Oh";
   const [stripeToken, setStripeToken] = useState(null);
 
+  const orderProduct = products?.map(product => {
+    return {
+      productId: product.productId,
+      name: product.name,
+      imageURL: product.imageURL,
+      quantity: product.quantity,
+      color: product.color,
+      size: product.size,
+      newPrice: product.newPrice
+    };
+  });
+
+  const order = {
+    user:{
+      name: user?.UserName,
+      userId: user?.id,
+      image: user?.profilePictureURL
+    },
+    products: orderProduct,
+    orderStatus:"completed",
+    totalPrice: calculateSubtotal()
+  
+  }
+  console.log(order)
+
+  
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(isSuccess)
+      navigate('/');
+      console.log('checkout');
+    }
+    if(isError){
+      console.log(error)
+    }
+    if(orderSucc){
+      console.log(orderSucc)
+      
+      
+    }
+  }, [isSuccess, isError , error , orderSucc , dispatch, navigate]);
+
+
   const onToken = async (token) => {
     setStripeToken(token);
     try {
-      const res = await fetch("/stripe/payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tokenId: token.id,
-          amount: calculateSubtotal() * 100,
-        }),
-      });
+      
       // Add orders
-      await addOrder({ userId: id, products: products }).unwrap();
+      const res = await addorders(order).unwrap();
+      console.log('Backend response:', res?.order.id);
+      await EditAccount({id , formData:{orders:res.order.id}})
       navigate("/");
     } catch (error) {
       console.error("Stripe payment error:", error);
@@ -79,9 +121,8 @@ function CheckoutPage() {
   const initialOptions = {
     "client-id":
       "AX8RfL36yX8sDZmaYopQxXYnqptUMSXIYFVofVCqHXjYSGkbCC8HB1OrE_1OK3v7eI7qEpSULQYvSRtI",
-    currency: "USD",
+    currency: "MAD",
     intent: "capture",
-    "buyer-country": "US",
   };
 
   const handleApprove = async (data, actions) => {

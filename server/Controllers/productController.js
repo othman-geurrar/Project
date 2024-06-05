@@ -12,6 +12,16 @@ const ProductsLifeStyle = async (req, res) => {
     res.status(404).json(err);
   }
 };
+const ProductType = async (req, res) => {
+  try {
+    const { type } = req.query; // Retrieving type from query string
+    const products = await Product.find({ type: type });
+    res.status(200).json({ total: products.length, products });
+  } catch (err) {
+    res.status(404).json(err);
+  }
+};
+
 
 const viewAllProduct = (req, res) => {
   const page = parseInt(req.query.p || 1);
@@ -107,5 +117,6 @@ module.exports = {
   addProduct,
   updateProduct,
   deleteProduct,
-  ProductsLifeStyle
+  ProductsLifeStyle,
+  ProductType
 };

@@ -13,8 +13,9 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {DeleteAccount , EditUserAccount , EditInfo } from "../../components";
-
+import DeleteAccount from "../../components/userFlow/userProfil/DeleteAccount";
+import EditUserAccount from "../../components/userFlow/userProfil/EditUserAccount";
+import EditInfo from "../../components/userFlow/userProfil/EditInfo";
 
 const ProfilUser = () => {
   // accordion
@@ -31,7 +32,7 @@ const ProfilUser = () => {
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
-  const userid = localStorage.getItem("UserId");
+  const userid = localStorage.getItem("userId");
   // backend queries and mutations
   const { data: user } = useGetOneUserQuery(userid);
   const createdAtDate = new Date(user?.createdAt);
@@ -39,7 +40,6 @@ const ProfilUser = () => {
     "default",
     { month: "short" }
   )} ${createdAtDate?.getFullYear()} ${createdAtDate?.getHours()}h:${createdAtDate?.getMinutes()}min`;
-
   
   return (
     <>
@@ -385,5 +385,3 @@ const ProfilUser = () => {
 };
 
 export default ProfilUser;
-
-

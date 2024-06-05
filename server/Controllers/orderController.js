@@ -73,7 +73,16 @@ const getOrders = async (req, res) => {
   }
 };
 
-
+const getOrderUserId = (req, res) => {
+  const userId = req.params.id; // Assuming you pass the order ID in the URL
+  Order.findOne({ userId })
+    .then((order) => {
+      res.status(200).json(order);
+    })
+    .catch((e) => {
+      res.status(400).send({ message: "Failed getting order" });
+    });
+};
 
 const getOrderById = (req, res) => {
   const orderId = req.params.id; // Assuming you pass the order ID in the URL
@@ -132,4 +141,5 @@ module.exports = {
   getOrderById,
   updateOrder,
   deleteOrder,
+  getOrderUserId
 };

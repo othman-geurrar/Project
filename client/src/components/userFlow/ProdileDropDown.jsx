@@ -21,6 +21,10 @@ export default function ProfileDropDown() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handlClickProfile = ()=>{
+    navigate("/user/profil");
+    handleClose();
+  }
   const handleSingOut = () => {
     navigate("/");
     sessionStorage.removeItem('UserLogin');
@@ -65,18 +69,18 @@ export default function ProfileDropDown() {
            Welcome  {`${user?.UserName}`|| "geust"}
           </Typography>
           <Divider />
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handlClickProfile}>
             <ListItemIcon>
               <AccountCircle fontSize="small" />
             </ListItemIcon>
             Profile
           </MenuItem>
-          <MenuItem onClick={handleClose}>
+          {/* <MenuItem onClick={handleClose}>
             <ListItemIcon>
               <Settings fontSize="small" />
             </ListItemIcon>
             Settings
-          </MenuItem>
+          </MenuItem> */}
           <Divider />
           <MenuItem onClick={handleSingOut} sx={{ color: 'red' }}>
             <ListItemIcon>

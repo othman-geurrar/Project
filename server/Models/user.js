@@ -7,18 +7,19 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String },
   Address: { type: String },
   PhoneNumber: { type: String },
-  ZipCode:{type:Number},
+  ZipCode: { type: Number },
   City: { type: String },
   profilePictureURL: {
     type: String,
     default:
-      "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-madebymath-90946.jpg&fm=jpg",
+      "https://static.vecteezy.com/ti/vecteur-libre/t2/4607791-homme-visage-emotif-icone-souriant-caractere-masculin-en-bleu-chemise-plat-vector-illustration-isole-sur-blanc-heureux-humain-psychologique-portrait-positif-emotions-utilisateur-avatar-pour-app-web-design-vectoriel.jpg",
   },
   dateOfBirth: { type: String },
-  UserName: { type: String, required: true,  },
+  UserName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true , unique: true},
+  password: { type: String, required: true, unique: true },
   role: { type: String, required: true, default: "User" },
+  orders: [{ type: Number }],
   createdAt: { type: Date, default: Date.now },
 });
 

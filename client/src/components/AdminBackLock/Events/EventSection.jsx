@@ -63,7 +63,7 @@ const EventSection = () => {
     navigate(`/events/${item.EventID}`);
   };
 
-  console.log(data.events);
+  console.log(data?.events);
   const refetchEvents = () => {
     refetch(); // Refetch data after adding a new lifestyle
   };

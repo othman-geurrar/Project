@@ -5,13 +5,13 @@ const LifeStyle_Schema = new mongoose.Schema({
   styleType: { type: String },
   Content: {
     story: { type: String },
+    musicDescription: { type: String },
     description: { type: String },
     music: [
       {
         title: { type: String },
         description: { type: String },
-        duration: { type: Number }, // Duration in seconds
-        image: { type: String }, // URL of image representing the music track
+        image: { type: String },
       },
     ], // Array of associated music
     articles: [{ type: String }], // Array of article URLs
@@ -19,7 +19,10 @@ const LifeStyle_Schema = new mongoose.Schema({
   trending: { type: Boolean, required: true },
   createdAt: { type: Date, default: new Date() },
   ImageURL: { type: String },
-  VideoURL: { type: String },
+  ImageStory: { type: String },
+  ImageMusic: { type: String },
+  Image1: { type: String },
+  Video: { type: String },
   likes: { type: Number, default: 0 },
   dislikes: { type: Number, default: 0 },
 });

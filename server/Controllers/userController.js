@@ -97,6 +97,7 @@ const updateUserByid = async (req, res) => {
     city,
     zipcode,
     Street,
+    orders,
   } = req.body;
 
   try {
@@ -112,6 +113,17 @@ const updateUserByid = async (req, res) => {
       const hashedPassword = bcrypt.hashSync(newPassword, 10);
       updateFields.password = hashedPassword;
     }
+
+    const user = await Users.findOne({ id });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // If the orders field is present in the request body, update the orders array
+    if (orders) {
+      updateFields.orders = user.orders.concat(orders);
+    }
+    
     const updatedUser = await Users.findOneAndUpdate(
       { id },
       { $set: updateFields },

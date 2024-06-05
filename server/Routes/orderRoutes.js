@@ -9,11 +9,13 @@ const {
   getOrderById,
   updateOrder,
   deleteOrder,
+  getOrderUserId
 } = require("../Controllers/orderController");
 
 orderRouter
   .post("/addOrder", addOrder)
   .get("/getOrders", getOrders)
+  .get("/getUserOrder/:userId" , getOrderUserId)
   .get("/getOrder/:id", getOrderById)
   .patch("/updateOrder/:id", updateOrder)
   .delete("/deleteOrder/:id", deleteOrder);
