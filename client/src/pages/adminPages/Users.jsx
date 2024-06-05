@@ -85,6 +85,14 @@ function Users() {
   useEffect(() => {
     dispatch(getusers());
   }, [dispatch]);
+  const a = (date) => {
+    const createdAtDate = new Date(date);
+    const htmlFormattedDate = `${createdAtDate?.getDate()} ${createdAtDate?.toLocaleString(
+      "default",
+      { month: "short" }
+    )} ${createdAtDate?.getFullYear()} ${createdAtDate?.getHours()}h:${createdAtDate?.getMinutes()}min`;
+    return htmlFormattedDate;
+  };
 
   return (
     <>
@@ -467,7 +475,7 @@ function Users() {
                                     {item.id}
                                   </td>
                                   <td className=" whitespace-nowrap align-center text-center">
-                                    {item.createdAt}
+                                    {a(item.createdAt)}
                                   </td>
                                   {/* Delete */}
                                   <td className=" whitespace-nowrap align-center text-center ">

@@ -28,6 +28,7 @@ function Orders() {
   useEffect(() => {
     dispatch(getorders());
   }, [dispatch]);
+  console.log(orders);
 
   return (
     <>
@@ -366,6 +367,12 @@ function Orders() {
 
                           <th scope="col" className="px-6 py-3 text-center">
                             <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
+                              TotalPrice
+                            </span>
+                          </th>
+
+                          <th scope="col" className="px-6 py-3 text-center">
+                            <span className="text-xs font-semibold uppercase tracking-wide text-gray-800">
                               OrderId
                             </span>
                           </th>
@@ -387,13 +394,13 @@ function Orders() {
                                   {/* avatar */}
                                   <div className="avatar">
                                     <div className="w-24 rounded-full ring ring-teal-600  ring-offset-2">
-                                      <img src={item.user.profilePictureURL} />{" "}
+                                      <img src={item.user.image} />
                                     </div>
                                   </div>
                                 </td>
                                 {/* OrderName */}
                                 <td className="whitespace-nowrap align-center text-center">
-                                  {item.user.UserName}
+                                  {item.user.name}
                                 </td>
                                 {/* OrderDate */}
                                 <td className="whitespace-nowrap align-center text-center">
@@ -418,6 +425,10 @@ function Orders() {
                                 {/* OrderStatus */}
                                 <td className="whitespace-nowrap align-center text-center">
                                   <TableOrderStatus status={item.orderStatus} />
+                                </td>
+                                <td className="whitespace-nowrap align-center text-center">
+                                  {/* {item.createdAt} */}
+                                  {item.totalPrice}
                                 </td>
                                 {/* OrderId */}
                                 <td className="whitespace-nowrap align-center text-center">
@@ -522,43 +533,29 @@ function Orders() {
                                                 </td>
                                                 {/* ProductColor */}
                                                 <td className=" whitespace-nowrap align-center text-center">
-                                                  {item.color.map((color) => {
-                                                    return (
-                                                      <>
-                                                        <span className="pr-2">
-                                                          <i
-                                                            className="fa-solid fa-circle"
-                                                            style={{
-                                                              color: color,
-                                                            }}
-                                                          ></i>
-                                                        </span>
-                                                      </>
-                                                    );
-                                                  })}
+                                                  <i
+                                                    className="fa-solid fa-circle  text-[22px] transition-all duration-800  hover:text-[28px]"
+                                                    style={{
+                                                      color: product.color,
+                                                    }}
+                                                  ></i>
                                                 </td>
                                                 {/* ProductSize */}
                                                 <td className=" whitespace-nowrap align-center text-center">
-                                                  {item.size.map((size) => {
-                                                    return (
-                                                      <>
-                                                        <span className="pr-2">
-                                                          {size}
-                                                        </span>
-                                                      </>
-                                                    );
-                                                  })}
+                                                  {product.size}
                                                 </td>
                                                 {/* ProductQCommander */}
                                                 <td className=" whitespace-nowrap align-center text-center">
                                                   <span className="pr-2">
-                                                    {item.productQCommander}
+                                                    {product.quantity}
                                                   </span>
                                                   <i className="fa-solid fa-boxes-stacked " />
                                                 </td>
                                                 {/* Price */}
                                                 <td className=" whitespace-nowrap align-center text-center">
-                                                  <span>{product.price}</span>{" "}
+                                                  <span>
+                                                    {product.newPrice}
+                                                  </span>
                                                   <i className="fa-solid fa-dollar-sign"></i>
                                                 </td>
                                                 <th>

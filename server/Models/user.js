@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   profilePictureURL: {
     type: String,
     default:
-      "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-madebymath-90946.jpg&fm=jpg",
+      "http://res.cloudinary.com/duvf9j212/image/upload/v1717599749/Cloudinary-React/zul9k8ppniqjaqziuopa.jpg",
   },
   dateOfBirth: { type: String },
   UserName: { type: String, required: true, unique: true },
