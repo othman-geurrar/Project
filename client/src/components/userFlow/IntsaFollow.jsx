@@ -8,7 +8,6 @@ const IntsaFollow = () => {
     >
       <div
         className=" text-center md:text-[46px] mb-3 py-[10px] text-[30px] font-followus text-[#484848]"
-        style={{ boxShadow: "inset -1px 1px 20px 8px #0000000d" }}
       >
         <span className="hidden md:inline mr-5">Follow Us</span>
         <i className="fa-brands fa-instagram mr-5"></i>

@@ -11,6 +11,8 @@ module.exports = withMT({
   darkMode: "class",
   theme: {
     fontFamily: {
+      Gothic: ["gothical", "cursive"],
+      metalica: ["metalica","cursive"],
       display: ["Open Sans", "sans-serif"],
       body: ["Open Sans", "sans-serif"],
       productTitle: ["Poetsen One", "sans-serif"],
@@ -24,6 +26,9 @@ module.exports = withMT({
       animation: ["responsive", "motion-safe", "motion-reduce"],
     },
     extend: {
+      boxShadow: {
+        "custom-inset": "2px 0px 32px -3px rgb(0 0 0 / 34%) inset",
+      },
       keyframes: {
         marquee: {
           "0%": { transform: "translateX(0%)" },

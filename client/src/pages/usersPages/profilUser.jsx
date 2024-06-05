@@ -40,7 +40,6 @@ const ProfilUser = () => {
     "default",
     { month: "short" }
   )} ${createdAtDate?.getFullYear()} ${createdAtDate?.getHours()}h:${createdAtDate?.getMinutes()}min`;
-
   
   return (
     <>

@@ -94,106 +94,107 @@ const LifestyleSection = () => {
 
       {data && (
         <div className="md:col-span-2 p-2 ml-4 flex flex-col ">
-          {data.LifeStyle &&
-            data.LifeStyle.map((item, index) => (
-              <div key={index} className=" p-4">
-                <div className="">
-                  <div className="block rounded-lg justify-center  bg-slate-200  shadow-secondary-2 dark:bg-surface-dark dark:text-white text-surface md:max-w-5xl">
-                    <div className=" overflow-hidden  p-2 h-[700px] w-full">
-                      <img
-                        className="rounded-t-lg h-full w-full object-cover object-top"
-                        src={item.ImageURL}
-                        alt={item.title}
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="mb-2 text-[30px] font-lifestylename leading-tight">
-                        {item.LifeStyleName}
-                      </h3>
-                      <div>
-                        <span className="font-semibold  mb-3">
-                          LifeStyleID :
-                          <span className="text-xm font-medium">
-                            {item.LifeStyleID}
-                          </span>
+          {data?.LifeStyle.map((item, index) => (
+            <div key={index} className=" p-4">
+              <div className="">
+                <div className="block rounded-lg justify-center  bg-slate-200  shadow-secondary-2 dark:bg-surface-dark dark:text-white text-surface md:max-w-5xl">
+                  <div className=" overflow-hidden p-2 h-[700px] w-full">
+                    <img
+                      className="rounded-t-lg h-full w-full object-cover object-top"
+                      src={item.ImageURL}
+                      alt={item.title}
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="mb-2 text-[30px] font-lifestylename leading-tight">
+                      {item.LifeStyleName}
+                    </h3>
+                    <div>
+                      <span className="font-semibold  mb-3">
+                        LifeStyleID :
+                        <span className="text-xm font-medium">
+                          {item.LifeStyleID}
                         </span>
-                      </div>
-                      <span className="font-semibold mt-4 mb-2">
-                        Description :
                       </span>
-                      <p className="mb-4 mt-2 text-base">
-                        {item.Content.description}
-                      </p>
-                      <div className="">
-                        {item.trending ? (
-                          <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-500 text-white dark:bg-blue-800/30 dark:text-blue-500">
-                            <span className="size-1.5 inline-block rounded-full bg-blue-800 dark:bg-blue-500"></span>
-                            Trending
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-500 text-white dark:bg-blue-800/30 dark:text-blue-500">
-                            <span className="size-1.5 inline-block rounded-full bg-red-800 dark:bg-blue-500"></span>
-                            Not Trending
-                          </span>
-                        )}
-                      </div>
                     </div>
-                    <div className="p-2 ">
-                      <button
-                        className=" bg-blue-700 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-blue-500 hover:text-slate-100"
-                        onClick={() => handleView(item)}
-                      >
-                        View
-                      </button>
-                      <button
-                        className="bg-slate-500 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-slate-400 hover:text-slate-100"
-                        onClick={() => handleEdit(item)}
-                      >
-                        Edit
-                      </button>
-                      {/* <button className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 " onClick={() => { handleDelete(item.LifeStyleID) }}> <span className=" text-white">Delete</span> </button> */}
-                      <button
-                        className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 "
-                        onClick={() => {
-                          swalWithBootstrapButtons
-                            .fire({
-                              title: "Are u Sure ?",
-                              text: "You won't be able to revert this!",
-                              icon: "warning",
-                              showCancelButton: true,
-                              confirmButtonText: "Yes, delete it !",
-                              cancelButtonText: "No, cancel !",
-                              reverseButtons: true,
-                            })
-                            .then((result) => {
-                              if (result.isConfirmed) {
-                                swalWithBootstrapButtons.fire({
-                                  title: "Deleted!",
-                                  text: "Your file has been deleted.",
-                                  icon: "success",
-                                });
-                                handleDelete(item.LifeStyleID);
-                              } else if (
-                                /* Read more about handling dismissals below */
-                                result.dismiss === Swal.DismissReason.cancel
-                              ) {
-                                swalWithBootstrapButtons.fire({
-                                  title: "Cancelled",
-                                  text: "Your imaginary file is safe :)",
-                                  icon: "error",
-                                });
-                              }
-                            });
-                        }}
-                      >
-                        {" "}
-                        <span className=" text-white">Delete</span>{" "}
-                      </button>
+                    <span className="font-semibold mt-4 mb-2">
+                      Description :
+                    </span>
+                    <p className="mb-4 mt-2 text-base">
+                      {item.Content.description}
+                    </p>
+                    <div className="">
+                      {item.trending ? (
+                        <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-blue-500 text-white dark:bg-blue-800/30 dark:text-blue-500">
+                          <span className="size-1.5 inline-block rounded-full bg-blue-800 dark:bg-blue-500"></span>
+                          Trending
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-500 text-white dark:bg-blue-800/30 dark:text-blue-500">
+                          <span className="size-1.5 inline-block rounded-full bg-red-800 dark:bg-blue-500"></span>
+                          Not Trending
+                        </span>
+                      )}
                     </div>
+                  </div>
+                  <div className="p-2 ">
+                    <button
+                      className=" bg-blue-700 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-blue-500 hover:text-slate-100"
+                      onClick={() => handleView(item)}
+                    >
+                      View
+                    </button>
+                    <button
+                      className="bg-slate-500 mr-3 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-slate-400 hover:text-slate-100"
+                      onClick={() => {
+                        handleEdit(item);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    {/* <button className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 " onClick={() => { handleDelete(item.LifeStyleID) }}> <span className=" text-white">Delete</span> </button> */}
+                    <button
+                      className="bg-red-600 rounded-xl p-2 min-w-20 text-slate-200 hover:bg-red-400 hover:text-slate-100 "
+                      onClick={() => {
+                        swalWithBootstrapButtons
+                          .fire({
+                            title: "Are u Sure ?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Yes, delete it !",
+                            cancelButtonText: "No, cancel !",
+                            reverseButtons: true,
+                          })
+                          .then((result) => {
+                            if (result.isConfirmed) {
+                              swalWithBootstrapButtons.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success",
+                              });
+                              handleDelete(item.LifeStyleID);
+                            } else if (
+                              /* Read more about handling dismissals below */
+                              result.dismiss === Swal.DismissReason.cancel
+                            ) {
+                              swalWithBootstrapButtons.fire({
+                                title: "Cancelled",
+                                text: "Your imaginary file is safe :)",
+                                icon: "error",
+                              });
+                            }
+                          });
+                      }}
+                    >
+                      {" "}
+                      <span className=" text-white">Delete</span>{" "}
+                    </button>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       )}
     </>

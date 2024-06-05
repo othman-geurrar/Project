@@ -12,7 +12,7 @@ export default function ProductCard({
   id,
 }) {
   return (
-    <div className="relative group max-w-sm rounded-lg overflow-hidden shadow-lg">
+    <div className="relative group  w-[300px]  flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
       <div className="absolute top-4 right-4 z-10">
         <Link to={`${id}`}>
           <a className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-900 hover:bg-gray-500 text-gray-50  focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus:ring-gray-300">
@@ -23,14 +23,8 @@ export default function ProductCard({
       </div>
       <img
         alt="Product Image"
-        className="w-full h-fit object-cover group-hover:scale-120 transition-transform duration-300"
-        height={300}
+        className="h-[150px] w-full object-cover object-center group-hover:scale-120 transition-transform duration-300"
         src={imageURL}
-        style={{
-          aspectRatio: "400/300",
-          objectFit: "cover",
-        }}
-        width={400}
       />
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">

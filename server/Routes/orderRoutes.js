@@ -12,7 +12,7 @@ const {
 } = require("../Controllers/orderController");
 
 orderRouter
-  .post("/addOrder",isAuthenticated, addOrder)
+  .post("/addOrder", addOrder)
   .get("/getOrders", getOrders)
   .get("/getOrder/:id",isAuthenticated, getOrderById)
   .patch("/updateOrder/:id",isAdminAuthenticated, updateOrder)

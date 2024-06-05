@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -23,6 +24,7 @@ const schema = zod.object({
   LifeStyle_Trending: zod
     .string()
     .transform((value) => (value === "true" ? true : false)),
+  LifeStyle_MusicDescription: zod.string().min(4),
 });
 function AddFormLs({
   refetchLifestyles,
@@ -32,11 +34,30 @@ function AddFormLs({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
+  const [imageMusic, setImageMusic] = useState(null);
+  const [imageStory, setImageStory] = useState(null);
+  const [image1, setImage1] = useState(null);
+  const [video, setVideo] = useState(null);
 
   const handlePhoto = (event) => {
     const file = event.target.files[0];
-    console.log(file);
     setImage(file);
+  };
+  const handleMusicBg = (event) => {
+    const file = event.target.files[0];
+    setImageMusic(file);
+  };
+  const handleStoryBg = (event) => {
+    const file = event.target.files[0];
+    setImageStory(file);
+  };
+  const handleImage1 = (event) => {
+    const file = event.target.files[0];
+    setImage1(file);
+  };
+  const handleVideo = (event) => {
+    const file = event.target.files[0];
+    setVideo(file);
   };
 
   const {
@@ -59,6 +80,9 @@ function AddFormLs({
         ? editingLifestyle.Content.description
         : "",
       LifeStyle_Trending: editingLifestyle ? editingLifestyle.trending : "",
+      LifeStyle_MusicDescription: editingLifestyle
+        ? editingLifestyle.Content.musicDescription
+        : "",
     });
   }, [editingLifestyle, reset]);
   // Step 3: Modify your form to handle both creating and editing
@@ -69,7 +93,6 @@ function AddFormLs({
       data.append("upload_preset", "lpkk0jkj");
       data.append("cloud_name", "duvf9j212");
       data.append("folder", "Cloudinary-React");
-
       try {
         const response = await fetch(
           `https://api.cloudinary.com/v1_1/duvf9j212/image/upload`,
@@ -93,11 +116,120 @@ function AddFormLs({
         console.error("Error uploading image:", error);
       }
     };
+    const uploadImageMusic = async () => {
+      const data = new FormData();
+      data.append("file", imageMusic);
+      data.append("upload_preset", "lpkk0jkj");
+      data.append("cloud_name", "duvf9j212");
+      data.append("folder", "Cloudinary-React");
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/duvf9j212/image/upload`,
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+        const responseData = await response.json(); // Parse response JSON
+        if (responseData && responseData.secure_url) {
+          return responseData.secure_url;
+        } else {
+          console.error(
+            "Image upload failed: Secure URL not found in response"
+          );
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    };
+    const uploadImageStory = async () => {
+      const data = new FormData();
+      data.append("file", imageStory);
+      data.append("upload_preset", "lpkk0jkj");
+      data.append("cloud_name", "duvf9j212");
+      data.append("folder", "Cloudinary-React");
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/duvf9j212/image/upload`,
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+        const responseData = await response.json(); // Parse response JSON
+        if (responseData && responseData.secure_url) {
+          return responseData.secure_url;
+        } else {
+          console.error(
+            "Image upload failed: Secure URL not found in response"
+          );
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    };
+    const uploadImage1 = async () => {
+      const data = new FormData();
+      data.append("file", image1);
+      data.append("upload_preset", "lpkk0jkj");
+      data.append("cloud_name", "duvf9j212");
+      data.append("folder", "Cloudinary-React");
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/duvf9j212/image/upload`,
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+        const responseData = await response.json(); // Parse response JSON
+        if (responseData && responseData.secure_url) {
+          return responseData.secure_url;
+        } else {
+          console.error(
+            "Image upload failed: Secure URL not found in response"
+          );
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    };
+    const uploadVideo = async () => {
+      const data = new FormData();
+      data.append("file", video);
+      data.append("upload_preset", "lpkk0jkj");
+      data.append("cloud_name", "duvf9j212");
+      data.append("folder", "Cloudinary-React");
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/duvf9j212/video/upload`,
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+        const responseData = await response.json(); // Parse response JSON
+        if (responseData && responseData.secure_url) {
+          return responseData.secure_url;
+        } else {
+          console.error(
+            "Image upload failed: Secure URL not found in response"
+          );
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    };
     const newData = {
       LifeStyleName: formData.LifeStyle_name,
       styleType: formData.LifeStyle_Type,
       ImageURL: await uploadImage(),
+      ImageStory: await uploadImageStory(),
+      ImageMusic: await uploadImageMusic(),
+      Image1: await uploadImage1(),
+      Video: await uploadVideo(),
       Content: {
+        musicDescription: formData.LifeStyle_MusicDescription,
         story: formData.LifeStyle_Story,
         description: formData.LifeStyle_Description,
       },
@@ -148,7 +280,10 @@ function AddFormLs({
   return (
     <div className="w-400 bg-slate-200">
       {isLoading && <div> loading... </div>}
-      <form className="max-w-lg mx-auto " onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="max-w-lg h-[500px] overflow-auto pr-[20px] mx-auto "
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="relative z-0 w-full mb-5 group">
           <input
             type="text"
@@ -224,7 +359,7 @@ function AddFormLs({
             name="LifeStyle_Description"
             id="LifeStyle_Description"
             defaultValue={
-              editingLifestyle ? editingLifestyle.LifeStyle_Description : ""
+              editingLifestyle ? editingLifestyle.Content.description : ""
             }
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=""
@@ -239,6 +374,32 @@ function AddFormLs({
           </label>
           <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
             {errors.LifeStyle_Description?.message}
+          </span>
+        </div>
+        {/* musicDescription */}
+        <div className="relative z-0 w-full mb-5 group">
+          <input
+            type="textarea"
+            name="LifeStyle_MusicDescription"
+            id="LifeStyle_MusicDescription"
+            defaultValue={
+              editingLifestyle
+                ? editingLifestyle.LifeStyle_MusicDescription
+                : ""
+            }
+            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=""
+            required
+            {...register("LifeStyle_MusicDescription")}
+          />
+          <label
+            htmlFor="LifeStyle_MusicDescription"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            MusicStyle Description
+          </label>
+          <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
+            {errors.LifeStyle_MusicDescription?.message}
           </span>
         </div>
         {/* Life_Style_Trending */}
@@ -258,12 +419,54 @@ function AddFormLs({
             <option value={false}>Not Trending</option>
           </select>
         </div>
-
+        {/* background storystyle */}
         <label
           className="my-6 peer-focus:font-medium block mb-2 text-sm text-gray-500 dark:text-white"
           htmlFor="image"
         >
-          Upload file
+          StoryStyle Background
+        </label>
+        <input
+          className="mt-3 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          aria-describedby="image"
+          id="image"
+          type="file"
+          onChange={(e) => handleStoryBg(e)}
+        />
+        {/* Image */}
+        <label
+          className="my-6 peer-focus:font-medium block mb-2 text-sm text-gray-500 dark:text-white"
+          htmlFor="image"
+        >
+          Preview
+        </label>
+        <input
+          className="mt-3 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          aria-describedby="image"
+          id="image"
+          type="file"
+          onChange={(e) => handleImage1(e)}
+        />
+        {/* background musicstyle */}
+        <label
+          className="my-6 peer-focus:font-medium block mb-2 text-sm text-gray-500 dark:text-white"
+          htmlFor="image"
+        >
+          MusicStyle Background
+        </label>
+        <input
+          className="mt-3 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          aria-describedby="image"
+          id="image"
+          type="file"
+          onChange={(e) => handleMusicBg(e)}
+        />
+        {/* background style */}
+        <label
+          className="my-6 peer-focus:font-medium block mb-2 text-sm text-gray-500 dark:text-white"
+          htmlFor="image"
+        >
+          LifeStyle Background
         </label>
         <input
           className="mt-3 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -271,6 +474,20 @@ function AddFormLs({
           id="image"
           type="file"
           onChange={(e) => handlePhoto(e)}
+        />
+        {/* style video */}
+        <label
+          className="my-6 peer-focus:font-medium block mb-2 text-sm text-gray-500 dark:text-white"
+          htmlFor="video"
+        >
+          LifeStyle Video
+        </label>
+        <input
+          className="mt-3 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          aria-describedby="video"
+          id="video"
+          type="file"
+          onChange={(e) => handleVideo(e)}
         />
         <button
           type="submit"

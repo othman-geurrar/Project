@@ -8,7 +8,6 @@ import { AddFormLs } from "../../components";
 import { useGetAllLifeStyleQuery } from "../../redux/services/LifeStyleData";
 import { useDispatch, useSelector } from "react-redux";
 
-
 const LifeStyle = () => {
   const { data, isLoading, isError, refetch } = useGetAllLifeStyleQuery();
   const showForm = useSelector((state) => state.form.showForm);
@@ -38,7 +37,6 @@ const LifeStyle = () => {
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
           <div className="bg-slate-200 p-8 rounded shadow-lg">
             <div className="flex justify-between items-center mb-4">
-              
               <h2 className="text-xl font-bold text-teal-600">
                 Add Life Style
               </h2>

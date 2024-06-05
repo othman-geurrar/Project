@@ -12,7 +12,7 @@ const {
 LifeStyleRouter.get("/getAll", viewAllLifeStyles)
   .get("/getLifeStyle/:id", viewLifeStyle)
   .post("/addLifeStyle", addLifeStyle)
-  .put("/update/:id", updateLifeStyle)
+  .patch("/update/:id", updateLifeStyle)
   .get("/getLifeStyleName/:LifeStyleName", viewLifeStyleName)
   .delete("/delete/:id", deleteLifeStyle);
 

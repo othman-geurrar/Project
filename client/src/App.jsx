@@ -30,7 +30,9 @@ import 'react-toastify/dist/ReactToastify.css'; // Import CSS for ToastContainer
 
 
 // Registering Syncfusion license key
-registerLicense('Ngo9BigBOggjHTQxAR8/V1NBaF5cWWJCe0x0QXxbf1x0ZFNMYV5bRXZPMyBoS35RckVnW3tednFSRmJdVkVw');
+registerLicense(
+  "Ngo9BigBOggjHTQxAR8/V1NBaF5cWWJCe0x0QXxbf1x0ZFNMYV5bRXZPMyBoS35RckVnW3tednFSRmJdVkVw"
+);
 
 function App() {
   const isActiveMenu = useSelector((state)=> state.sideBar.isActiveMenu);

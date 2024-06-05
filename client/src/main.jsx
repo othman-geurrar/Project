@@ -25,7 +25,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 
 // Registering Syncfusion license key
 registerLicense(
-  "Ngo9BigBOggjHTQxAR8/V1NBaF5cWWJCe0x0QXxbf1x0ZFNMYV5bRXZPMyBoS35RckVnW3tednZVRGdUUkF0"
+  "Ngo9BigBOggjHTQxAR8/V1NBaF1cXmhPYVFzWmFZfVpgdVdMYFlbRnRPIiBoS35RckVmW3lfcnRQRGNeUUVx"
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(

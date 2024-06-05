@@ -42,7 +42,7 @@ export const lifeStyleApi = createApi({
     updateLifeStyle: builder.mutation({
       query: ({ id, lifeStyle }) => ({
         url: `/update/${id}`,
-        method: "PUT",
+        method: "PATCH",
         body: lifeStyle,
         headers: { "Content-Type": "application/json" },
       }),

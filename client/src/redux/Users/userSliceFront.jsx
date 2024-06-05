@@ -8,6 +8,13 @@ export const UserApi = createApi({
   }),
   tagTypes: ["Users"],
   endpoints: (builder) => ({
+    // Delete User
+    DeleteUser: builder.mutation({
+      query: (id) => ({
+        url: `/delete/${id}`,
+        method: "DELETE",
+      }),
+    }),
     // Get One User
     GetOneUser: builder.query({
       query: (id) => ({
@@ -48,4 +55,5 @@ export const {
   useSignInUserMutation,
   useGetOneUserQuery,
   useEditAccountMutation,
+  useDeleteUserMutation,
 } = UserApi;
