@@ -1,13 +1,12 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
-import { Star } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 export default function ProductCard1({name , imageURL ,color , stars , oldPrice , newPrice , id}) {
   return (
     <div className="relative group w-fit h-fit rounded-lg overflow-hidden shadow-lg">
         <div className="absolute top-4 right-4 z-10">
-        <Link to={`${id}`} >
+        <Link to={`/products/${id}`} >
           <a className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-500 hover:bg-gray-600 text-gray-50  focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus:ring-gray-300">
             <EyeIcon className="w-5 h-5" />
             <span className="sr-only">View product</span>

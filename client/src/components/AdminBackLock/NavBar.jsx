@@ -51,12 +51,7 @@ const NavBar = () => {
         icon={<AiOutlineMenu />}
       />
       <div className="flex">
-        <NavButton
-          title="Cart"
-          customFunc={() => dispatch(setcart())}
-          color="blue"
-          icon={<FiShoppingCart />}
-        />
+        
 
         <TooltipComponent content="UserProfile" position="BottomCenter">
           <div

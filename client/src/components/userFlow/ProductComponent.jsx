@@ -109,7 +109,7 @@ const ProductComponent = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-8 gap-span-2 justify-center align-middle">
         {activeButton && products[activeButton]?.map((product, index) => (
           <div className='grid gap-2 h-80 md:h-fit w-fit py-2 justify-center items-center' key={index}>
-            <ProductCard1 name={product.name} imageURL={product.imageURL} newPrice={product.newPrice} oldPrice={product.oldPrice} stars={product.stars}/>
+            <ProductCard1 id={product.id} name={product.name} imageURL={product.imageURL} newPrice={product.newPrice} oldPrice={product.oldPrice} stars={product.stars}/>
           </div>
         ))}
       </div>

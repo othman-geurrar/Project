@@ -14,7 +14,7 @@ export default function AmineCart({
   return (
     <div className="relative group  w-[300px]  flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
       <div className="absolute top-4 right-4 z-10">
-        <Link to={`${id}`}>
+        <Link to={`/products/${id}`}>
           <a className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-900 hover:bg-gray-500 text-gray-50  focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus:ring-gray-300">
             <EyeIcon className="w-5 h-5" />
             <span className="sr-only">View product</span>

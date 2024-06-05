@@ -12,10 +12,10 @@ const {
   deleteEvent,
 } = require("../Controllers/eventController");
 
-EventRouter.get("/getAll",isAuthenticated, viewAllEvents)
-  .get("/getEvent/:id", isAuthenticated,viewEvent)
+EventRouter.get("/getAll", viewAllEvents)
+  .get("/getEvent/:id",viewEvent)
   .post("/addEvent", addEvent)
-  .put("/update/:id",isAdminAuthenticated, updateEvent)
-  .delete("/delete/:id", isAdminAuthenticated,deleteEvent);
+  .put("/update/:id", updateEvent)
+  .delete("/delete/:id",deleteEvent);
 
 module.exports = EventRouter;

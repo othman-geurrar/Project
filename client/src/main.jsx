@@ -46,7 +46,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/lifestyles" element={<LifeStyleFront />} />
         <Route path="/lifestyles/detail/:LifeStyleName" element={<LifeStyleDetail />} />
         <Route path="/events" element={<EventPage />} />
-        <Route path="/events/detail" element={<EventDetails />} />
+        <Route path="/events/:id" element={<EventDetails />} />
         <Route path="/admin/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route element={<Protected />}>

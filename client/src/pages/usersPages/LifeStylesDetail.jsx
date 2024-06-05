@@ -16,6 +16,7 @@ import NavBar from "../../components/userFlow/NavBar";
 
 import { useState } from "react";
 import { AmineCart } from "../../components";
+import ProductCard1 from "../../components/userFlow/ProductCard1";
 const Styles = () => {
   const { LifeStyleName } = useParams();
   const {
@@ -350,6 +351,7 @@ const Styles = () => {
               return (
                 <>
                   <AmineCart {...product} />
+                  {/* <ProductCard1 {...product} /> */}
                 </>
               );
             })}

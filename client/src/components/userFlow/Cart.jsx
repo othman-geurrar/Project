@@ -16,15 +16,15 @@ export default function Cart() {
   const { userLogins } = useSelector(
     (state) => state.sideBar
   )
-  // console.log(userLogins)
+  console.log(userLogins)
   const userId = localStorage.getItem('UserId')
   const user = JSON.parse(localStorage.getItem('User'))
  
   const { data: carts, refetch } = useGetcartQuery(userId);
   const [updateQuantity] = useUpdateQuantityMutation();
   const [removecart] = useRemovecartMutation();
-  const [addorders ,{isSuccess , isError , error}] = useAddordersMutation()
-  const [EditAccount , {isSuccess:orderSucc}] = useEditAccountMutation()
+  // const [addorders ,{isSuccess , isError , error}] = useAddordersMutation()
+  // const [EditAccount , {isSuccess:orderSucc}] = useEditAccountMutation()
   // useEffect(() => {
   //   // Refetch cart data every time the component is rendered
   //   refetch();
