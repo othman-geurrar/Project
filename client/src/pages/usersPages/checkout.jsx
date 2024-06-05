@@ -86,12 +86,10 @@ function CheckoutPage() {
           const details = await actions.order.capture();
           console.log("Order details: ", details);
           
-          // Add orders
-          await addOrder({ userId: id, products: products }).unwrap();
 
           alert(`Transaction completed by ${details.payer.name.given_name}`);
-          navigate('/')
-
+          await addOrder({ userId: id, products: products }).unwrap();
+          navigate("/");
       } catch (error) {
           console.error("Error capturing PayPal order: ", error);
       }

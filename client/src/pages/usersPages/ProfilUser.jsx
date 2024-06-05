@@ -65,7 +65,8 @@ const ProfilUser = () => {
                 : commandes == 2 ||
                   commandes == 2.2 ||
                   commandes == 2.5 ||
-                  commandes == 2.3
+                  commandes == 2.3 ||
+                  commandes == 4
                 ? "border-blue-500"
                 : "border-red-500"
             }`}
@@ -426,17 +427,17 @@ title={`Order ID: ${orders.id}`}                          // subheader={order.cr
                               <TableRow>
                                 <TableCell>Item</TableCell>
                                 <TableCell>Image</TableCell>
-                                <TableCell>Quantity</TableCell>
+                                <TableCell >Quantity</TableCell>
                                 <TableCell>Price</TableCell>
                               </TableRow>
                             </TableHead>
                             <TableBody>
                               {orders?.products.map((item) => (
                                 <TableRow key={item.productId}>
-                                  <TableCell style={{ maxWidth: "13px" }}>
+                                  <TableCell style={{ maxWidth: "100px" }}>
                                     {item.name}
                                   </TableCell>
-                                  <TableCell className="w-[200px] ">
+                                  <TableCell className="w-[150px] ">
                                     <img 
                                       src={item.imageURL}
                                       alt={item.name}
@@ -445,7 +446,7 @@ title={`Order ID: ${orders.id}`}                          // subheader={order.cr
                                       className="rounded-md object-cover w-full h-full object-cover object-center"
                                     />
                                   </TableCell>
-                                  <TableCell><div className=" text-center">{item.quantity}</div></TableCell>
+                                  <TableCell><div className="ml-6">{item.quantity}</div></TableCell>
                                   <TableCell>
                                     ${item.newPrice.toFixed(2)}
                                   </TableCell>

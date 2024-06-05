@@ -13,6 +13,7 @@ const EditInfo = ({ user }) => {
     zipcode: z.string(),
     city: z.string(),
     Street: z.string(),
+    
   });
   const { register, handleSubmit } = useForm({
     resolver: zodResolver(schema),
