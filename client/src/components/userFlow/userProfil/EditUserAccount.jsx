@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEditAccountMutation } from "../../../redux/Users/userSliceFront";
+import { useState } from "react";
+import axios from "axios";
 const EditUserAccount = ({ user }) => {
   // ZOD
   const schema = z.object({
@@ -18,9 +20,24 @@ const EditUserAccount = ({ user }) => {
   });
   //   edituser
   const [updateEmailUsername, { isLoading, data }] = useEditAccountMutation();
-  const handleEditAccount = (formData) => {
-    console.log(formData);
+  const handleEditAccount = async (formData) => {
+    formData.profilePictureURL = await uploadImage();
     updateEmailUsername({ id: user.id, formData });
+  };
+  const [image, setImage] = useState(null);
+  const handlephoto = (e) => {
+    setImage(e.target.files[0]);
+  };
+  const uploadImage = async () => {
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "lpkk0jkj");
+    formData.append("folder", "Cloudinary-React");
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/duvf9j212/image/upload",
+      formData
+    );
+    return response.data.url;
   };
   return (
     <section className=" dark:bg-gray-900 mt-[80px]">
@@ -39,6 +56,14 @@ const EditUserAccount = ({ user }) => {
               className=" space-y-4  md:space-y-5"
               onSubmit={handleSubmit(handleEditAccount)}
             >
+              <div className="relative">
+                <input
+                  type="file"
+                  id="email-address-icon"
+                  onChange={handlephoto}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+              </div>
               <div className="relative">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                   <svg

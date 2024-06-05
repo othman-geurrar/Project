@@ -29,9 +29,12 @@ const ProfilUser = () => {
   const triggerFileInput = () => {
     fileInputRef.current.click();
   };
+  
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
+  
+
   const userid = localStorage.getItem("userId");
   // backend queries and mutations
   const { data: user } = useGetOneUserQuery(userid);
@@ -40,7 +43,7 @@ const ProfilUser = () => {
     "default",
     { month: "short" }
   )} ${createdAtDate?.getFullYear()} ${createdAtDate?.getHours()}h:${createdAtDate?.getMinutes()}min`;
-  
+
   return (
     <>
       <main className="min-h-screen flex flex-col">
@@ -75,7 +78,12 @@ const ProfilUser = () => {
                 >
                   <FaCameraRotate className="text-white text-2xl" />
                 </div>
-                <input type="file" ref={fileInputRef} className="hidden" />
+                <input
+                  type="file"
+                  onChange={(e) => handlephoto(e)}
+                  ref={fileInputRef}
+                  className="hidden"
+                />
               </div>
             </div>
             {/* name */}

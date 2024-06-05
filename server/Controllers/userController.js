@@ -97,12 +97,14 @@ const updateUserByid = async (req, res) => {
     city,
     zipcode,
     Street,
+    profilePictureURL,
   } = req.body;
 
   try {
     let updateFields = {};
     if (UserName) updateFields.UserName = UserName;
     if (email) updateFields.email = email;
+    if (profilePictureURL) updateFields.profilePictureURL = profilePictureURL;
     if (FullName) updateFields.FullName = FullName;
     if (city) updateFields.city = city;
     if (zipcode) updateFields.zipcode = zipcode;

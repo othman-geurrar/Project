@@ -28,7 +28,15 @@ function Orders() {
   useEffect(() => {
     dispatch(getorders());
   }, [dispatch]);
-  console.log(orders);
+
+  const a = (date) => {
+    const createdAtDate = new Date(date);
+    const htmlFormattedDate = `${createdAtDate?.getDate()} ${createdAtDate?.toLocaleString(
+      "default",
+      { month: "short" }
+    )} ${createdAtDate?.getFullYear()} ${createdAtDate?.getHours()}h:${createdAtDate?.getMinutes()}min`;
+    return htmlFormattedDate;
+  };
 
   return (
     <>
@@ -404,8 +412,7 @@ function Orders() {
                                 </td>
                                 {/* OrderDate */}
                                 <td className="whitespace-nowrap align-center text-center">
-                                  {/* {item.createdAt} */}
-                                  10 Apr 2024
+                                  {a(item.createdAt)}
                                 </td>
                                 {/* OrderProducts */}
                                 <td className="whitespace-nowrap align-center text-center">
@@ -427,8 +434,10 @@ function Orders() {
                                   <TableOrderStatus status={item.orderStatus} />
                                 </td>
                                 <td className="whitespace-nowrap align-center text-center">
-                                  {/* {item.createdAt} */}
-                                  {item.totalPrice}
+                                  <span className="mr-1">
+                                    {item.totalPrice}
+                                  </span>
+                                  <i className="fa-solid fa-dollar-sign"></i>
                                 </td>
                                 {/* OrderId */}
                                 <td className="whitespace-nowrap align-center text-center">
