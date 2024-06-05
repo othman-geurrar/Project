@@ -29,11 +29,10 @@ const ProfilUser = () => {
   const triggerFileInput = () => {
     fileInputRef.current.click();
   };
-  
+
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
-  
 
   const userid = localStorage.getItem("userId");
   // backend queries and mutations
@@ -71,18 +70,6 @@ const ProfilUser = () => {
                   src={user?.profilePictureURL}
                   alt="Avatar"
                   className="rounded-full"
-                />
-                <div
-                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 rounded-full cursor-pointer"
-                  onClick={triggerFileInput}
-                >
-                  <FaCameraRotate className="text-white text-2xl" />
-                </div>
-                <input
-                  type="file"
-                  onChange={(e) => handlephoto(e)}
-                  ref={fileInputRef}
-                  className="hidden"
                 />
               </div>
             </div>
