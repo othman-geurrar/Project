@@ -6,6 +6,7 @@ export const cartApi = createApi({
         baseUrl: 'http://localhost:3000/cart',
         credentials: 'include',
     }),
+    tagTypes: ["Cart"],
     endpoints: (builder) => ({
         // get cart items
         getcart: builder.query({
@@ -13,14 +14,16 @@ export const cartApi = createApi({
                 url: `/${id}`,
                 method: 'GET',
             }),
+            providesTags: ["Cart"]
         }),
         // add item to cart
         addcart: builder.mutation({
             query: (formData) => ({
-                url: '/addcart',
+                url: '/add',
                 method: 'POST',
                 body: formData,
             }),
+            invalidatesTags: ['Cart'],
         }),
         // remove item from cart
         removecart: builder.mutation({
@@ -29,6 +32,7 @@ export const cartApi = createApi({
                 method: 'DELETE',
                 body: { userId, productId },
             }),
+            invalidatesTags: ['Cart'],
         }),
         updateQuantity: builder.mutation({
             query: ({ userId, productId, quantity }) => ({
@@ -36,6 +40,7 @@ export const cartApi = createApi({
                 method: 'PUT',
                 body: { userId, productId, quantity },
             }),
+            invalidatesTags: ['Cart'],
         })
     }),
 });

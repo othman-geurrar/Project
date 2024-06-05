@@ -3,7 +3,6 @@
 const isLoading = false;
 import video from "../../assets/lifestyle/v.mp4";
 import Musiccards from "../../components/userFlow/musiccards";
-import ProductCard from "../../components/userFlow/ProductCard";
 import instagram from "../../assets/instagram.png";
 import MovingBar from "../../components/userFlow/movingBar";
 import { useGetProductsLifeStyleQuery } from "../../redux/services/ProductData";
@@ -12,8 +11,10 @@ import { useGetLifeStyleByNameQuery } from "../../redux/services/LifeStyleData";
 import Footer from "../../components/userFlow/Footer";
 import IntsaFollow from "../../components/userFlow/IntsaFollow";
 import NavBaar from "../../components/userFlow/NavBar";
+import ProductCard1 from "../../components/userFlow/ProductCard1";
 const Styles = () => {
   const { LifeStyleName } = useParams();
+  console.log(LifeStyleName);
   const {
     data: ProductsLifeStyles,
     isLoading: ProductsLoading,
@@ -125,14 +126,15 @@ const Styles = () => {
               style={{
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                backgroundImage: `url(${LifeStyles.ImageURL})`,
+                // backgroundImage: `url(${LifeStyles?.ImageURL})`,
+                backgroundImage: `url(https://cdn.pixabay.com/photo/2017/05/27/22/33/morocco-2349647_1280.jpg)`,
               }}
             >
               <div className="backdrop-brightness-90 h-full w-full flex justify-center items-center">
                 {/* headline */}
                 <div className="font-lifestylename">
                   <span className="text-[120px] text-white">
-                    {LifeStyles.LifeStyleName}
+                    {LifeStyles?.LifeStyleName}
                   </span>
                 </div>
               </div>
@@ -144,7 +146,7 @@ const Styles = () => {
                 <div className="text-center text-[30px] mt-2">
                   <div
                     className="tooltip  tooltip-right"
-                    data-tip={LifeStyles.LifeStyleName + " Story"}
+                    data-tip={LifeStyles?.LifeStyleName + " Story"}
                   >
                     Story
                   </div>
@@ -154,7 +156,7 @@ const Styles = () => {
                   className="px-[50px]  h-[350px]  overflow-y-auto py-4 text-[#484848]"
                   style={{ boxShadow: "inset -1px 1px 20px 8px #0000000d" }}
                 >
-                  {LifeStyles.Content.story}
+                  {LifeStyles?.Content.story}
                 </div>
                 {/* buttons */}
                 <div className="text-center mb-2 ">
@@ -182,10 +184,10 @@ const Styles = () => {
             </div>
           </section>
           {/* moving brands */}
-          <MovingBar />
+          {/* <MovingBar /> */}
           {/* video_section */}
           <section>
-            <div className="relative h-[290px] w-[100%] overflow-hidden">
+            <div className="relative my-14 h-[290px] w-[100%] overflow-hidden">
               <video
                 className="absolute top-0 left-0 h-full w-full object-cover"
                 autoPlay
@@ -209,9 +211,9 @@ const Styles = () => {
             </div>
           </section>
           {/* moving brands */}
-          <MovingBar />
+          {/* <MovingBar /> */}
           {/* music_section */}
-          <section className="flex h-[300px]" id="musics">
+          <section className="flex my-12 h-[300px]" id="musics">
             <div
               className="cursor-pointer h-full w-[50%] bg-[url('https://previews.123rf.com/images/balabolka/balabolka1806/balabolka180600141/103846607-dessin-anim%C3%A9-mignon-doodles-mot-de-musique.jpg')]"
               style={{ backgroundPosition: "center", backgroundSize: "cover " }}
@@ -257,7 +259,7 @@ const Styles = () => {
             {ProductsLifeStyles?.map((product) => {
               return (
                 <>
-                  <ProductCard {...product} />
+                  <ProductCard1 {...product} />
                 </>
               );
             })}

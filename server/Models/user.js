@@ -5,15 +5,19 @@ const userSchema = new mongoose.Schema({
   GoogleId: { type: String },
   firstName: { type: String },
   lastName: { type: String },
+  Address: { type: String },
+  PhoneNumber: { type: String },
+  ZipCode:{type:Number},
+  City: { type: String },
   profilePictureURL: {
     type: String,
     default:
       "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-madebymath-90946.jpg&fm=jpg",
   },
   dateOfBirth: { type: String },
-  UserName: { type: String, required: true, unique: true },
+  UserName: { type: String, required: true,  },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true , unique: true},
   role: { type: String, required: true, default: "User" },
   createdAt: { type: Date, default: Date.now },
 });

@@ -20,8 +20,22 @@ export const ProductApi = createApi({
               method: "GET",
             }),
           }),
+          getProductsLifeStyle: builder.query({
+            query: (LifeStyleName) => ({
+              url: `/getProductsStyle/${LifeStyleName}`,
+              method: "GET",
+            }),
+          }),
+          createReview: builder.mutation({
+            query: data => ({
+              url: `/${data.id}/review`,
+              method: "POST",
+              body: data,
+            }),
+          }),
+          
     })
    
 })
 
-export const { useGetAllProductsQuery , useGetProductByIdQuery } = ProductApi
+export const { useGetAllProductsQuery , useGetProductByIdQuery , useGetProductsLifeStyleQuery,useCreateReviewMutation } = ProductApi

@@ -49,7 +49,7 @@ export default function ProductCard({name , imageURL , stars , oldPrice , newPri
   return (
     <div className="relative group max-w-sm rounded-lg overflow-hidden shadow-lg">
       <div className="absolute top-4 right-4 z-10">
-        <Link to={`${id}`} >
+        <Link to={`/products/${id}`} >
           <a className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-900 hover:bg-gray-500 text-gray-50  focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus:ring-gray-300">
             <EyeIcon className="w-5 h-5" />
             <span className="sr-only">View product</span>
@@ -60,7 +60,7 @@ export default function ProductCard({name , imageURL , stars , oldPrice , newPri
         alt="Product Image"
         className="w-full h-fit object-cover group-hover:scale-120 transition-transform duration-300"
         height={300}
-        src={imageURL}
+        src={imageURL[0]}
         style={{
           aspectRatio: "400/300",
           objectFit: "cover",
@@ -84,9 +84,7 @@ export default function ProductCard({name , imageURL , stars , oldPrice , newPri
           <span className="text-gray-500 line-through mr-2 dark:text-gray-400">${oldPrice}</span>
           <span className="text-xl font-bold">${newPrice}</span>
         </div>
-        <Button className="w-full hover:bg-slate-600" size="md">
-          Add to Cart
-        </Button>
+        
       </div>
     </div>
   );

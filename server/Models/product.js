@@ -24,24 +24,18 @@ const productSchema = new mongoose.Schema({
   oldPrice: {
     type: Number,
   },
-  stars:{
-    type:Number,
-  },
-  newPrice:{
-    type:Number,
-  },
-  oldPrice:{
-    type:Number,
-  },
-  description: {
-    type: String,
-  },
+  description: [{
+    type: String
+  }],
   //
   imageURL: {
     type: [String],
   },
  
   //
+  LifeStyleName: {
+    type: String,
+  },
   productQuantity: {
     type: Number,
     required: true,
@@ -52,38 +46,10 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   size: [{ label: { type: String }, value: { type: String } }],
-  LifeStyle: {
-    type: String,
-  },
   stars:{
     type: Number,
     default: 0,
   },
-  Review: [
-    {
-      comment: {
-        type: String,
-      },
-      rating: {
-        type: Number,
-      },
-      user: {
-        type: String,
-      },
-      productinfo: {
-        size: String,
-        color: String,
-        name: String,
-      },
-      image: {
-        type: String,
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-      },
-    },
-  ],
   createdAt: {
     type: Date,
     default: Date.now,

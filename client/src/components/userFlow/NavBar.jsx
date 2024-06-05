@@ -8,8 +8,10 @@ import logo from '../../assets/logo.png';
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setcart } from "../../redux/SideBar/sideBarSlice";
+import { setcart , setloginForm } from "../../redux/SideBar/sideBarSlice";
 import Cart from "./Cart";
+import UserLoginForm from "../../pages/usersPages/LoginForm";
+import ProfileDropDown from "./ProdileDropDown";
 
 
 const NavBaar = () => {
@@ -17,10 +19,17 @@ const NavBaar = () => {
   const [toggle, setToggle] = useState(false);
   const [scrolling, setScrolling] = useState(false);
 
+  const isLogin = sessionStorage.getItem('UserLogin');
+
   
   const { cart } = useSelector(
     (state) => state.sideBar
   );
+
+  const { loginForm } = useSelector(
+    (state) => state.sideBar
+  )
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -102,27 +111,33 @@ const NavBaar = () => {
         </div>
 
         <div>
-          <div className="relative left-0 flex">
-          <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline">
-          Sign In
-        </Button>
-        <Button className="rounded-full hover:text-teal-300" size="icon" variant="ghost" onClick={() => dispatch(setcart())}>
-          <ShoppingCartIcon className="h-6 w-6" />
-          <span className="sr-only">Cart</span>
-        </Button>
-            <span className="relative flex items-center text-lg z-10 cursor-pointer hover:text-teal-300">
-              <IoSearchSharp onClick={openSearchBar}></IoSearchSharp>
-
-              <RxCross2
-                className={`${search ? "ml-4 visible" : "invisible"}`}
-                onClick={closeSearchBar}
-              ></RxCross2>
-            </span>
-            <MdDensityMedium
-              className="lg:hidden md:hidden relative text-2xl cursor-pointer block"
-              onClick={toggled}
-            ></MdDensityMedium>
-          </div>
+        <div className="relative left-0 flex">
+          {!isLogin ? (
+            <Button className="hidden md:inline-flex hover:text-teal-300 " variant="outline" onClick={() => dispatch(setloginForm())}>
+              Sign In
+            </Button>
+          ) : (
+            <>
+            <ProfileDropDown />
+          </>
+          )}
+          {console.log('cart')}
+          <Button className="rounded-full hover:text-teal-300" size="icon" variant="ghost" onClick={() => dispatch(setcart())}>
+            <ShoppingCartIcon className="h-6 w-6" />
+            <span className="sr-only">Cart</span>
+          </Button>
+          <span className="relative flex items-center text-lg z-10 cursor-pointer hover:text-teal-300">
+            <IoSearchSharp onClick={openSearchBar}></IoSearchSharp>
+            <RxCross2
+              className={`${search ? "ml-4 visible" : "invisible"}`}
+              onClick={closeSearchBar}
+            ></RxCross2>
+          </span>
+          <MdDensityMedium
+            className="lg:hidden md:hidden relative text-2xl cursor-pointer block"
+            onClick={toggled}
+          ></MdDensityMedium>
+        </div>
         </div>
 
         <div
@@ -137,6 +152,7 @@ const NavBaar = () => {
         </div>
       </div>
       { cart && <Cart />}
+      { loginForm && <UserLoginForm />}
     </>
   );
 };

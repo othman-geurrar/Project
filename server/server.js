@@ -10,10 +10,10 @@ const LifeStyleRouter = require("./Routes/lifeStyleRoutes");
 const EventRouter = require("./Routes/eventRoutes");
 const userRouter = require("./Routes/userRoutes");
 const paymentRouter = require("./Routes/payementRoutes");
+const passport = require("passport");
 const cartRouter = require("./Routes/cartRoutes");
 const StripeRouter=require("./Routes/stripestripe")
 
-const passport = require("passport");
 const PORT = process.env.PORT || 4000;
 
 require("./strategies/userLocal");
@@ -59,4 +59,3 @@ app.use("/cart" , cartRouter);
 app.listen(PORT, () => {
   console.log("app listening on port 3000!");
 });
-

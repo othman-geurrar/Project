@@ -15,14 +15,13 @@ const orderSchema = new mongoose.Schema({
     default: "pending",
     required: true,
   },
-  products: [
+  carts: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Products",
       required: true,
     },
   ],
-  productQCommander: { type: Number },
   totalPrice: {
     type: Number,
     required: true,

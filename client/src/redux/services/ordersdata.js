@@ -19,11 +19,17 @@ export const OrdersApi = createApi({
                 method: 'GET',
             }),
         }),
+        getUserOrder: builder.query({
+            query: (id) => ({
+                url: `/getUserOrder/${id}`,
+                method: 'GET',
+            }),
+        }),
         addorders: builder.mutation({
-            query: (payments) => ({
+            query: (order) => ({
                 url: '/addOrder',
                 method: 'POST',
-                body: payments,
+                body: order,
                 
             }),
         }),
@@ -37,4 +43,4 @@ export const OrdersApi = createApi({
     }),
 })
 
-export const { useGetAllordersQuery , useGetordersByIdQuery , useAddordersMutation , useDeleteordersMutation } = OrdersApi
+export const { useGetAllordersQuery , useGetordersByIdQuery , useAddordersMutation , useDeleteordersMutation , useGetUserOrderQuery } = OrdersApi

@@ -9,7 +9,8 @@ cartRouter
   .post("/add" , addItemToCart)
   .delete("/remove" , removeItemFromCart)
   .get("/:userId" , getCartByUserId)
-  .put("/update" , updateItemQuantityInCart)
+  .put("/update" , updateItemQuantityInCart).js
+  
 
 
 

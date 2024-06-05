@@ -4,8 +4,8 @@ const LifeStyle_Schema = new mongoose.Schema({
   LifeStyleName: { type: String, required: true, unique: true },
   styleType: { type: String },
   Content: {
-    story: { type: String, required: true },
-    description: { type: String, required: false},
+    story: { type: String },
+    description: { type: String },
     music: [
       {
         title: { type: String },
@@ -16,6 +16,7 @@ const LifeStyle_Schema = new mongoose.Schema({
     ], // Array of associated music
     articles: [{ type: String }], // Array of article URLs
   },
+  trending: { type: Boolean, required: true },
   createdAt: { type: Date, default: new Date() },
   ImageURL: { type: String },
   VideoURL: { type: String },
