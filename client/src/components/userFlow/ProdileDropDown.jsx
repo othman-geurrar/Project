@@ -41,7 +41,7 @@ export default function ProfileDropDown() {
          <button onClick={handleClick}>
             <div className="avatar">
             <div className="h-8 w-8 rounded-full">
-                <img src={img} />
+                <img src={user?.profilePictureURL} />
             </div>
             </div>
           <span className="sr-only">Toggle user menu</span>

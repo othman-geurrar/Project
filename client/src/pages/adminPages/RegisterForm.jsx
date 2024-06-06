@@ -54,7 +54,7 @@ const RegisterForm = () => {
     }
 
     if (isSuccess) {
-      navigate("/");
+      navigate("/admins");
     }
   }, [isSuccess, isError, error, data, navigate]);
 

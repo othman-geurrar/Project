@@ -196,14 +196,7 @@ const LifeStyleFront = () => {
                               <div className="px-[10px] text-[20px] text-center ">
                                 {item.Content.description}
                               </div>
-                              <div className="text-center mt-[10px] ">
-                                <button
-                                  className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 bg-white text-black shadow-xl  shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-full"
-                                  type="button"
-                                >
-                                  1992
-                                </button>
-                              </div>
+                              
                               <div></div>
                             </div>
                           </div>

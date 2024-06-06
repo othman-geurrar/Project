@@ -10,7 +10,7 @@ import RegisterForm from "./pages/adminPages/RegisterForm.jsx";
 import store from "./redux/store.js";
 import { registerLicense } from '@syncfusion/ej2-base';
 import Protected from './Routes/Protected.jsx'
-import { CheckoutPage, EventDetails, EventPage, LandingPage, LifeStyleDetail, LifeStyleFront, ProductDetail, ProductExample, ProductsPage, ProfilUser, UserLoginForm } from "./pages/index.jsx";
+import { AboutUs, CheckoutPage, EventDetails, EventPage, LandingPage, LifeStyleDetail, LifeStyleFront, ProductDetail, ProductExample, ProductsPage, ProfilUser, UserLoginForm } from "./pages/index.jsx";
 import { ShopCart } from "./components/index.jsx";
 import { ThemeProvider } from "@material-tailwind/react";
 
@@ -40,6 +40,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             }
           />
         {/* <Route path="/products/:id" element={<ProductDetail />} /> */}
+        <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/products/:id" element={<ProductExample />} />
         <Route path="/cart" element={<ShopCart />} />
         <Route path="/checkout" element={<CheckoutPage />} />

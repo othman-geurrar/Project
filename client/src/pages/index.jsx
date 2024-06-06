@@ -24,3 +24,4 @@ export { default as UserLoginForm } from './usersPages/LoginForm';
 export { default as ProductExample } from './usersPages/ProductExample';
 export { default as CheckoutPage } from './usersPages/CheckOut';
 export { default as ProfilUser } from './usersPages/ProfilUser';
+export { default as AboutUs } from './usersPages/About'
