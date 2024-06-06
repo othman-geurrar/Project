@@ -11,8 +11,9 @@ module.exports = withMT({
   darkMode: "class",
   theme: {
     fontFamily: {
+      HipHop: ["hiphopbarbie", "cursive"],
       Gothic: ["gothical", "cursive"],
-      metalica: ["metalica","cursive"],
+      metalica: ["metalica", "cursive"],
       display: ["Open Sans", "sans-serif"],
       body: ["Open Sans", "sans-serif"],
       productTitle: ["Poetsen One", "sans-serif"],

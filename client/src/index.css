@@ -39,6 +39,10 @@ body {
   font-family: "metalica";
   src: url("../public/MetallicSharp.ttf");
 }
+@font-face {
+  font-family: "hiphopbarbie";
+  src: url("../public/hiphopbarbie.ttf");
+}
 
 @tailwind base;
 @tailwind components;

@@ -175,8 +175,12 @@ const Styles = () => {
               </p>
             </div>
             <div className="grid grid-cols-6 grid-rows-5 gap-4 ">
-              <div className="col-span-2 row-span-5 h-[550px] ">
-                <img className="h-full w-full object-cover object-center" src={LifeStyles.Image1} alt="" />
+              <div className="col-span-2 row-span-5 h-[600px] ">
+                <img
+                  className="h-full w-full object-cover object-center"
+                  src={LifeStyles.Image1}
+                  alt=""
+                />
               </div>
               {/* story */}
               <div
@@ -185,10 +189,9 @@ const Styles = () => {
                 style={{ backgroundImage: `url(${LifeStyles.ImageStory})` }}
               >
                 <div
-                  className={`relative text-[60px]  absolute inset-0 h-full w-full flex items-center justify-center opacity-0 transition-opacity duration-300 opacity-100 text-white backdrop-blur-[2px]`}
+                  className={`relative text-[60px] font-${LifeStyles.LifeStyleName}  absolute inset-0 h-full w-full flex items-center justify-center opacity-0 transition-opacity duration-300 opacity-100 text-white backdrop-blur-[2px]`}
                   style={{
                     backgroundColor: "rgb(0 0 0 / 68%)",
-                    fontFamily: LifeStyles.LifeStyleName,
                   }}
                 >
                   <i className="text-[30px] absolute top-2 right-2 fa-solid fa-circle-info"></i>
@@ -315,26 +318,6 @@ const Styles = () => {
               {/* modale */}
             </div>
           </section>
-
-          {/* Products_section */}
-          {/* <section className="flex h-[300px]" id="products">
-            <div
-              className=" h-full w-[50%]  text-white bg-[url('https://cdn2.mageplaza.com/media/general/OnWj0is.png')]"
-              style={{ backgroundPosition: "center", backgroundSize: "cover " }}
-            >
-              <div className="w-full p-[40px] h-full backdrop-brightness-[0.3] backdrop-blur-[2px] flex flex-col justify-center ">
-                <div className="mb-2 text-[30px]">for the occasion</div>
-                <div className=" ">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Tempore earum numquam expedita iusto rerum odio quasi quae
-                </div>
-              </div>
-            </div>
-            <div
-              className="cursor-pointer h-full w-[50%] bg-[url('https://www.finplus.co.in/wp-content/uploads/2017/05/Sell-products-online-why-should-I-start-selling-online-1.jpg')]"
-              style={{ backgroundPosition: "center", backgroundSize: "cover " }}
-            ></div>
-          </section> */}
           <div className="  text-center text-[30px] md:text-[46px] my-3 font-followus text-[#484848]">
             ProductStyle
           </div>
