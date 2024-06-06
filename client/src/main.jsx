@@ -13,6 +13,7 @@ import Protected from './Routes/Protected.jsx'
 import { EventDetails, EventPage, LandingPage, LifeStyleDetail, LifeStyleFront, ProductDetail, ProductExample, ProductsPage, ProfilUser, UserLoginForm } from "./pages/index.jsx";
 import { ShopCart } from "./components/index.jsx";
 import { ThemeProvider } from "@material-tailwind/react";
+import AboutUs from './pages/usersPages/About.jsx'
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -44,6 +45,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           />
         {/* <Route path="/products/:id" element={<ProductDetail />} /> */}
         <Route path="/products/:id" element={<ProductExample />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/cart" element={<ShopCart />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/products/:id" element={<ProductDetail />} />

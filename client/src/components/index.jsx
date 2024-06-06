@@ -33,8 +33,12 @@ export { default as Cart } from './userFlow/Cart'
 export { default as Visa } from './userFlow/Visacart'
 export { default as Paypal } from './userFlow/Payplapayement'
 export { default as DeleteAccount } from './userFlow/userProfil/DeleteAccount'
+ export { default as DeleteButton } from './userFlow/userProfil/DeleteButton'
 export { default as EditInfo } from './userFlow/userProfil/EditInfo'
 export { default as EditUserAccount } from './userFlow/userProfil/EditUserAccount'
 export { default as HoverEffect } from './ui/HoverEffect'
 export { default as Vortex } from './ui/Vortex'
+export { default as AllLifeStyle } from './userFlow/AllLifeStyle'
+export { default as AmineCart } from './userFlow/AmineCart'
+
 

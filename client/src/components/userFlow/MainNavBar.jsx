@@ -104,9 +104,9 @@ const MainNav = () => {
         </Link>
         <Link
           className="relative li text-teal-500 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-teal-300 before:transition-all before:duration-300 hover:before:w-full hover:text-teal-300 dark:hover:text-gray-50"
-          href="#"
+          to={"/AboutUs"}
         >
-          Contact
+          AboutUs
         </Link>
       </nav>
           

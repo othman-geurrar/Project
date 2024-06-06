@@ -9,11 +9,13 @@ const {
   updateProduct,
   deleteProduct,
   ProductsLifeStyle,
+  ProductType
 } = require("../Controllers/productController");
 
 productRouter
   .get("/getAll", viewAllProduct)
   .get("/getOne/:id", viewOneProduct)
+  .get("/New" , ProductType)
   .post("/newer", addProduct)
   .patch("/update/:id", updateProduct)
   .delete("/delete/:id", deleteProduct)

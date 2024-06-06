@@ -437,13 +437,14 @@ title={`Order ID: ${orders.id}`}                          // subheader={order.cr
                                   <TableCell style={{ maxWidth: "100px" }}>
                                     {item.name}
                                   </TableCell>
-                                  <TableCell className="w-[150px] ">
+
+                                  <TableCell className=" w-24 rounded-full  	">
                                     <img 
                                       src={item.imageURL}
                                       alt={item.name}
                                       width={64}
                                       height={64}
-                                      className="rounded-md object-cover w-full h-full object-cover object-center"
+                                      className="avatar"
                                     />
                                   </TableCell>
                                   <TableCell><div className="ml-6">{item.quantity}</div></TableCell>

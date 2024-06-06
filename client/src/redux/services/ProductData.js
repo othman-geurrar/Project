@@ -26,8 +26,15 @@ export const ProductApi = createApi({
               method: "GET",
             }),
           }),
+          getProductType: builder.query({
+            query: (type) => ({
+              url: `/New?type=${type}`, // appending type as a query parameter
+              method: "GET",
+            }),
+          }),
+          
     })
    
 })
 
-export const { useGetAllProductsQuery , useGetProductByIdQuery , useGetProductsLifeStyleQuery } = ProductApi
+export const { useGetAllProductsQuery , useGetProductByIdQuery , useGetProductsLifeStyleQuery , useGetProductTypeQuery } = ProductApi

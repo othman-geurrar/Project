@@ -26,11 +26,10 @@ export const ProductApi = createApi({
               method: "GET",
             }),
           }),
-          createReview: builder.mutation({
-            query: data => ({
-              url: `/${data.id}/review`,
-              method: "POST",
-              body: data,
+          getProductType: builder.query({
+            query: (type) => ({
+              url: `/New?type=${type}`, // appending type as a query parameter
+              method: "GET",
             }),
           }),
           
@@ -38,4 +37,4 @@ export const ProductApi = createApi({
    
 })
 
-export const { useGetAllProductsQuery , useGetProductByIdQuery , useGetProductsLifeStyleQuery,useCreateReviewMutation } = ProductApi
+export const { useGetAllProductsQuery , useGetProductByIdQuery , useGetProductsLifeStyleQuery , useGetProductTypeQuery } = ProductApi

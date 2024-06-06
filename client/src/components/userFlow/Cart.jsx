@@ -9,15 +9,22 @@ import {
 } from "../../redux/services/cartApi";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAddordersMutation } from "../../redux/services/ordersdata";
+import { useEditAccountMutation } from "../../redux/Users/userSliceFront";
 
 export default function Cart() {
   const { userLogins } = useSelector(
     (state) => state.sideBar
   )
+  // console.log(userLogins)
   const userId = localStorage.getItem('UserId')
+  const user = JSON.parse(localStorage.getItem('User'))
+ 
   const { data: carts, refetch } = useGetcartQuery(userId);
   const [updateQuantity] = useUpdateQuantityMutation();
   const [removecart] = useRemovecartMutation();
+  const [addorders ,{isSuccess , isError , error}] = useAddordersMutation()
+  const [EditAccount , {isSuccess:orderSucc}] = useEditAccountMutation()
   // useEffect(() => {
   //   // Refetch cart data every time the component is rendered
   //   refetch();
@@ -58,14 +65,64 @@ export default function Cart() {
     }
   };
  
+  const calculateSubtotal = () => {
+    return products
+      ?.reduce((total, item) => total + item.newPrice * item.quantity, 0)
+      .toFixed(2);
+  };
+  
   const handleCloseCart = () => {
     dispatch(setcart());
   };
-  const HandleCheckOutClick = () => { 
+
+  // const orderProduct = products?.map(product => {
+  //   return {
+  //     productId: product.productId,
+  //     name: product.name,
+  //     imageURL: product.imageURL,
+  //     quantity: product.quantity,
+  //     color: product.color,
+  //     size: product.size,
+  //     newPrice: product.newPrice
+  //   };
+  // });
+
+  
+  // const order = {
+  //   user:{
+  //     name: user?.UserName,
+  //     userId: user?.id,
+  //     image: user?.profilePictureURL
+  //   },
+  //   products: orderProduct,
+  //   totalPrice: calculateSubtotal()
+  
+  // }
+  // console.log(order)
+
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     console.log(isSuccess)
+  //     dispatch(setcart());
+  //     navigate('/checkout');
+  //     console.log('checkout');
+  //   }
+  //   if(isError){
+  //     console.log(error)
+  //   }
+  //   if(orderSucc){
+  //     console.log(orderSucc)
+
+      
+  //   }
+  // }, [isSuccess, isError , error , orderSucc , dispatch, navigate]);
+  
+  const HandleCheckOutClick = async() => { 
     if(userLogins){
-      dispatch(setcart());
+      // const res = await addorders(order).unwrap();
+      // console.log('Backend response:', res?.order.id);
+      // await EditAccount({id:userId  , formData:{orders:res.order.id}})
       navigate('/checkout')
-      console.log('checkout')
     }else{
       dispatch(setcart())
       navigate('/products')
@@ -75,11 +132,7 @@ export default function Cart() {
     
   }
 
-  const calculateSubtotal = () => {
-    return products
-      ?.reduce((total, item) => total + item.newPrice * item.quantity, 0)
-      .toFixed(2);
-  };
+  
 
   return (
     <div

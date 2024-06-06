@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const mongoosePaginate = require('mongoose-paginate-v2');
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const productSchema = new mongoose.Schema({
   //
@@ -24,9 +24,11 @@ const productSchema = new mongoose.Schema({
   oldPrice: {
     type: Number,
   },
-  description: [{
-    type: String
-  }],
+  description: [
+    {
+      type: String,
+    },
+  ],
   //
   imageURL: {
     type: [String],
@@ -46,10 +48,36 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   size: [{ label: { type: String }, value: { type: String } }],
-  stars:{
+  stars: {
     type: Number,
     default: 0,
   },
+  type: { type: String, default: "bestSeller" },
+  Review: [
+    {
+      comment: {
+        type: String,
+      },
+      rating: {
+        type: Number,
+      },
+      user: {
+        type: String,
+      },
+      productinfo: {
+        size: String,
+        color: String,
+        name: String,
+      },
+      image: {
+        type: String,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
