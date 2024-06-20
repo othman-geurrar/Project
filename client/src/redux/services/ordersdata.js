@@ -6,12 +6,14 @@ export const OrdersApi = createApi({
         baseUrl: 'http://localhost:3000/orders',
         credentials: 'include',
     }),
+    tagTypes: ["orders"],
     endpoints: (builder) => ({
         getAllorders: builder.query({
             query: () => ({
                 url: '/getAll',
                 method: 'GET',
             }),
+            providesTags: ["orders"],
         }),
         getordersById: builder.query({
             query: (id) => ({
@@ -32,6 +34,7 @@ export const OrdersApi = createApi({
                 body: order,
                 
             }),
+            invalidatesTags: ["orders"],
         }),
       
         deleteorders: builder.mutation({

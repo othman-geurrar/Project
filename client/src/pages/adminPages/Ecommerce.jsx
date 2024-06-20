@@ -37,7 +37,7 @@ const Ecommerce = () => {
                     PRODUCTS
                   </h5>
                   <span className="font-semibold text-xl text-blueGray-700">
-                    350,897
+                    50
                   </span>
                 </div>
                 <div className="relative w-auto pl-4 flex-initial">
@@ -64,7 +64,7 @@ const Ecommerce = () => {
                     USERS
                   </h5>
                   <span className="font-semibold text-xl text-blueGray-700">
-                    2,356
+                    10
                   </span>
                 </div>
                 <div className="relative w-auto pl-4 flex-initial">
@@ -74,8 +74,8 @@ const Ecommerce = () => {
                 </div>
               </div>
               <p className="text-sm text-blueGray-400 mt-4">
-                <span className="text-red-500 mr-2">
-                  <i className="fas fa-arrow-down"></i> 3.48%
+                <span className="text-emerald-500 mr-2">
+                <i className="fas fa-arrow-up"></i> 3.48%
                 </span>
                 <span className="whitespace-nowrap">Since last week</span>
               </p>
@@ -91,7 +91,7 @@ const Ecommerce = () => {
                     ORDERS
                   </h5>
                   <span className="font-semibold text-xl text-blueGray-700">
-                    924
+                    3
                   </span>
                 </div>
                 <div className="relative w-auto pl-4 flex-initial">
@@ -102,9 +102,9 @@ const Ecommerce = () => {
               </div>
               <p className="text-sm text-blueGray-400 mt-4">
                 <span className="text-orange-500 mr-2">
-                  <i className="fas fa-arrow-down"></i> 1.10%
+                  {/* <i className="fas fa-arrow-down"></i>  */}
                 </span>
-                <span className="whitespace-nowrap">Since yesterday</span>
+                <span className="whitespace-nowrap">  </span>
               </p>
             </div>
           </div>
@@ -119,7 +119,7 @@ const Ecommerce = () => {
                     SALES REVENUE
                   </h5>
                   <span className="font-semibold text-xl text-blueGray-700">
-                    49,65%
+                    20,65%
                   </span>
                 </div>
                 <div className="relative w-auto pl-4 flex-initial">

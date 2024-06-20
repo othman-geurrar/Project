@@ -39,6 +39,9 @@ const LifeStyleFront = () => {
   ) {
     pageNumber.push(i);
   }
+  const scrollToMusic = () => {
+    document.getElementById("lifestyle").scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <>
       <div className="">
@@ -62,6 +65,7 @@ const LifeStyleFront = () => {
             <div className="text-center">
               <button
                 type="button"
+                onClick={scrollToMusic}
                 className="shadow-black shadow-lg md:hover:scale-110 transition duration-700 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10  dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
               >
                 <span className="mr-2 font-followus">Dicover</span>
@@ -134,7 +138,7 @@ const LifeStyleFront = () => {
         {/* lifeStyles Cards */}
         <section className="pt-[50px] ">
           {/* decription */}
-          <div className="text-center text-[30px] md:text-[46px] mb-3 font-followus text-[#484848]">
+          <div id="lifestyle" className="text-center text-[30px] md:text-[46px] mb-3 font-followus text-[#484848]">
             Our Lifestyles
           </div>
           <div className="text-center md:text-[16px] text-[12px] md:mb-[50px] text-[#8A8A8A] md:px-[500px]">
@@ -226,6 +230,7 @@ const LifeStyleFront = () => {
                         onClick={() => {
                           setToolbutton(true);
                           setLifeStylesPerPage(3);
+                          scrollToMusic();
                         }}
                         className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10  dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                       >

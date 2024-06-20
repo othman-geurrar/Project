@@ -6,6 +6,8 @@ import {ProductComponent} from '../../components'
 
 
 const LandingPage = () => {
+
+  
   return (
     <div className="h-screen bg-gray-100 landing">
       <MainNav />

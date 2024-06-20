@@ -112,7 +112,7 @@ function CheckoutPage() {
       const res = await addorders(order).unwrap();
       console.log('Backend response:', res?.order.id);
       await EditAccount({id , formData:{orders:res.order.id}})
-      navigate("/");
+      navigate("/user/profil");
     } catch (error) {
       console.error("Stripe payment error:", error);
     }

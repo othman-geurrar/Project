@@ -29,7 +29,7 @@ function Products() {
   // ZOD
   const schema = z.object({
     name: z.string().min(4),
-    category: z.string().min(3),
+    category: z.string().min(4),
     productQuantity: z.string().transform((value) => Number(value)), // Convert string to number
     newPrice: z.string().transform((value) => Number(value)),
     oldPrice: z.string().transform((value) => Number(value)),
@@ -127,7 +127,6 @@ function Products() {
   const dispatch = useDispatch();
   // console.log(addform);
   const OnSubmit = async (formData) => {
-    console.log(formData);
     // Wait for image upload to finish
     const imageUrls = await uploadImage();
     formData.imageURL = imageUrls;
@@ -590,7 +589,6 @@ function Products() {
                                           Accessories
                                         </option>
                                         <option value="Shoes">Shoes</option>
-                                        <option value="Bag">Bag</option>
                                         <option value="T-Shirt ">
                                           T-Shirt{" "}
                                         </option>

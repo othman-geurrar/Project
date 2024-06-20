@@ -16,6 +16,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import DeleteAccount from "../../components/userFlow/userProfil/DeleteAccount";
 import EditUserAccount from "../../components/userFlow/userProfil/EditUserAccount";
 import EditInfo from "../../components/userFlow/userProfil/EditInfo";
+import { useGetUserOrderQuery } from "../../redux/services/ordersdata";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+
 
 const ProfilUser = () => {
   // accordion
@@ -43,6 +54,9 @@ const ProfilUser = () => {
     { month: "short" }
   )} ${createdAtDate?.getFullYear()} ${createdAtDate?.getHours()}h:${createdAtDate?.getMinutes()}min`;
 
+  const { data: orders } = useGetUserOrderQuery(userid);
+
+
   return (
     <>
       <main className="min-h-screen flex flex-col">
@@ -57,7 +71,9 @@ const ProfilUser = () => {
                 : commandes == 2 ||
                   commandes == 2.2 ||
                   commandes == 2.5 ||
-                  commandes == 2.3
+                  commandes == 2.3 ||
+                  commandes == 4
+
                 ? "border-blue-500"
                 : "border-red-500"
             }`}
@@ -167,6 +183,22 @@ const ProfilUser = () => {
                 >
                   Edit Password
                 </AccordionBody>
+              </Accordion>
+              <Accordion open={open === 4}>
+                <AccordionHeader
+                  onClick={() => {
+                    handleOpen(4);
+                    setCommandes(4);
+                  }}
+                  className={`cursor-pointer transition duration-200 text-[15px] ${
+                    commandes == 4
+                    ? "bg-blue-500 text-white hover:text-white"
+                    : " hover:bg-blue-500 hover:text-white"
+                  }   p-3`}
+                >
+                  <i className="fa-solid fa-person-circle-minus mr-2"></i>
+                  Orders{" "}
+                </AccordionHeader>
               </Accordion>
               <Accordion open={open === 3}>
                 <AccordionHeader
@@ -370,6 +402,67 @@ const ProfilUser = () => {
                     </div>
                   </div>
                 </section>
+              </>
+            )}
+            {commandes == 4 && (
+              <>
+                <div className="container mx-auto px-4 md:px-6 py-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <h1 className="text-2xl font-bold"> My Orders</h1>
+                  </div>
+                  <div className="grid gap-6">
+                    {orders?.order.map((orders) => (
+                      <Card
+                        key={orders.id}
+                        sx={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
+                      >
+                        <CardHeader
+title={`Order ID: ${orders.id}`}                          // subheader={order.createdAt}
+                          sx={{ backgroundColor: "#f3f4f6", p: 2 }}
+                          action={<div className="flex gap-2"></div>}
+                        />
+                        <CardContent sx={{ p: 4 }}>
+                          <Table>
+                            <TableHead>
+                              <TableRow>
+                                <TableCell>Item</TableCell>
+                                <TableCell>Image</TableCell>
+                                <TableCell >Quantity</TableCell>
+                                <TableCell>Price</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {orders?.products.map((item) => (
+                                <TableRow key={item.productId}>
+                                  <TableCell style={{ maxWidth: "100px" }}>
+                                    {item.name}
+                                  </TableCell>
+
+                                  <TableCell className=" w-24 rounded-full  	">
+                                    <img 
+                                      src={item.imageURL}
+                                      alt={item.name}
+                                      width={64}
+                                      height={64}
+                                      className="avatar"
+                                    />
+                                  </TableCell>
+                                  <TableCell><div className="ml-6">{item.quantity}</div></TableCell>
+                                  <TableCell>
+                                    ${item.newPrice.toFixed(2)}
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                          <div className="flex justify-end mt-4 font-medium">
+                            Total: ${orders.totalPrice.toFixed(2)}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>{" "}
               </>
             )}
           </div>

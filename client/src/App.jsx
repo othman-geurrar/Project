@@ -93,7 +93,10 @@ function App() {
               <Route path="/lifestyle/add" element={<AddLifeStyle />} />
               <Route path="/admin/profile" element={<AdminProfile />} />
               <Route path="/admin/products" element={<Products />} />
-              <Route path="/productdetail" element={<ProductsDetails />} />
+              <Route
+                path="/productdetail/:productId"
+                element={<ProductsDetails />}
+              />
               <Route path="/admin/events" element={<Event />} />
               <Route path="/events/:id" element={<EventDetails />} />
             </Routes>

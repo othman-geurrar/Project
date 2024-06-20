@@ -132,11 +132,11 @@ export default function UserLoginForm() {
             <div className="form-container sign-up-container">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>Create Account</h1>
-                <div className="social-container">
+                {/* <div className="social-container">
                   <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
                   <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
                 </div>
-                <span>or use your email for registration</span>
+                <span>or use your email for registration</span> */}
                 <input type="text" placeholder="UserName" id="Username" required {...register("UserName")} />
                 {errors.UserName && (
                   <span className="bg-blue-100 text-blue-800 text-xs font-semibold rounded dark:bg-blue-200 dark:text-blue-800 ">
@@ -162,12 +162,12 @@ export default function UserLoginForm() {
             <div className="form-container sign-in-container">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>Sign in</h1>
-                <div className="social-container">
+                {/* <div className="social-container">
                   <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
                   <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
                 
-                </div>
-                <span>or use your account</span>
+                </div> */}
+                {/* <span>or use your account</span> */}
                 <input type="email" placeholder="Email" id="emailLogin" required {...register("emailLogin")} />
                 {errors.emailLogin && (
                   <span className="bg-blue-100 text-blue-800 text-xs font-semibold rounded dark:bg-blue-200 dark:text-blue-800 ">

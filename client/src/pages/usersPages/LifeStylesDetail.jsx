@@ -151,15 +151,10 @@ const Styles = () => {
               <div className="relative z-10 h-full w-full  text-white flex flex-col items-center justify-center">
                 <div>
                   <span className="text-[50px] font-gothical">
-                    lifestyle title
+                   {LifeStyleName}
                   </span>
                 </div>
-                <div className="px-[30px] text-center">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Soluta dignissimos qui alias, explicabo, provident ex quae
-                  dolorem, voluptas dicta fugiat ipsa repellendus. Tenetur
-                  quasi, explicabo odit expedita recusandae harum officia.
-                </div>
+                
               </div>
             </div>
           </section>
@@ -169,8 +164,7 @@ const Styles = () => {
             </div>
             <div className="text-center md:text-[16px] text-[12px] md:mb-[20px] text-[#8A8A8A] md:px-[500px]">
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                porro error blanditiis suscipit repudiandae laudantium id
+              Moroccan traditional culture is a vibrant tapestry woven from diverse influences, including Arab, Berber, and African elements. 
               </p>
             </div>
             <div className="grid grid-cols-6 grid-rows-5 gap-4 ">

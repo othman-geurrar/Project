@@ -174,9 +174,8 @@ const ProductsPage = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold">Colors</h3>
-            <div className="mt-4 grid grid-cols-3 gap-4">
-              {/* Color options */}
+            {/* <h3 className="text-lg font-semibold">Colors</h3> */}
+            {/* <div className="mt-4 grid grid-cols-3 gap-4">
               <div className="flex items-center gap-2">
                 <div className="w-5 h-5 rounded-full bg-red-500" />
                 <span className="text-sm font-medium">Red</span>
@@ -206,7 +205,7 @@ const ProductsPage = () => {
               </div>
 
               
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

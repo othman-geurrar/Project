@@ -56,7 +56,9 @@ const EditUserAccount = ({ user }) => {
               className=" space-y-4  md:space-y-5"
               onSubmit={handleSubmit(handleEditAccount)}
             >
+               <label className="mb-4"> Profile Picture</label>
               <div className="relative">
+               
                 <input
                   type="file"
                   id="email-address-icon"
