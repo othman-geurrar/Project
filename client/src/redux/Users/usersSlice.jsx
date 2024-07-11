@@ -10,7 +10,7 @@ export const adduser = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.post(
-        `http://localhost:3000/users/register`,
+        `https://osay-backend.vercel.app/users/register`,
         userdata,
         {
           headers: {
@@ -31,7 +31,7 @@ export const updateuser = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.patch(
-        `http://localhost:3000/users/update/${id}`,
+        `https://osay-backend.vercel.app/users/update/${id}`,
         userdata,
         {
           headers: {
@@ -51,7 +51,7 @@ export const deleteuser = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.delete(
-        `http://localhost:3000/users/delete/${userId}`,
+        `https://osay-backend.vercel.app/users/delete/${userId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export const getusers = createAsyncThunk(
   async (_, thunkAPI) => {
     let { rejectWithValue } = thunkAPI;
     try {
-      const res = await axios.get(`http://localhost:3000/users/getUsers`);
+      const res = await axios.get(`https://osay-backend.vercel.app/users/getUsers`);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.message);
