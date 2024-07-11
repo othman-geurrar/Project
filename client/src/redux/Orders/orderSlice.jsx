@@ -9,7 +9,7 @@ export const deleteorder = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.delete(
-        `http://localhost:3000/orders/deleteOrder/${orderId}`,
+        `https://osay-backend.vercel.app/orders/deleteOrder/${orderId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const getorders = createAsyncThunk(
   async (_, thunkAPI) => {
     let { rejectWithValue } = thunkAPI;
     try {
-      const res = await axios.get(`http://localhost:3000/orders/getOrders`);
+      const res = await axios.get(`https://osay-backend.vercel.app/orders/getOrders`);
       console.log(res);
       return res.data;
     } catch (error) {
