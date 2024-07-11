@@ -27,23 +27,23 @@ export default function Footer() {
             <h4 className="text-white font-semibold">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link underline="none" color="gray-400" className="hover:text-gray-300 " href="#">
+                <Link underline="none" color="gray-400" className="hover:text-gray-300 " href="/">
                  Home
                 </Link>
               </li>
               <li>
-                <Link underline="none" color="gray-400" className="hover:text-gray-300" href="#">
-                  About
+                <Link underline="none" color="gray-400" className="hover:text-gray-300" href="/products">
+                  Products
                 </Link>
               </li>
               <li>
-                <Link underline="none" color="gray-400" className="hover:text-gray-300" href="#">
-                  Services
+                <Link underline="none" color="gray-400" className="hover:text-gray-300" href="/lifestyles">
+                  Lifestyles
                 </Link>
               </li>
               <li>
-                <Link underline="none" color="gray-400" className="hover:text-gray-300" href="#">
-                  Contact
+                <Link underline="none" color="gray-400" className="hover:text-gray-300" href="/events">
+                  Events
                 </Link>
               </li>
             </ul>
@@ -54,12 +54,12 @@ export default function Footer() {
               
               <li>
                 <Link underline="none" color="gray-400" className="hover:text-gray-300" href="#">
-                  Teams
+                  Contact
                 </Link>
               </li>
               <li>
                 <Link underline="none" color="gray-400" className="hover:text-gray-300" href="#">
-                  FAQs
+                  Terms & FAQ
                 </Link>
               </li>
               <li>

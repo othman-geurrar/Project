@@ -14,7 +14,6 @@ import { AboutUs, CheckoutPage, EventDetails, EventPage, LandingPage, LifeStyleD
 import { ShopCart } from "./components/index.jsx";
 import { ThemeProvider } from "@material-tailwind/react";
 
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 

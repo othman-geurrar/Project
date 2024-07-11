@@ -150,9 +150,9 @@ const Styles = () => {
               />
               <div className="relative z-10 h-full w-full  text-white flex flex-col items-center justify-center">
                 <div>
-                  <span className="text-[50px] font-gothical">
+                  {/* <span className="text-[50px] font-gothical">
                    {LifeStyleName}
-                  </span>
+                  </span> */}
                 </div>
                 
               </div>
