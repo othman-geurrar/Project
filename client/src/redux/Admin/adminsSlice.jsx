@@ -10,7 +10,7 @@ export const addadmin = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.post(
-        `http://localhost:3000/admin/register`,
+        `https://osay-backend.vercel.app/admin/register`,
         admindata,
         {
           headers: {
