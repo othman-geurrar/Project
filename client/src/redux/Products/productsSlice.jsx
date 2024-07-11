@@ -9,7 +9,7 @@ export const getOneProduct = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.get(
-        `http://localhost:3000/product/getOne/${productid}`,
+        `https://osay-backend.vercel.app/product/getOne/${productid}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export const updateproduct = createAsyncThunk(
     try {
       await new Promise((resolve) => setTimeout(resolve, 600));
       const res = await axios.patch(
-        `http://localhost:3000/product/update/${productId}`,
+        `https://osay-backend.vercel.app/product/update/${productId}`,
         productdata,
         {
           headers: {
@@ -52,7 +52,7 @@ export const addproduct = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.post(
-        `http://localhost:3000/product/newer`,
+        `https://osay-backend.vercel.app/product/newer`,
         productdata,
         {
           headers: {
@@ -73,7 +73,7 @@ export const deleteproduct = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const res = await axios.delete(
-        `http://localhost:3000/product/delete/${productId}`,
+        `https://osay-backend.vercel.app/product/delete/${productId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -91,7 +91,7 @@ export const getproducts = createAsyncThunk(
   async (_, thunkAPI) => {
     let { rejectWithValue } = thunkAPI;
     try {
-      const res = await axios.get(`http://localhost:3000/product/getAll`);
+      const res = await axios.get(`https://osay-backend.vercel.app/product/getAll`);
       return res.data.docs;
     } catch (error) {
       return rejectWithValue(error.message);
