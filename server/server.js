@@ -24,7 +24,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://osay.vercel.app",
+    origin: "https://osay.vercel.app/",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
