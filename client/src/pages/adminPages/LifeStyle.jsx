@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // bg-[url("/src/assets/img/sport_bg.jpg")]
 import LifestyleSection from "../../components/AdminBackLock/LifeStyle/LifestyleSection";
 import { MdAdd } from "react-icons/md";

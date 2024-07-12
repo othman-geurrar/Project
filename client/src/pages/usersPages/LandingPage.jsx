@@ -1,7 +1,4 @@
-import React from 'react'
-import { Carousel, DarkThemeToggle, } from "flowbite-react";
 import { Accessorie, AllLifeStyle, Footer, ImagesSliderDemo, IntsaFollow, MainNav, NavBaar, NewsLetter } from '../../components'
-import {ProductCard} from '../../components'
 import {ProductComponent} from '../../components'
 
 

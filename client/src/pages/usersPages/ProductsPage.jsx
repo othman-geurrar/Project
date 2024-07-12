@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AllProductCard, Footer, IntsaFollow, MainNav, NavBaar, NavBar, Pagination, ProductCard, ProductsCategory } from "../../components";
 import Slider from "@mui/material/Slider";
 import { useGetAllProductsQuery } from "../../redux/services/ProductData";

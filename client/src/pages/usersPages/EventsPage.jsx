@@ -1,4 +1,3 @@
-import React from "react";
 import Vortex from "../../components/ui/Vortex"; // Ensure this path is correct
 import { EventCard, Footer, IntsaFollow, MainNav } from "../../components";
 import { useGetAlleventsQuery } from "../../redux/services/EventData";

@@ -7,10 +7,8 @@ import {
   useRemovecartMutation,
   useUpdateQuantityMutation,
 } from "../../redux/services/cartApi";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAddordersMutation } from "../../redux/services/ordersdata";
-import { useEditAccountMutation } from "../../redux/Users/userSliceFront";
+
 
 export default function Cart() {
   const { userLogins } = useSelector(

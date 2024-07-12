@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Menu, MenuItem, Avatar, ListItemIcon, Typography, Divider } from '@mui/material';
 import { AccountCircle, Settings, Logout } from '@mui/icons-material';
 import img from '../../assets/users/images/avatars/avatar_5.jpg'

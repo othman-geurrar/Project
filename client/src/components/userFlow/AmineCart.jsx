@@ -1,6 +1,4 @@
-/* eslint-disable react/prop-types */
-import { Button } from "@material-tailwind/react";
-// import { Link } from "@mui/material";
+
 import { Link } from "react-router-dom";
 
 export default function AmineCart({

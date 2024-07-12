@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
+
 import { useRef, useState } from "react";
 import { NavBaar } from "../../components";
 import { FaEye, FaEyeSlash } from "react-icons/fa";

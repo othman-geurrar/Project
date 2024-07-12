@@ -3,7 +3,7 @@ import { createApi , fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const ProductApi = createApi({
     reducerPath: 'product',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3000/product',
+        baseUrl: 'https://osay-backend.vercel.app/product',
         credentials:'include',
         }),
     endpoints: (builder) => ({

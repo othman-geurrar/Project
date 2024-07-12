@@ -1,5 +1,4 @@
 
-import React from 'react';
 
 
 const AllProductCard = ({ name, imageURL, stars , oldPrice , newPrice }) => {

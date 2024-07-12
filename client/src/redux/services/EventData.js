@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const eventsApi = createApi({
   reducerPath: "events",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/events",
+    baseUrl: "https://osay-backend.vercel.app/events",
     credentials: "include",
   }),
   endpoints: (builder) => ({

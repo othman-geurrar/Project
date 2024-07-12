@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useState } from "react";

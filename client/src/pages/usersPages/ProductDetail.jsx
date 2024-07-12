@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../../redux/services/ProductData";
 import Box from "@mui/joy/Box";

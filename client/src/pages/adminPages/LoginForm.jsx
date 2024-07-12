@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Logo from "../../assets/img/logo.png";
 import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
 import { useLoginAdminMutation } from "../../redux/services/AuthApi";

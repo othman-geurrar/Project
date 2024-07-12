@@ -1,14 +1,9 @@
-import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setcart,
   setisActiveMenu,
-  setchat,
-  setnotification,
   setprofile,
 } from "../../redux/SideBar/sideBarSlice";
 import { AiOutlineMenu } from "react-icons/ai";
-import { FiShoppingCart } from "react-icons/fi";
 
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";

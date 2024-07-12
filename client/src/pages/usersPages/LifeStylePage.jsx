@@ -7,7 +7,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import instagram from "../../assets/instagram.png";
-import heroS from "../../assets/heroS.jpeg";
 import { useGetAllLifeStyleQuery } from "../../redux/services/LifeStyleData";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";

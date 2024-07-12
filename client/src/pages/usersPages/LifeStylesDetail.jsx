@@ -1,22 +1,16 @@
 /* eslint-disable no-unused-vars */
 // import { FaSpotify } from "react-icons/fa";
-const isLoading = false;
-import video from "../../assets/lifestyle/v.mp4";
 import Musiccards from "../../components/userFlow/musiccards";
-import ProductCard from "../../components/userFlow/ProductCard";
-import instagram from "../../assets/instagram.png";
 import MovingBar from "../../components/userFlow/movingBar";
 import { useGetProductsLifeStyleQuery } from "../../redux/services/ProductData";
 import { Button, Modal } from "flowbite-react";
 import { Link, useParams } from "react-router-dom";
 import { useGetLifeStyleByNameQuery } from "../../redux/services/LifeStyleData";
 import Footer from "../../components/userFlow/Footer";
-import IntsaFollow from "../../components/userFlow/IntsaFollow";
 import NavBar from "../../components/userFlow/NavBar";
 
 import { useState } from "react";
 import { AmineCart } from "../../components";
-import ProductCard1 from "../../components/userFlow/ProductCard1";
 const Styles = () => {
   const { LifeStyleName } = useParams();
   const {

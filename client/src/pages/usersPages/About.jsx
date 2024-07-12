@@ -1,8 +1,6 @@
 import { Footer, NavBaar } from "../../components";
 import {
   Avatar,
-  Button,
-  TextField,
   Typography,
   Container,
   Box,

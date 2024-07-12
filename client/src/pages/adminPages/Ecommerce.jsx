@@ -1,9 +1,7 @@
-import React from "react";
-// import { BsCurrencyDollar } from "react-icons/bs";
+
 import { GoDotFill } from "react-icons/go";
 
-// import { IoIosMore } from "react-icons/io";
-// import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
+
 
 import { SparkLine, Stacked } from "../../components";
 

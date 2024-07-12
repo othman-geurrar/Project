@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import ProductCard from './ProductCard';
+import { useState } from 'react';
 import ProductCard1 from './ProductCard1';
 import { useGetProductTypeQuery } from '../../redux/services/ProductData';
 

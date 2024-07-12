@@ -1,13 +1,8 @@
-import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-import { IoMdContacts } from 'react-icons/io';
-import { RiContactsLine, RiStockLine } from 'react-icons/ri';
-import { GiLouvrePyramid } from 'react-icons/gi';
 import { CiShoppingCart } from "react-icons/ci";
-import { CiShoppingBasket } from "react-icons/ci";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { SiStylelint } from "react-icons/si";
 import { Button } from "flowbite-react";

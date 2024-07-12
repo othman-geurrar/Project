@@ -1,6 +1,5 @@
 import CoverOne from '../../assets/img/cover-01.png';
 import userSix from '../../assets/img/user-06.png';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AdminProfile = () => {

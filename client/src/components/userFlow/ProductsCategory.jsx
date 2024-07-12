@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import img1 from '../../assets/lifestyle/fashion1.png'
 import img2 from '../../assets/lifestyle/sport.png'

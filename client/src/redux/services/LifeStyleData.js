@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const lifeStyleApi = createApi({
   reducerPath: "lifeStyle",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/lifeStyle",
+    baseUrl: "https://osay-backend.vercel.app/lifeStyle",
     credentials: "include",
   }),
   endpoints: (builder) => ({

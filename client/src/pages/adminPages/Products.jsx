@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+
 import { useEffect } from "react";
-import Swal from "sweetalert2";
-import React from "react";
 import { useState } from "react";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,11 +11,8 @@ import {
 } from "../../redux/Products/productsSlice";
 import { Deletebutton } from "../../components/AdminBackLock/Product/DeleteProduct";
 import Header from "../../components/AdminBackLock/Header";
-import { FaBoxesStacked } from "react-icons/fa6";
 import { Dropdown, Ripple, initTWE } from "tw-elements";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { MdAdd } from "react-icons/md";
-// Zod
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";

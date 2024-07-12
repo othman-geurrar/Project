@@ -1,7 +1,5 @@
 
-import appl from '../../../assets/Products/applWatch.png'
 
-import React from 'react';
 
 
 

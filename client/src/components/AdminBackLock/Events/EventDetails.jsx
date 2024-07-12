@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetEventByIdQuery } from "../../../redux/services/EventData";
 function EventDetails() {
