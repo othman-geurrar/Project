@@ -1,8 +1,7 @@
 {
-  "version": 2,
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/lifeStyle/getAll", "dest": "/lifeStyle/getAll" }
+  "build": [
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "*.py", "use": "@vercel/python" },
+    { "src": "*.js", "use": "@vercel/node" }
   ]
 }
