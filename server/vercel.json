@@ -1,1 +1,8 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
+{
+  "version": 2,
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/lifeStyle/getAll", "dest": "/lifeStyle/getAll" }
+  ]
+}
